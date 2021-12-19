@@ -1,6 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltimateTests", "UltimateTests\UltimateTests.csproj", "{A53DE0A1-0354-4701-9508-A27ECC91E48F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visual", "Visual\Visual.csproj", "{A53DE0A1-0354-4701-9508-A27ECC91E48F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{D204D43C-F6AE-4C6D-A851-6FD39DD50244}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic", "Logic\Logic.csproj", "{A672E122-9624-4CDC-AA4C-C8B810B86A7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +16,13 @@ Global
 		{A53DE0A1-0354-4701-9508-A27ECC91E48F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A53DE0A1-0354-4701-9508-A27ECC91E48F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A53DE0A1-0354-4701-9508-A27ECC91E48F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D204D43C-F6AE-4C6D-A851-6FD39DD50244}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D204D43C-F6AE-4C6D-A851-6FD39DD50244}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D204D43C-F6AE-4C6D-A851-6FD39DD50244}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D204D43C-F6AE-4C6D-A851-6FD39DD50244}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A672E122-9624-4CDC-AA4C-C8B810B86A7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A672E122-9624-4CDC-AA4C-C8B810B86A7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A672E122-9624-4CDC-AA4C-C8B810B86A7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A672E122-9624-4CDC-AA4C-C8B810B86A7A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

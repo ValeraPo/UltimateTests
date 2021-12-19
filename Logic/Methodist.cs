@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace UltimateTests
+﻿namespace Logic
 {
     public class Methodist : IUser
     {

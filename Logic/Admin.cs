@@ -1,4 +1,4 @@
-﻿namespace UltimateTests
+﻿namespace Logic
 {
     public class Admin : IUser
     {
