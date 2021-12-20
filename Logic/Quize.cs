@@ -1,4 +1,6 @@
-﻿namespace Logic
+﻿using System.Collections.Generic;
+
+namespace Logic
 {
     public class Quize
     {

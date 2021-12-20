@@ -4,17 +4,17 @@
   <OriginalElement>700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b</OriginalElement>
   <nodes>
     <node x="331.25" y="388.0">700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.Quizes</node>
-    <node x="349.25" y="783.0">700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.Answers</node>
-    <node x="426.75" y="164.5">700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.GroupsCategories</node>
-    <node x="10.25" y="588.0">700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.AppointmentQuiz</node>
+    <node x="349.25" y="798.0">700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.Answers</node>
+    <node x="473.25" y="204.5">700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.GroupsCategories</node>
+    <node x="10.25" y="594.0">700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.AppointmentQuiz</node>
     <node x="539.75" y="11.0">700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.CategoriesStudents</node>
-    <node x="710.5" y="466.0">700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.TagsSet</node>
-    <node x="189.25" y="588.0">700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.Try</node>
+    <node x="677.75" y="421.0">700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.TagsSet</node>
+    <node x="189.25" y="583.0">700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.Try</node>
     <node x="398.75" y="0.0">700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.Groups</node>
-    <node x="503.25" y="588.0">700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.Feedback</node>
-    <node x="216.75" y="22.0">700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.UserTypes</node>
-    <node x="349.25" y="588.0">700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.Questions</node>
-    <node x="661.25" y="588.0">700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.QuizesCategories</node>
+    <node x="503.25" y="583.0">700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.Feedback</node>
+    <node x="251.75" y="11.0">700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.UserTypes</node>
+    <node x="349.25" y="594.0">700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.Questions</node>
+    <node x="661.25" y="627.5">700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.QuizesCategories</node>
     <node x="240.25" y="149.0">700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.Users</node>
   </nodes>
   <notes />
@@ -55,29 +55,39 @@
     </edge>
     <edge source="700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.GroupsCategories" target="700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.CategoriesStudents" relationship="REFERENCES">
       <point x="48.5" y="-38.0" />
-      <point x="572.25" y="124.0" />
+      <point x="618.75" y="124.0" />
       <point x="636.75" y="124.0" />
       <point x="0.0" y="38.5" />
     </edge>
     <edge source="700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.AppointmentQuiz" target="700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.Users" relationship="REFERENCES">
-      <point x="-7.976062212533236" y="-71.97115384615404" />
-      <point x="81.77393778746676" y="367.0" />
-      <point x="280.25" y="367.0" />
+      <point x="-39.75" y="-71.5" />
+      <point x="50.0" y="562.0" />
+      <point x="84.75" y="562.0" />
+      <point x="84.75" y="367.0" />
+      <point x="254.25" y="367.0" />
+      <point x="254.25" y="357.0" />
+      <point x="280.25" y="357.0" />
       <point x="-40.0" y="93.5" />
     </edge>
     <edge source="700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.Try" target="700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.Users" relationship="REFERENCES">
       <point x="-35.0" y="-82.5" />
-      <point x="224.25" y="367.0" />
-      <point x="280.25" y="367.0" />
+      <point x="224.25" y="552.0" />
+      <point x="209.1861111111111" y="552.0" />
+      <point x="209.1861111111111" y="367.0" />
+      <point x="254.25" y="367.0" />
+      <point x="254.25" y="357.0" />
+      <point x="280.25" y="357.0" />
       <point x="-40.0" y="93.5" />
     </edge>
     <edge source="700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.Users" target="700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.UserTypes" relationship="REFERENCES">
       <point x="-40.0" y="-93.5" />
+      <point x="280.25" y="124.0" />
+      <point x="315.25" y="124.0" />
       <point x="0.0" y="38.5" />
     </edge>
     <edge source="700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.GroupsCategories" target="700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.Groups" relationship="REFERENCES">
       <point x="-48.5" y="-38.0" />
-      <point x="475.25" y="124.0" />
+      <point x="521.75" y="124.0" />
       <point x="459.25" y="124.0" />
       <point x="0.0" y="49.5" />
     </edge>
@@ -87,12 +97,18 @@
     </edge>
     <edge source="700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.QuizesCategories" target="700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.TagsSet" relationship="REFERENCES">
       <point x="37.75" y="-38.0" />
+      <point x="774.5" y="562.0" />
+      <point x="741.75" y="562.0" />
       <point x="0.0" y="38.5" />
     </edge>
     <edge source="700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.Feedback" target="700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.Users" relationship="REFERENCES">
       <point x="34.5" y="-82.5" />
-      <point x="606.75" y="367.0" />
-      <point x="280.25" y="367.0" />
+      <point x="606.75" y="552.0" />
+      <point x="583.7194444444444" y="552.0" />
+      <point x="583.7194444444444" y="367.0" />
+      <point x="254.25000000000003" y="367.0" />
+      <point x="254.25" y="357.0" />
+      <point x="280.25" y="357.0" />
       <point x="-40.0" y="93.5" />
     </edge>
     <edge source="700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.Users" target="700ce8f8-4a70-47c7-bf05-fbe7c01d7b3b.TABLE:MyTest.dbo.Groups" relationship="REFERENCES">
@@ -102,7 +118,7 @@
       <point x="0.0" y="49.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic" zoom="1.2999999999999998" showDependencies="false" x="426.6923076923081" y="411.7307692307693" />
+  <settings layout="Hierarchic" zoom="1.0" showDependencies="false" x="418.5" y="470.5" />
   <SelectedNodes />
   <Categories>
     <Category>Columns</Category>
