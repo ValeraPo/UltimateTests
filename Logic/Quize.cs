@@ -1,27 +1,118 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
+using System;
+
 
 namespace Logic
 {
     public class Quize
     {
-        public Quize(Dictionary<string, List<(string, bool)>> test, uint scores)
+        // Класс для вопроса
+        public class Question
+        {
+            // Конструкторы
+            public Question(string quest)
+            {
+                Quest = quest;
+                Answers = new List<(string, bool)>();
+                //Image = null;
+            }
+
+            public Question(string quest, List<(string, bool)> answers) : this(quest)
+            {
+                Answers = answers;
+            }
+            /*
+            public Question(string quest, List<(string, bool)> answers, Bitmap image) : this(quest, answers)
+            {
+                Image = image;
+            }
+            */
+            
+            private string _quest;
+            private List<(string, bool)> _answers;
+
+            public string Quest
+            {
+                get => _quest;
+                set
+                {
+                    IsEmpty(value);
+                    if (value.Length > 280)
+                        throw new ArgumentOutOfRangeException("Максимум 280 символов");
+                    _quest = value;
+                }
+            }
+            //public Bitmap Image { get; set; }
+            public List<(string, bool)> Answers
+            {
+                get => _answers;
+                set
+                {
+                    IsEmpty(value);
+                    _answers = value;
+                }
+            }
+            
+            // добавить ывриант ответа
+            public void AddAnswer((string, bool) answer)
+            {
+                IsEmpty(answer.Item1);
+                IsEmpty(answer.Item2);
+                Answers.Add(answer);
+            }
+
+            private static void IsEmpty(object obj)
+            {
+                if (obj == null)
+                    throw new ArgumentNullException("Объект не может быть пустым");
+            }
+        }
+        public Quize(List<Question> test, uint scores)
         {
             Test = test;
             Scores = scores;
         }
+        public string ID { get; set; }
 
-        // Тест - словарь вида
-        // Вопрос1: (ответ1, false), (ответ1, true), (ответ1, false), ...; 
-        // Вопрос2: (ответ1, true), (ответ1, false), (ответ1, false), ...; 
-        // Вопрос3: (ответ1, false), (ответ1, false), (ответ1, true), ...; 
-        // ...
-        public Dictionary<string, List<(string, bool)>> Test { get; set; }
-        public uint Scores { get; set; } // Баллы за прохождение
-
+        public List<Question> Test { get; set; }
+        public uint Scores { get; set; } // Максимальные баллы за прохождение
+        
+        // Добавить вопрос
+        public void AddQuestion(string textQuestion)
+        {
+            Question question = new Question(textQuestion);
+            Test.Add(question);
+        }
+        public void AddQuestion(string textQuestion, List<(string, bool)> answers)
+        {
+            Question question = new Question(textQuestion, answers);
+            Test.Add(question);
+        }
+        /*
+        public void AddQuestion(string textQuestion, List<(string, bool)> answers, Bitmap image)
+        {
+            Question question = new Question(textQuestion, answers, image);
+            Test.Add(question);
+        }
+        */
+        
+        // Проверка правильности ответа
         public bool CheckAnswer(string question, string answer)
         {
-            //Пока не буду писать, вдруг тут не словарь вовсе будет
-            return true;
+            foreach (var quest in Test)
+                if (quest.Quest == question)
+                    foreach (var answ in quest.Answers)
+                        if (answ.Item1 == answer)
+                        {
+                            if (answ.Item2 == true) return true;
+                            return false;
+                        }
+            return false; // без этой строчки не компилируется, хотя сюда мы никогда не попадем
         }
+        
+        
     }
+
+    
 }
