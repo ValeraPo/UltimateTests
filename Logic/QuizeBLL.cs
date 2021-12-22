@@ -5,7 +5,7 @@ using System;
 
 namespace Logic
 {
-    public class Quize
+    public class QuizeBLL
     {
         // Класс для вопроса
         public class Question
@@ -15,19 +15,12 @@ namespace Logic
             {
                 Quest = quest;
                 Answers = new List<(string, bool)>();
-                //Image = null;
             }
 
             public Question(string quest, List<(string, bool)> answers) : this(quest)
             {
                 Answers = answers;
             }
-            /*
-            public Question(string quest, List<(string, bool)> answers, Bitmap image) : this(quest, answers)
-            {
-                Image = image;
-            }
-            */
             
             private string _quest;
             private List<(string, bool)> _answers;
@@ -43,7 +36,6 @@ namespace Logic
                     _quest = value;
                 }
             }
-            //public Bitmap Image { get; set; }
             public List<(string, bool)> Answers
             {
                 get => _answers;
@@ -89,13 +81,6 @@ namespace Logic
             Question question = new Question(textQuestion, answers);
             Test.Add(question);
         }
-        /*
-        public void AddQuestion(string textQuestion, List<(string, bool)> answers, Bitmap image)
-        {
-            Question question = new Question(textQuestion, answers, image);
-            Test.Add(question);
-        }
-        */
         
         // Проверка правильности ответа
         public bool CheckAnswer(string question, string answer)

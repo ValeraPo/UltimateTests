@@ -2,14 +2,14 @@
 
 namespace Logic
 {
-    public class Methodist : IUser
+    public class MethodistBLL : IUser
     {
         public string Login { get; set; }
         public string Name { get; set; }
         public string Hash { get; set; }
         public string ID { get; set; }
 
-        public List<Quize> Quizes { get; set; } // Тесты которые создал
+        public List<QuizeBLL> Quizes { get; set; } // Тесты которые создал
 
     }
 }
