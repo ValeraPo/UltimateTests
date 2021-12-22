@@ -2,7 +2,7 @@
 
 namespace Logic
 {
-    public class Teacher : IUser
+    public class TeacherBLL : IUser
     {
         public string Login { get; set; }
         public string Name { get; set; }
