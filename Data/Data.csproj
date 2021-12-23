@@ -11,6 +11,10 @@
   <ItemGroup>
     <Folder Include="Maps" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Logic\Logic.csproj" />
+  </ItemGroup>
   
 
 </Project>
