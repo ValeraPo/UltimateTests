@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Data.Maps
 {
-    public partial class Quizes
+    public class Quizzes
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Quizes()
+        public Quizzes()
         {
-            AppointmentQuizes = new HashSet<AppointmentQuizes>();
+            AppointmentQuizzes = new HashSet<AppointmentQuizzes>();
             Attempts = new HashSet<Attempts>();
             Feedbacks = new HashSet<Feedbacks>();
             Questions = new HashSet<Questions>();
@@ -28,7 +28,7 @@ namespace Data.Maps
         public bool IsDel { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AppointmentQuizes> AppointmentQuizes { get; set; }
+        public virtual ICollection<AppointmentQuizzes> AppointmentQuizzes { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Attempts> Attempts { get; set; }

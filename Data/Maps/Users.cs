@@ -3,15 +3,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Data.Maps
 {
-    public partial class Users
+    public class Users
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Users()
         {
-            AppointmentQuizes = new HashSet<AppointmentQuizes>();
+            AppointmentQuizzes = new HashSet<AppointmentQuizzes>();
             Attempts = new HashSet<Attempts>();
             Feedbacks = new HashSet<Feedbacks>();
-            Quizes = new HashSet<Quizes>();
+            Quizzes = new HashSet<Quizzes>();
             TeachingGroups = new HashSet<TeachingGroups>();
         }
 
@@ -37,7 +37,7 @@ namespace Data.Maps
         public bool IsDel { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AppointmentQuizes> AppointmentQuizes { get; set; }
+        public virtual ICollection<AppointmentQuizzes> AppointmentQuizzes { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Attempts> Attempts { get; set; }
@@ -48,7 +48,7 @@ namespace Data.Maps
         public virtual Groups Groups { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Quizes> Quizes { get; set; }
+        public virtual ICollection<Quizzes> Quizzes { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TeachingGroups> TeachingGroups { get; set; }

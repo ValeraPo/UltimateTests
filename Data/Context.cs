@@ -1,26 +1,37 @@
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure.Design;
 using Data.Maps;
 
 namespace Data
 {
-    public partial class Context : DbContext
+    public class Context : DbContext
     {
-        public Context()
-            : base(@"data source = STEPA-PC; initial catalog = MyTest; integrated security = True; MultipleActiveResultSets=True;App=EntityFramework") { }
+        #region Singleton
 
-        public virtual DbSet<Answers>           Answers           {get; set;}
-        public virtual DbSet<AppointmentQuizes> AppointmentQuizes {get; set;}
-        public virtual DbSet<Attempts>          Attempts          {get; set;}
-        public virtual DbSet<Feedbacks>         Feedbacks         {get; set;}
-        public virtual DbSet<Groups>            Groups            {get; set;}
-        public virtual DbSet<GroupsCategories>  GroupsCategories  {get; set;}
-        public virtual DbSet<Questions>         Questions         {get; set;}
-        public virtual DbSet<Quizes>            Quizes            {get; set;}
-        public virtual DbSet<QuizzesCategories> QuizzesCategories {get; set;}
-        public virtual DbSet<SetTags>           SetTags           {get; set;}
-        public virtual DbSet<TeachingGroups>    TeachingGroups    {get; set;}
-        public virtual DbSet<Users>             Users             {get; set;}
-        public virtual DbSet<UserTypes>         UserTypes         {get; set;}
+        private Context()
+            : base("name=Connect") { }
+        private static Context _context;
+        public static Context GetContext()
+        {
+            return _context ??= new Context();
+        }
+
+        #endregion
+
+
+        public virtual DbSet<Answers>            Answers            {get; set;}
+        public virtual DbSet<AppointmentQuizzes> AppointmentQuizzes {get; set;}
+        public virtual DbSet<Attempts>           Attempts           {get; set;}
+        public virtual DbSet<Feedbacks>          Feedbacks          {get; set;}
+        public virtual DbSet<Groups>             Groups             {get; set;}
+        public virtual DbSet<GroupsCategories>   GroupsCategories   {get; set;}
+        public virtual DbSet<Questions>          Questions          {get; set;}
+        public virtual DbSet<Quizzes>            Quizzes            {get; set;}
+        public virtual DbSet<QuizzesCategories>  QuizzesCategories  {get; set;}
+        public virtual DbSet<SetTags>            SetTags            {get; set;}
+        public virtual DbSet<TeachingGroups>     TeachingGroups     {get; set;}
+        public virtual DbSet<Users>              Users              {get; set;}
+        public virtual DbSet<UserTypes>          UserTypes          {get; set;}
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -47,33 +58,33 @@ namespace Data
                         .WithRequired(e => e.Questions)
                         .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Quizes>()
+            modelBuilder.Entity<Quizzes>()
                         .Property(e => e.TimeToComplete)
                         .HasPrecision(0);
 
-            modelBuilder.Entity<Quizes>()
-                        .HasMany(e => e.AppointmentQuizes)
-                        .WithRequired(e => e.Quizes)
+            modelBuilder.Entity<Quizzes>()
+                        .HasMany(e => e.AppointmentQuizzes)
+                        .WithRequired(e => e.Quizzes)
                         .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Quizes>()
+            modelBuilder.Entity<Quizzes>()
                         .HasMany(e => e.Attempts)
-                        .WithRequired(e => e.Quizes)
+                        .WithRequired(e => e.Quizzes)
                         .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Quizes>()
+            modelBuilder.Entity<Quizzes>()
                         .HasMany(e => e.Feedbacks)
-                        .WithRequired(e => e.Quizes)
+                        .WithRequired(e => e.Quizzes)
                         .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Quizes>()
+            modelBuilder.Entity<Quizzes>()
                         .HasMany(e => e.Questions)
-                        .WithRequired(e => e.Quizes)
+                        .WithRequired(e => e.Quizzes)
                         .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Quizes>()
+            modelBuilder.Entity<Quizzes>()
                         .HasMany(e => e.QuizzesCategories)
-                        .WithRequired(e => e.Quizes)
+                        .WithRequired(e => e.Quizzes)
                         .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<SetTags>()
@@ -87,7 +98,7 @@ namespace Data
                         .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Users>()
-                        .HasMany(e => e.AppointmentQuizes)
+                        .HasMany(e => e.AppointmentQuizzes)
                         .WithRequired(e => e.Users)
                         .WillCascadeOnDelete(false);
 
@@ -102,7 +113,7 @@ namespace Data
                         .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Users>()
-                        .HasMany(e => e.Quizes)
+                        .HasMany(e => e.Quizzes)
                         .WithRequired(e => e.Users)
                         .HasForeignKey(e => e.ID_UserCreateons)
                         .WillCascadeOnDelete(false);
