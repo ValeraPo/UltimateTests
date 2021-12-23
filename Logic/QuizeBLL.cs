@@ -60,7 +60,7 @@ namespace Logic
                     throw new ArgumentNullException("Объект не может быть пустым");
             }
         }
-        public Quize(List<Question> test, uint scores)
+        public QuizeBLL(List<Question> test, long scores)
         {
             Test = test;
             Scores = scores;
@@ -68,7 +68,7 @@ namespace Logic
         public string ID { get; set; }
 
         public List<Question> Test { get; set; }
-        public uint Scores { get; set; } // Максимальные баллы за прохождение
+        public long Scores { get; set; } // Максимальные баллы за прохождение
         
         // Добавить вопрос
         public void AddQuestion(string textQuestion)
