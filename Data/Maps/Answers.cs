@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Data.Maps
 {
-    public partial class Answers
+    public class Answers
     {
         [Key]
         public long ID_Answ { get; set; }

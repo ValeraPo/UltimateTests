@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Data.Maps
 {
-    public partial class QuizzesCategories
+    public class QuizzesCategories
     {
         [Key]
         [Column(Order = 0)]
@@ -17,7 +17,7 @@ namespace Data.Maps
 
         public bool IsDel { get; set; }
 
-        public virtual Quizes Quizes { get; set; }
+        public virtual Quizzes Quizzes { get; set; }
 
         public virtual SetTags SetTags { get; set; }
     }

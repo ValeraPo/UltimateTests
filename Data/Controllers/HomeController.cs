@@ -6,9 +6,9 @@ namespace Data.Controllers
     {
         public static void Test()
         {
-            using (Context db = new Context())
+            using (var db = Context.GetContext())
             {
-                var players = db.Users.ToList();
+                var players = db.Users.Where( t => t.Login == "petrov" ).ToList();
             }
         }
     }

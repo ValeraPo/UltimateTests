@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Data.Maps
 {
-    public partial class TeachingGroups
+    public class TeachingGroups
     {
         [Key]
         [Column(Order = 0)]

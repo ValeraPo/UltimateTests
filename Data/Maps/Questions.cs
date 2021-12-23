@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Data.Maps
 {
-    public partial class Questions
+    public class Questions
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Questions()
@@ -25,6 +25,6 @@ namespace Data.Maps
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Answers> Answers { get; set; }
 
-        public virtual Quizes Quizes { get; set; }
+        public virtual Quizzes Quizzes { get; set; }
     }
 }

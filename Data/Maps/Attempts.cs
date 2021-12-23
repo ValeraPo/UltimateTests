@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Data.Maps
 {
-    public partial class Attempts
+    public class Attempts
     {
         [Key]
         public long ID_Try { get; set; }
@@ -18,7 +18,7 @@ namespace Data.Maps
 
         public DateTime DateTime { get; set; }
 
-        public virtual Quizes Quizes { get; set; }
+        public virtual Quizzes Quizzes { get; set; }
 
         public virtual Users Users { get; set; }
     }
