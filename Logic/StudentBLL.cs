@@ -2,16 +2,13 @@
 
 namespace Logic
 {
-    public class StudentBLL : IUser
+    public class StudentBLL : UserBLL
     {
-        public string Login { get; set; }
-        public string Name { get; set; }
-        public string Hash { get; set; }
-        public string ID { get; set; }
-
+        
         public string Group { get; set; } // Группа в которой учится
-        public List<(QuizeBLL,bool)> Quizes { get; set; } // Список назначенных тестов
-        // и их статус (выполнен/невыполнен)
+        public List<long> AssignedQuizzes { get; set; } // Список назначенных тестов
+        public List<long> PerformedQuizzes { get; set; } // Список выполненных тестов
+
 
     }
 }

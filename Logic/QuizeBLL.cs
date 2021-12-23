@@ -46,7 +46,7 @@ namespace Logic
                 }
             }
             
-            // добавить ывриант ответа
+            // добавить вариант ответа
             public void AddAnswer((string, bool) answer)
             {
                 IsEmpty(answer.Item1);
@@ -60,7 +60,7 @@ namespace Logic
                     throw new ArgumentNullException("Объект не может быть пустым");
             }
         }
-        public Quize(List<Question> test, uint scores)
+        public QuizeBLL(List<Question> test, uint scores)
         {
             Test = test;
             Scores = scores;
