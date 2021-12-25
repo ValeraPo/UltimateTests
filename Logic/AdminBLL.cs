@@ -1,11 +1,6 @@
 ﻿namespace Logic
 {
-    public class AdminBLL : IUser
+    public class AdminBLL : User
     {
-        public string Login { get; set; }
-        public string Name { get; set; }
-        public string Hash { get; set; }
-        public string ID { get; set; }
-        
     }
 }

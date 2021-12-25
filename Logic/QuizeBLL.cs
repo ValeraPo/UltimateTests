@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System;
+using Logic.Interfaces;
 
 
 namespace Logic
 {
-    public class QuizeBLL
+    public class QuizeBLL : IQuize
     {
         // Класс для вопроса
-        public class Question
+        public class Question : IQuestion
         {
             // Конструкторы
             public Question(string quest)
@@ -24,6 +25,7 @@ namespace Logic
             
             private string _quest;
             private List<(string, bool)> _answers;
+            public long ID { get; set; }
 
             public string Quest
             {
@@ -46,7 +48,7 @@ namespace Logic
                 }
             }
             
-            // добавить ывриант ответа
+            // добавить вариант ответа
             public void AddAnswer((string, bool) answer)
             {
                 IsEmpty(answer.Item1);
@@ -60,16 +62,17 @@ namespace Logic
                     throw new ArgumentNullException("Объект не может быть пустым");
             }
         }
-        public QuizeBLL(List<Question> test, int scores)
+        public QuizeBLL(List<IQuestion> test, int scores)
         {
             Test = test;
             Scores = scores;
         }
-        public string ID { get; set; }
+        public long ID { get; set; }
 
-        public List<Question> Test { get; set; }
+        public List<IQuestion> Test { get; set; }
         public int Scores { get; set; } // Максимальные баллы за прохождение
-        
+        public List<string> Tegs { get; set; }
+
         // Добавить вопрос
         public void AddQuestion(string textQuestion)
         {
