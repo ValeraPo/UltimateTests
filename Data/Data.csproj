@@ -8,13 +8,5 @@
     <PackageReference Include="EntityFramework" Version="6.4.4" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Maps" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Logic\Logic.csproj" />
-  </ItemGroup>
   
-
 </Project>

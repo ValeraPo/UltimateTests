@@ -3,16 +3,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Data.Maps
 {
-    public class Users
+    public class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Users()
+        public User()
         {
-            AppointmentQuizzes = new HashSet<AppointmentQuizzes>();
-            Attempts = new HashSet<Attempts>();
-            Feedbacks = new HashSet<Feedbacks>();
-            Quizzes = new HashSet<Quizzes>();
-            TeachingGroups = new HashSet<TeachingGroups>();
+            AppointmentQuizzes = new HashSet<AppointmentQuizze>();
+            Attempts = new HashSet<Attempt>();
+            Feedbacks = new HashSet<Feedback>();
+            Quizzes = new HashSet<Quizze>();
+            TeachingGroups = new HashSet<TeachingGroup>();
         }
 
         [Key]
@@ -20,11 +20,15 @@ namespace Data.Maps
 
         public long? ID_Group { get; set; }
 
-        public long ID_Role { get; set; }
+        public int ID_Role { get; set; }
 
         [Required]
         [StringLength(100)]
         public string FullName { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string Email { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -37,22 +41,22 @@ namespace Data.Maps
         public bool IsDel { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AppointmentQuizzes> AppointmentQuizzes { get; set; }
+        public virtual ICollection<AppointmentQuizze> AppointmentQuizzes { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Attempts> Attempts { get; set; }
+        public virtual ICollection<Attempt> Attempts { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Feedbacks> Feedbacks { get; set; }
+        public virtual ICollection<Feedback> Feedbacks { get; set; }
 
-        public virtual Groups Groups { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Quizzes> Quizzes { get; set; }
+        public virtual Group Group { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TeachingGroups> TeachingGroups { get; set; }
+        public virtual ICollection<Quizze> Quizzes { get; set; }
 
-        public virtual UserTypes UserTypes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TeachingGroup> TeachingGroups { get; set; }
+
+        public virtual UserType UserType { get; set; }
     }
 }

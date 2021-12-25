@@ -1,24 +1,26 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Data.Maps
 {
-    public class UserTypes
+    public class QuestType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public UserTypes()
+        public QuestType()
         {
-            Users = new HashSet<Users>();
+            Questions = new HashSet<Question>();
         }
 
         [Key]
-        public long ID_Role { get; set; }
+        public int ID_QuestType { get; set; }
 
+        [Column("QuestType")]
         [Required]
         [StringLength(20)]
-        public string Role { get; set; }
+        public string QuestType1 { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Users> Users { get; set; }
+        public virtual ICollection<Question> Questions { get; set; }
     }
 }
