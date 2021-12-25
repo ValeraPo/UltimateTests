@@ -11,44 +11,91 @@ namespace Data.Controllers
         private static Context Db => Context.GetContext();
         public static IUser GetUser(string login)
         {
-            var players = Db.Users.Where(t => t.Login == login && !t.IsDel).ToList();
-            if (players.Count == 0)
-                throw new ArgumentException("Данный пользователь не найден");
-            return players[0].ID_Role switch
+            var players = Db.Users.Single(t => t.Login == login && !t.IsDel);
+            
+            return players.ID_Role switch
             {
                 1 => new AdminBLL()
                      {
-                         Login = players[0].Login,
-                         Hash  = players[0].HashPass,
-                         Name  = players[0].FullName,
-                         ID    = players[0].ID_User
+                         Login = players.Login,
+                         Hash  = players.HashPass,
+                         Name  = players.FullName,
+                         ID    = players.ID_User
                      },
                 2 => new StudentBLL()
                      {
-                         Login = players[0].Login,
-                         Hash  = players[0].HashPass,
-                         Name  = players[0].FullName,
-                         ID    = players[0].ID_User,
-                         Group = players[0].Groups.NameOfGroup
+                         Login = players.Login,
+                         Hash  = players.HashPass,
+                         Name  = players.FullName,
+                         ID    = players.ID_User,
+                         Group = players.Groups.NameOfGroup
                      },
                 3 => new TeacherBLL()
                      {
-                         Login = players[0].Login,
-                         Hash  = players[0].HashPass,
-                         Name  = players[0].FullName,
-                         ID    = players[0].ID_User,
-                         Groups = players[0].TeachingGroups.Select(t => t.Groups).Select(t=> t.NameOfGroup).ToList()
+                         Login = players.Login,
+                         Hash  = players.HashPass,
+                         Name  = players.FullName,
+                         ID    = players.ID_User,
+                         Groups = players.TeachingGroups
+                                         .Select(t => t.Groups)
+                                         .Select(t=> t.NameOfGroup)
+                                         .ToList()
                      },
                 4 => new MethodistBLL()
                      {
-                         Login = players[0].Login,
-                         Hash  = players[0].HashPass,
-                         Name  = players[0].FullName,
-                         ID    = players[0].ID_User,
-                         Quizes = players[0].Quizzes.Select(t => t.ID_Quiz).ToList()
+                         Login = players.Login,
+                         Hash  = players.HashPass,
+                         Name  = players.FullName,
+                         ID    = players.ID_User,
+                         Quizes = players.Quizzes
+                                         .Select(t => t.ID_Quiz)
+                                         .ToList()
                      },
                 _ => throw new ArgumentOutOfRangeException()
             };
+        }
+
+        public static List<string> LoginActive => Db.Users.Where(t => !t.IsDel).Select(t => t.Login).ToList();
+
+        public static List<long> GetIdQuizzes(string teg)
+        {
+           return Db.SetTags
+                    .Where(t => !t.IsDel && t.Text == teg)
+                    .Select(t => t.QuizzesCategories)
+                    .Single()
+                    .Select(t => t.ID_Quiz).ToList();
+        }
+        public static List<long> GetIdQuizzes(long idUser)
+        {
+            return Db.Users
+                     .Where(t => !t.IsDel && t.ID_User == idUser)
+                     .Select(t => t.AppointmentQuizzes)
+                     .Single()
+                     .Select(t => t.ID_Quiz)
+                     .ToList();
+        }
+
+        public static List<(string, long)> GetFeedback(long idUser)
+        {
+            var feedback = Db.Users
+                             .Single(t => !t.IsDel && t.ID_User == idUser)
+                             .Quizzes
+                             .Select(t=>t.Feedbacks);
+            return (from t in feedback from m in t select (m.Text, m.ID_Quiz)).ToList();
+        }
+
+        public static QuizeBLL GetQuiz(long idQuiz)
+        {
+            var quizzes = Db.Quizzes
+                            .Single(t => !t.IsDel && t.ID_Quiz == idQuiz);
+            var questions = (
+                from quest in quizzes.Questions 
+                let answers = quest.Answers
+                                   .Select(answer => (answer.Text, answer.IsCorrect))
+                                   .ToList() 
+                select new QuizeBLL.Question(quest.Text, answers))
+                .ToList();
+            return new QuizeBLL(questions, quizzes.MaxPoints);
         }
     }
 }
