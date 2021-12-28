@@ -1,25 +1,28 @@
-using System;
+﻿using System;
 using Logic.Interfaces;
 
 namespace Logic
 {
-    public class FeedbackBLL : IFeedback
+    public abstract class User : IUser
     {
-        private string _text;
-        public string Text
+        private string _login;
+
+        public string Login
         {
-            get => _text;
+            get => _login;
             set
             {
+                Connecting.CheckLogin(value);
                 if (value.Length > 280)
                     throw new ArgumentOutOfRangeException("Размер превышает допустимый");
                 if (string.IsNullOrWhiteSpace(value))
                     throw new ArgumentNullException("Собщение не может быть пустым");
-                _text = value;
+                _login = value;
             }
         }
-        public long IDUser { get; set; } // Автор фидбэка
-        public DateTime Date { get; set;  } // Когда добавили
-        
+        public string Name { get; set; }
+        public string Hash { get; set; }
+        public long ID { get; set; }
+        public string Email { get; set; }
     }
 }
