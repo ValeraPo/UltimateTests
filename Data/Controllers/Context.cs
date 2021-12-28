@@ -3,7 +3,7 @@ using Data.Maps;
 
 namespace Data.Controllers
 {
-    public class Context : DbContext
+    internal class Context : DbContext
     {
         #region Singleton
 
