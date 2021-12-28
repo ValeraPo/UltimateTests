@@ -22,9 +22,14 @@ namespace Data.Repositories
         public void Save() => db.SaveChanges();
         public void Delete(long id)
         {
-            var tmp = db.SetTags.Find(id);
-            if (tmp != null)
-                tmp.IsDel = true;
+            var teg = db.SetTags.Find(id);
+            if (teg == null)
+                return;
+            teg.IsDel = true;
+            foreach (var groups in teg.GroupsCategories)
+                groups.IsDel = true;
+            foreach (var quizzes in teg.QuizzesCategories)
+                quizzes.IsDel = true;
         }
 
 

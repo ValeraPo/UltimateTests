@@ -23,8 +23,10 @@ namespace Data.Repositories
         public void Delete(long id)
         {
             var tmp = db.Feedbacks.Find(id);
-            if (tmp != null)
-                tmp.IsDel = true;
+            if (tmp == null)
+                return;
+            tmp.IsDel = true;
+            Save();
         }
 
 

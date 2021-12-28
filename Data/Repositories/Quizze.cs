@@ -22,9 +22,19 @@ namespace Data.Repositories
         public void Save() => db.SaveChanges();
         public void Delete(long id)
         {
-            var tmp = db.Quizzes.Find(id);
-            if (tmp != null)
-                tmp.IsDel = true;
+            var quizze = db.Quizzes.Find(id);
+            if (quizze == null)
+                return;
+            quizze.IsDel = true;
+            foreach (var appo in quizze.AppointmentQuizzes)
+                appo.IsDel = true;
+
+            foreach (var question in quizze.Questions)
+            {
+                foreach (var answer in question.Answers)
+                    answer.IsDel = true;
+                question.IsDel = true;
+            }
         }
 
 

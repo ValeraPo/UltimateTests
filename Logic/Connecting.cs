@@ -25,12 +25,12 @@ namespace Logic
             if (user.HashPass != Encryptor.MD5Hash(password))
                 throw new KeyNotFoundException("Пароль неверный");
             return new User()
-            {
-                FullName = user.FullName,
-                Email = user.Email,
-                Type = user.ID_Role,
-                Group = user.Group?.NameOfGroup
-            };
+                   {
+                       FullName = user.FullName,
+                       Email    = user.Email,
+                       Type     = user.ID_Role,
+                       Group    = user.Group?.NameOfGroup
+                   };
         }
 
         // Создание фидбека
@@ -40,12 +40,12 @@ namespace Logic
 
             var quizze = quizzes.GetEntity(id_quizze);
             quizze.Feedbacks.Add(new Feedback()
-            {
-                DateTime = DateTime.Now,
-                Quizze = quizze,
-                User = user,
-                Text = text
-            });
+                                 {
+                                     DateTime = DateTime.Now,
+                                     Quizze   = quizze,
+                                     User     = user,
+                                     Text     = text
+                                 });
             quizzes.Save();
         }
         // Возвращение назначенных тестов
@@ -55,7 +55,7 @@ namespace Logic
                        .Where(t => t.FinishBefore <= DateTime.Now)
                        .Select(t => t.Quizze);
         }
-       // Сохранить изменения
+        // Сохранить изменения
         public static void SaveChange()
         {
             new Data.Repositories.User().Save();
@@ -65,6 +65,5 @@ namespace Logic
         {
             return user.Quizzes.SelectMany(quiz => quiz.Feedbacks).ToList();
         }
-
     }
 }

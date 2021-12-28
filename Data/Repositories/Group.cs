@@ -22,9 +22,15 @@ namespace Data.Repositories
         public void Save() => db.SaveChanges();
         public void Delete(long id)
         {
-            var tmp = db.Groups.Find(id);
-            if (tmp != null)
-                tmp.IsDel = true;
+            var group = db.Groups.Find(id);
+            if (group == null)
+                return;
+            group.IsDel = true;
+            foreach (var teach in group.TeachingGroups)
+                teach.IsDel = true;
+            foreach (var studens in group.Users)
+                studens.Group = null;
+            Save();
         }
 
 

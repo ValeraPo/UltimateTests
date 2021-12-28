@@ -15,16 +15,19 @@ namespace Data.Repositories
         public User() => db = Context.GetContext();
 
 
-        public IEnumerable<Maps.User> GetListEntity() => db.Users.Where(t=> !t.IsDel);
+        public IEnumerable<Maps.User> GetListEntity() => db.Users.Where(t => !t.IsDel);
         public Maps.User GetEntity(long id) => db.Users.Find(id);
         public void Create(Maps.User item) => db.Users.Add(item);
         public void Update(Maps.User item) => db.Entry(item).State = EntityState.Modified;
         public void Save() => db.SaveChanges();
         public void Delete(long id)
         {
-            var tmp = db.Users.Find(id);
-            if (tmp != null)
-                tmp.IsDel = true;
+            var user = db.Users.Find(id);
+            if (user == null)
+                return;
+            user.IsDel = true;
+            foreach (var teach in user.TeachingGroups)
+                teach.IsDel = true;
         }
 
 

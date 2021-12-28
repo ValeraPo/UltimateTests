@@ -28,7 +28,7 @@ namespace Logic
             using IRepository<Data.Maps.SetTag> tegs = new Data.Repositories.SetTag();
             tegs.Delete(id_teg);
         }
-        
+
         // Удаление назначения
         public static void RemoveAppointment(long id_appointment)
         {

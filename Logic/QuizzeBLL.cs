@@ -11,17 +11,8 @@ namespace Logic
         // Проверка правильности ответа
         public static void CheckAnswer(Answer answer, Attempt attempt, Quizze quizze)
         {
-            if (answer.IsCorrect) 
+            if (answer.IsCorrect)
                 attempt.Score += quizze.MaxPoints / quizze.Questions.Count;
         }
-        
-        
-        
-        
-        
-        
-        
     }
-
-    
 }
