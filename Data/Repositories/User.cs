@@ -16,7 +16,7 @@ namespace Data.Repositories
 
 
         public IEnumerable<Maps.User> GetListEntity() => db.Users.Where(t => !t.IsDel);
-        public Maps.User GetEntity(long id) => db.Users.Find(id);
+        public Maps.User GetEntity(long id) => db.Users.Single(t => !t.IsDel && t.ID_User == id);
         public void Create(Maps.User item) => db.Users.Add(item);
         public void Update(Maps.User item) => db.Entry(item).State = EntityState.Modified;
         public void Save() => db.SaveChanges();
