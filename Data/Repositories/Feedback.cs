@@ -7,27 +7,26 @@ using Data.Interfaces;
 
 namespace Data.Repositories
 {
-    public class User : IRepository<Maps.User>
+    public class Feedback : IRepository<Maps.Feedback>
     {
         private Context db;
         private bool    _disposed;
 
-        public User() => db = Context.GetContext();
+        public Feedback() => db = Context.GetContext();
 
 
-        public IEnumerable<Maps.User> GetListEntity() => db.Users.Where(t => !t.IsDel);
-        public Maps.User GetEntity(long id) => db.Users.Find(id);
-        public void Create(Maps.User item) => db.Users.Add(item);
-        public void Update(Maps.User item) => db.Entry(item).State = EntityState.Modified;
+        public IEnumerable<Maps.Feedback> GetListEntity() => db.Feedbacks.Where(t => !t.IsDel);
+        public Maps.Feedback GetEntity(long id) => db.Feedbacks.Find(id);
+        public void Create(Maps.Feedback item) => db.Feedbacks.Add(item);
+        public void Update(Maps.Feedback item) => db.Entry(item).State = EntityState.Modified;
         public void Save() => db.SaveChanges();
         public void Delete(long id)
         {
-            var user = db.Users.Find(id);
-            if (user == null)
+            var tmp = db.Feedbacks.Find(id);
+            if (tmp == null)
                 return;
-            user.IsDel = true;
-            foreach (var teach in user.TeachingGroups)
-                teach.IsDel = true;
+            tmp.IsDel = true;
+            Save();
         }
 
 

@@ -8,17 +8,15 @@ namespace Data.Maps
         [Key]
         [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public long ID_Group { get; set; }
+        public long ID_Group {get; set;}
 
         [Key]
         [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public long ID_TagSet { get; set; }
+        public long ID_TagSet {get; set;}
 
-        public bool IsDel { get; set; }
-
-        public virtual Group Group { get; set; }
-
-        public virtual SetTag SetTag { get; set; }
+        public         bool   IsDel  {get; set;}
+        public virtual Group  Group  {get; set;}
+        public virtual SetTag SetTag {get; set;}
     }
 }

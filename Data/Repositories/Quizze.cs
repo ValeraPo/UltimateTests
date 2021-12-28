@@ -12,41 +12,33 @@ namespace Data.Repositories
         private Context db;
         private bool    _disposed;
 
-        public Quizze()
+        public Quizze() => db = Context.GetContext();
+
+
+        public IEnumerable<Maps.Quizze> GetListEntity() => db.Quizzes.Where(t => !t.IsDel);
+        public Maps.Quizze GetEntity(long id) => db.Quizzes.Find(id);
+        public void Create(Maps.Quizze item) => db.Quizzes.Add(item);
+        public void Update(Maps.Quizze item) => db.Entry(item).State = EntityState.Modified;
+        public void Save() => db.SaveChanges();
+        public void Delete(long id)
         {
-            db = Context.GetContext();
-        }
-        
-        
-        public IEnumerable<Maps.Quizze> GetListEntity()
-        {
-            return db.Quizzes.Where(t => !t.IsDel);
-        }
-        public Maps.Quizze GetEntity(int id)
-        {
-            return db.Quizzes.Find(id);
-        }
-        public void Create(Maps.Quizze item)
-        {
-            db.Quizzes.Add(item);
-        }
-        public void Update(Maps.Quizze item)
-        {
-            db.Entry(item).State = EntityState.Modified;
-        }
-        public void Delete(int id)
-        {
-            var tmp = db.Quizzes.Find(id);
-            if (tmp != null)
-                tmp.IsDel = true;
-        }
-        public void Save()
-        {
-            db.SaveChanges();
+            var quizze = db.Quizzes.Find(id);
+            if (quizze == null)
+                return;
+            quizze.IsDel = true;
+            foreach (var appo in quizze.AppointmentQuizzes)
+                appo.IsDel = true;
+
+            foreach (var question in quizze.Questions)
+            {
+                foreach (var answer in question.Answers)
+                    answer.IsDel = true;
+                question.IsDel = true;
+            }
         }
 
 
-        public virtual void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (!_disposed && disposing)
                 db.Dispose();
