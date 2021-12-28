@@ -7,22 +7,22 @@ using Data.Interfaces;
 
 namespace Data.Repositories
 {
-    public class Quizze : IRepository<Maps.Quizze>
+    public class Feedback : IRepository<Maps.Feedback>
     {
         private Context db;
         private bool    _disposed;
 
-        public Quizze() => db = Context.GetContext();
+        public Feedback() => db = Context.GetContext();
 
 
-        public IEnumerable<Maps.Quizze> GetListEntity() => db.Quizzes.Where(t => !t.IsDel);
-        public Maps.Quizze GetEntity(long id) => db.Quizzes.Find(id);
-        public void Create(Maps.Quizze item) => db.Quizzes.Add(item);
-        public void Update(Maps.Quizze item) => db.Entry(item).State = EntityState.Modified;
+        public IEnumerable<Maps.Feedback> GetListEntity() => db.Feedbacks.Where(t => !t.IsDel);
+        public Maps.Feedback GetEntity(long id) => db.Feedbacks.Find(id);
+        public void Create(Maps.Feedback item) => db.Feedbacks.Add(item);
+        public void Update(Maps.Feedback item) => db.Entry(item).State = EntityState.Modified;
         public void Save() => db.SaveChanges();
         public void Delete(long id)
         {
-            var tmp = db.Quizzes.Find(id);
+            var tmp = db.Feedbacks.Find(id);
             if (tmp != null)
                 tmp.IsDel = true;
         }

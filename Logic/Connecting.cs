@@ -5,6 +5,7 @@ using System.Linq;
 using Data.Maps;
 using Data.Repositories;
 using Data.Interfaces;
+using Feedback = Data.Maps.Feedback;
 using Group = Data.Maps.Group;
 using Quizze = Data.Maps.Quizze;
 using SetTag = Data.Maps.SetTag;

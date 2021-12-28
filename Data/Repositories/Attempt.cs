@@ -11,39 +11,18 @@ namespace Data.Repositories
         private Context db;
         private bool    _disposed;
 
-        public Attempt()
-        {
-            db = Context.GetContext();
-        }
-        
-        
-        public IEnumerable<Maps.Attempt> GetListEntity()
-        {
-            return db.Attempts;
-        }
-        public Maps.Attempt GetEntity(long id)
-        {
-            return db.Attempts.Find(id);
-        }
-        public void Create(Maps.Attempt item)
-        {
-            db.Attempts.Add(item);
-        }
-        public void Update(Maps.Attempt item)
-        {
-            db.Entry(item).State = EntityState.Modified;
-        }
-        public void Delete(long id)
-        {
-            throw new NotImplementedException();
-        }
-        public void Save()
-        {
-            db.SaveChanges();
-        }
+        public Attempt() => db = Context.GetContext();
 
 
-        public virtual void Dispose(bool disposing)
+        public IEnumerable<Maps.Attempt> GetListEntity() => db.Attempts;
+        public Maps.Attempt GetEntity(long id) => db.Attempts.Find(id);
+        public void Create(Maps.Attempt item) => db.Attempts.Add(item);
+        public void Update(Maps.Attempt item) => db.Entry(item).State = EntityState.Modified;
+        public void Save() => db.SaveChanges();
+        public void Delete(long id) => throw new NotImplementedException();
+
+
+        protected virtual void Dispose(bool disposing)
         {
             if (!_disposed && disposing)
                 db.Dispose();

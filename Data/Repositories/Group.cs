@@ -12,41 +12,23 @@ namespace Data.Repositories
         private Context db;
         private bool    _disposed;
 
-        public Group()
-        {
-            db = Context.GetContext();
-        }
-        
-        
-        public IEnumerable<Maps.Group> GetListEntity()
-        {
-            return db.Groups.Where(t => !t.IsDel);
-        }
-        public Maps.Group GetEntity(long id)
-        {
-            return db.Groups.Find(id);
-        }
-        public void Create(Maps.Group item)
-        {
-            db.Groups.Add(item);
-        }
-        public void Update(Maps.Group item)
-        {
-            db.Entry(item).State = EntityState.Modified;
-        }
+        public Group() => db = Context.GetContext();
+
+
+        public IEnumerable<Maps.Group> GetListEntity() => db.Groups.Where(t => !t.IsDel);
+        public Maps.Group GetEntity(long id) => db.Groups.Find(id);
+        public void Create(Maps.Group item) => db.Groups.Add(item);
+        public void Update(Maps.Group item) => db.Entry(item).State = EntityState.Modified;
+        public void Save() => db.SaveChanges();
         public void Delete(long id)
         {
             var tmp = db.Groups.Find(id);
             if (tmp != null)
                 tmp.IsDel = true;
         }
-        public void Save()
-        {
-            db.SaveChanges();
-        }
 
 
-        public virtual void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (!_disposed && disposing)
                 db.Dispose();
