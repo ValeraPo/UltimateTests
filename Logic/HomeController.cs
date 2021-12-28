@@ -1,12 +1,12 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Data.Maps;
-using Logic;
+using Data.Controllers;
 
-namespace Data.Controllers
+//using Logic;
+
+namespace Logic
 {
-    public class HomeController
+    /*public class HomeController
     {
         private static Context Db => Context.GetContext();
         public static IUser GetUser(string login)
@@ -55,15 +55,20 @@ namespace Data.Controllers
             };
         }
 
-        public static List<string> LoginActive => Db.Users.Where(t => !t.IsDel).Select(t => t.Login).ToList();
+        public static List<string> LoginActive => Db.Users
+                                                    .Where(t => !t.IsDel)
+                                                    .Select(t => t.Login)
+                                                    .ToList();
+        
 
         public static List<long> GetIdQuizzes(string teg)
         {
-           return Db.SetTags
-                    .Where(t => !t.IsDel && t.Text == teg)
-                    .Select(t => t.QuizzesCategories)
-                    .Single()
-                    .Select(t => t.ID_Quiz).ToList();
+            return Db.SetTags
+                     .Where(t => !t.IsDel && t.Text == teg)
+                     .Select(t => t.QuizzesCategories)
+                     .Single()
+                     .Select(t => t.ID_Quiz)
+                     .ToList();
         }
         public static List<long> GetIdQuizzes(long idUser)
         {
@@ -82,6 +87,7 @@ namespace Data.Controllers
                              .Quizzes
                              .Select(t=>t.Feedbacks);
             return (from t in feedback from m in t select (m.Text, m.ID_Quiz)).ToList();
+            
         }
 
         public static QuizeBLL GetQuiz(long idQuiz)
@@ -97,5 +103,5 @@ namespace Data.Controllers
                 .ToList();
             return new QuizeBLL(questions, quizzes.MaxPoints);
         }
-    }
+    }*/
 }

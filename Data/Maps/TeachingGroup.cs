@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Data.Maps
 {
-    public class TeachingGroups
+    public class TeachingGroup
     {
         [Key]
         [Column(Order = 0)]
@@ -17,8 +17,8 @@ namespace Data.Maps
 
         public bool IsDel { get; set; }
 
-        public virtual Groups Groups { get; set; }
+        public virtual Group Group { get; set; }
 
-        public virtual Users Users { get; set; }
+        public virtual User User { get; set; }
     }
 }

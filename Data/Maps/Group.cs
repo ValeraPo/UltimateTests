@@ -3,14 +3,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Data.Maps
 {
-    public class Groups
+    public class Group
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Groups()
+        public Group()
         {
-            GroupsCategories = new HashSet<GroupsCategories>();
-            TeachingGroups = new HashSet<TeachingGroups>();
-            Users = new HashSet<Users>();
+            GroupsCategories = new HashSet<GroupsCategory>();
+            TeachingGroups = new HashSet<TeachingGroup>();
+            Users = new HashSet<User>();
         }
 
         [Key]
@@ -23,12 +23,12 @@ namespace Data.Maps
         public bool IsDel { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GroupsCategories> GroupsCategories { get; set; }
+        public virtual ICollection<GroupsCategory> GroupsCategories { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TeachingGroups> TeachingGroups { get; set; }
+        public virtual ICollection<TeachingGroup> TeachingGroups { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Users> Users { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Data.Maps
 {
-    public class Feedbacks
+    public class Feedback
     {
         [Key]
         public long ID_Feedback { get; set; }
@@ -20,8 +20,8 @@ namespace Data.Maps
 
         public bool IsDel { get; set; }
 
-        public virtual Quizzes Quizzes { get; set; }
+        public virtual Quizze Quizze { get; set; }
 
-        public virtual Users Users { get; set; }
+        public virtual User User { get; set; }
     }
 }

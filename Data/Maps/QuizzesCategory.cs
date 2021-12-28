@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Data.Maps
 {
-    public class GroupsCategories
+    public class QuizzesCategory
     {
         [Key]
         [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public long ID_Group { get; set; }
+        public long ID_Quiz { get; set; }
 
         [Key]
         [Column(Order = 1)]
@@ -17,8 +17,8 @@ namespace Data.Maps
 
         public bool IsDel { get; set; }
 
-        public virtual Groups Groups { get; set; }
+        public virtual Quizze Quizze { get; set; }
 
-        public virtual SetTags SetTags { get; set; }
+        public virtual SetTag SetTag { get; set; }
     }
 }

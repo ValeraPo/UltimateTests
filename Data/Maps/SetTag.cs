@@ -3,13 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Data.Maps
 {
-    public class SetTags
+    public class SetTag
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SetTags()
+        public SetTag()
         {
-            GroupsCategories = new HashSet<GroupsCategories>();
-            QuizzesCategories = new HashSet<QuizzesCategories>();
+            GroupsCategories = new HashSet<GroupsCategory>();
+            QuizzesCategories = new HashSet<QuizzesCategory>();
         }
 
         [Key]
@@ -22,9 +22,9 @@ namespace Data.Maps
         public bool IsDel { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GroupsCategories> GroupsCategories { get; set; }
+        public virtual ICollection<GroupsCategory> GroupsCategories { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<QuizzesCategories> QuizzesCategories { get; set; }
+        public virtual ICollection<QuizzesCategory> QuizzesCategories { get; set; }
     }
 }
