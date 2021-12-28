@@ -22,7 +22,7 @@ namespace Data.Repositories
         {
             return db.AppointmentQuizzes.Where(t => !t.IsDel);
         }
-        public Maps.AppointmentQuizze GetEntity(int id)
+        public Maps.AppointmentQuizze GetEntity(long id)
         {
             return db.AppointmentQuizzes.Find(id);
         }
@@ -34,7 +34,7 @@ namespace Data.Repositories
         {
             db.Entry(item).State = EntityState.Modified;
         }
-        public void Delete(int id)
+        public void Delete(long id)
         {
             var tmp = db.AppointmentQuizzes.Find(id);
             if (tmp != null)

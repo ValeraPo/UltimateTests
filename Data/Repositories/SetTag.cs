@@ -22,7 +22,7 @@ namespace Data.Repositories
         {
             return db.SetTags.Where(t => !t.IsDel);
         }
-        public Maps.SetTag GetEntity(int id)
+        public Maps.SetTag GetEntity(long id)
         {
             return db.SetTags.Find(id);
         }
@@ -34,7 +34,7 @@ namespace Data.Repositories
         {
             db.Entry(item).State = EntityState.Modified;
         }
-        public void Delete(int id)
+        public void Delete(long id)
         {
             var tmp = db.SetTags.Find(id);
             if (tmp != null)

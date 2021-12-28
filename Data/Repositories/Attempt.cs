@@ -21,7 +21,7 @@ namespace Data.Repositories
         {
             return db.Attempts;
         }
-        public Maps.Attempt GetEntity(int id)
+        public Maps.Attempt GetEntity(long id)
         {
             return db.Attempts.Find(id);
         }
@@ -33,7 +33,7 @@ namespace Data.Repositories
         {
             db.Entry(item).State = EntityState.Modified;
         }
-        public void Delete(int id)
+        public void Delete(long id)
         {
             throw new NotImplementedException();
         }

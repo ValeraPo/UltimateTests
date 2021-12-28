@@ -22,7 +22,7 @@ namespace Data.Repositories
         {
             return db.Groups.Where(t => !t.IsDel);
         }
-        public Maps.Group GetEntity(int id)
+        public Maps.Group GetEntity(long id)
         {
             return db.Groups.Find(id);
         }
@@ -34,7 +34,7 @@ namespace Data.Repositories
         {
             db.Entry(item).State = EntityState.Modified;
         }
-        public void Delete(int id)
+        public void Delete(long id)
         {
             var tmp = db.Groups.Find(id);
             if (tmp != null)
