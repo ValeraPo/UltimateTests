@@ -16,7 +16,7 @@ namespace Data.Repositories
 
 
         public IEnumerable<Maps.SetTag> GetListEntity() => db.SetTags.Where(t => !t.IsDel);
-        public Maps.SetTag GetEntity(long id) => db.SetTags.Find(id);
+        public Maps.SetTag GetEntity(long id) => db.SetTags.Single(t => !t.IsDel && t.ID_TagSet == id);
         public void Create(Maps.SetTag item) => db.SetTags.Add(item);
         public void Update(Maps.SetTag item) => db.Entry(item).State = EntityState.Modified;
         public void Save() => db.SaveChanges();

@@ -16,7 +16,7 @@ namespace Data.Repositories
 
 
         public IEnumerable<Maps.Feedback> GetListEntity() => db.Feedbacks.Where(t => !t.IsDel);
-        public Maps.Feedback GetEntity(long id) => db.Feedbacks.Find(id);
+        public Maps.Feedback GetEntity(long id) => db.Feedbacks.Single(t => !t.IsDel && t.ID_Feedback == id);
         public void Create(Maps.Feedback item) => db.Feedbacks.Add(item);
         public void Update(Maps.Feedback item) => db.Entry(item).State = EntityState.Modified;
         public void Save() => db.SaveChanges();

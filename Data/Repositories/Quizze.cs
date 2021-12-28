@@ -16,7 +16,7 @@ namespace Data.Repositories
 
 
         public IEnumerable<Maps.Quizze> GetListEntity() => db.Quizzes.Where(t => !t.IsDel);
-        public Maps.Quizze GetEntity(long id) => db.Quizzes.Find(id);
+        public Maps.Quizze GetEntity(long id) => db.Quizzes.Single(t => !t.IsDel && t.ID_Quiz == id);
         public void Create(Maps.Quizze item) => db.Quizzes.Add(item);
         public void Update(Maps.Quizze item) => db.Entry(item).State = EntityState.Modified;
         public void Save() => db.SaveChanges();
