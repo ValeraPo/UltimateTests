@@ -9,6 +9,10 @@
 
     <ItemGroup>
       <None Remove="MainIcon.png" />
+    </ItemGroup>   
+
+    <ItemGroup>
+      <ProjectReference Include="..\Logic\Logic.csproj" />
     </ItemGroup>
 
     <ItemGroup>
