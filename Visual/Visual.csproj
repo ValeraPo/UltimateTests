@@ -7,16 +7,18 @@
         <UseWPF>true</UseWPF>
     </PropertyGroup>   
 
-    <ItemGroup>
-      <None Remove="MainIcon.png" />
-    </ItemGroup>   
+    
 
     <ItemGroup>
       <ProjectReference Include="..\Logic\Logic.csproj" />
     </ItemGroup>
 
+    
+
     <ItemGroup>
-      <Resource Include="MainIcon.png" />
+      <Folder Include="Model\" />
+      <Folder Include="ViewModel\" />
+      <Folder Include="View\Students.Form\" />
     </ItemGroup>
 
 </Project>

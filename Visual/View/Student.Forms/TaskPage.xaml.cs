@@ -13,23 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Visual
+namespace WpfAppTrying.View.Student
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for TaskPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TaskPage : Page
     {
-        public MainWindow()
+        public TaskPage()
         {
             InitializeComponent();
-        }
-
-        // перемещение окна "за картинку"
-        private void LogoContainer_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-                this.DragMove();
         }
     }
 }

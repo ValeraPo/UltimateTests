@@ -1,0 +1,21 @@
+﻿<Window x:Class="WpfAppTrying.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfAppTrying"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Height="40" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button x:Name="BtnHistory" Content="Лента" Width="100" Click="BtnHistory_Click"/>
+            <Button x:Name="Tasks"  Content="Задания" Width="100" Click="Tasks_Click"/>
+            <Button x:Name="Stats"  Content="Статистика" Width="100" Click="Stats_Click"/>
+        </StackPanel>
+        <Frame Grid.Row="1" x:Name="Student"/>
+    </Grid>
+</Window>
