@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Data.Interfaces
 {
-    public interface IRepository<T> : IDisposable
+    public interface IRepository<T>
         where T: class
     {
         IEnumerable<T> GetListEntity(); // получение всех объектов

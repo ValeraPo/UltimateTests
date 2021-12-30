@@ -10,7 +10,6 @@ namespace Data.Repositories
     public class AppointmentQuizze : IRepository<Maps.AppointmentQuizze>
     {
         private Context db;
-        private bool    _disposed;
 
         public AppointmentQuizze() => db = Context.GetContext();
 
@@ -29,18 +28,5 @@ namespace Data.Repositories
             Save();
         }
 
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposed && disposing)
-                db.Dispose();
-
-            _disposed = true;
-        }
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
     }
 }

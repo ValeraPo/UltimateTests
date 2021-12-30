@@ -10,7 +10,6 @@ namespace Data.Repositories
     public class Feedback : IRepository<Maps.Feedback>
     {
         private Context db;
-        private bool    _disposed;
 
         public Feedback() => db = Context.GetContext();
 
@@ -27,20 +26,6 @@ namespace Data.Repositories
                 return;
             tmp.IsDel = true;
             Save();
-        }
-
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposed && disposing)
-                db.Dispose();
-
-            _disposed = true;
-        }
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
     }
 }

@@ -9,7 +9,6 @@ namespace Data.Repositories
     public class Attempt : IRepository<Maps.Attempt>
     {
         private Context db;
-        private bool    _disposed;
 
         public Attempt() => db = Context.GetContext();
 
@@ -20,19 +19,5 @@ namespace Data.Repositories
         public void Update(Maps.Attempt item) => db.Entry(item).State = EntityState.Modified;
         public void Save() => db.SaveChanges();
         public void Delete(long id) => throw new NotImplementedException();
-
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposed && disposing)
-                db.Dispose();
-
-            _disposed = true;
-        }
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
     }
 }
