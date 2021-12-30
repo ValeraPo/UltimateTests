@@ -46,6 +46,7 @@ namespace Logic.Processes
 
             return groupByTeg;
         }
+        // Поиск по тегу Qiuz
         public ObservableCollection<QuizzeDTO> SearchQuizzesByTeg(ObservableCollection<SetTagDTO> tags)
         {
             if (tags == null || !tags.Any())

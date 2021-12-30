@@ -41,8 +41,7 @@ namespace Logic.Processes
             return new UserDTO(_user);
         }
         // Добавить нового пользователя
-        public void AddNewUser(string fullName, string email, string login, string password, int id_role,
-            long? id_group = null)
+        public void AddNewUser(string fullName, string email, string login, string password, int id_role, long? id_group = null)
         {
             List<string> logins = _users.GetListEntity().Select(t => t.Login).ToList(); // List<string>
             //Проверка существования логина

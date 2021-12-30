@@ -140,14 +140,14 @@ namespace Logic.Processes
 
             SaveChange();
         }
-        public static void UpdateQuestion(QuestionDTO questionDto, Question question)
+        public void UpdateQuestion(QuestionDTO questionDto, Question question)
         {
             question.Text         = questionDto.Text;
             question.ID_QuestType = questionDto.ID_QuestType;
             foreach (var answer in questionDto.Answers)
                 UpdateAnswer(answer, question.Answers.Single(t => t.ID_Answ == answer.Id));
         }
-        public static void UpdateAnswer(AnswerDTO answerDto, Answer answer)
+        public void UpdateAnswer(AnswerDTO answerDto, Answer answer)
         {
             answer.Text      = answerDto.Text;
             answer.IsCorrect = answerDto.IsCorrect;

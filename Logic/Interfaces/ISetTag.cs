@@ -7,5 +7,10 @@ namespace Logic.Interfaces
     {
         public SetTagDTO GetEntity(long id);
         public ObservableCollection<SetTagDTO> GetListEntity();
+        public ObservableCollection<GroupDTO> SearchGroupByTeg(ObservableCollection<SetTagDTO> tags);
+        public ObservableCollection<QuizzeDTO> SearchQuizzesByTeg(ObservableCollection<SetTagDTO> tags);
+        public void RemoveTeg(SetTagDTO teg);
+        public void SaveChange();
+        public void Update(SetTagDTO teg);
     }
 }
