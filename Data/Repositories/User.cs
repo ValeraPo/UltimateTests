@@ -10,7 +10,6 @@ namespace Data.Repositories
     public class User : IRepository<Maps.User>
     {
         private Context db;
-        private bool    _disposed;
 
         public User() => db = Context.GetContext();
 
@@ -28,20 +27,6 @@ namespace Data.Repositories
             user.IsDel = true;
             foreach (var teach in user.TeachingGroups)
                 teach.IsDel = true;
-        }
-
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposed && disposing)
-                db.Dispose();
-
-            _disposed = true;
-        }
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
     }
 }

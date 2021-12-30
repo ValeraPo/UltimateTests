@@ -10,7 +10,6 @@ namespace Data.Repositories
     public class Quizze : IRepository<Maps.Quizze>
     {
         private Context db;
-        private bool    _disposed;
 
         public Quizze() => db = Context.GetContext();
 
@@ -35,20 +34,6 @@ namespace Data.Repositories
                     answer.IsDel = true;
                 question.IsDel = true;
             }
-        }
-
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposed && disposing)
-                db.Dispose();
-
-            _disposed = true;
-        }
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
     }
 }
