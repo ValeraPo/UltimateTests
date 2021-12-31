@@ -16,7 +16,7 @@ namespace Logic.DTO
             Type     = user.ID_Role;
             FullName = user.FullName;
             Email    = user.Email;
-            Group    = user.Group.NameOfGroup;
+            Group    = user.Group?.NameOfGroup;
         }
         
         
