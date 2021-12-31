@@ -6,9 +6,19 @@
       xmlns:local="clr-namespace:WpfAppTrying.View.Student"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="StatPage">
+      Title="StatPage" Loaded="Page_Loaded">
 
     <Grid Background="Aquamarine">
-        <TextBlock Text="STATISTIC" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <ListBox x:Name="dgHistory">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel Margin="5">
+                        <TextBlock FontSize="16" Text="{Binding Path=Quiz}" HorizontalAlignment="Center" />
+                        <TextBlock FontSize="16" Text="{Binding Path=CountOfQuiz}" HorizontalAlignment="Center" />
+                        <TextBlock FontSize="16" Text="{Binding Path=Score}" HorizontalAlignment="Center" />
+                    </WrapPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Page>

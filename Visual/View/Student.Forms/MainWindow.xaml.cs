@@ -24,14 +24,10 @@ namespace WpfAppTrying
         {
             InitializeComponent();
         }
-        View.Student.HistoryPage historyPage;
+        
         View.Student.TaskPage taskPage;
         View.Student.StatPage statPage;
-        private void BtnHistory_Click(object sender, RoutedEventArgs e)
-        {
-            historyPage = new View.Student.HistoryPage();
-            Student.Content = historyPage;
-        }
+        
 
         private void Tasks_Click(object sender, RoutedEventArgs e)
         {

@@ -10,6 +10,7 @@ namespace WpfAppTrying.View.Student.Model
     {
         private string _quiz;
         private string _teacher;
+        private string _score;
         public DateTime CreationDate { get; set; } = DateTime.Now;
         public string Quiz
         {
@@ -20,6 +21,11 @@ namespace WpfAppTrying.View.Student.Model
         {
             get { return _teacher; }
             set { _teacher = value; }
+        }
+        public string Score
+        {
+            get { return _score; }
+            set { _score = value; }
         }
     }
 }
