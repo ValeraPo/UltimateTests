@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 using System.Windows;
 using Ninject;
 using Ninject.Modules;
-using Ninject.Web.Mvc;
 using Visual.Configuration;
 
 namespace Visual
@@ -20,10 +17,7 @@ namespace Visual
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            NinjectModule registrations = new ProjectConfiguration();
-            var           kernel        = new StandardKernel(registrations);
-            DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
-
+            IocKernel.Initialize(new ProjectConfiguration());
             base.OnStartup(e);
         }
     }
