@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Data.Interfaces;
 using Data.Maps;
+using Logic.Configuration;
 using Logic.DTO;
 using Logic.Interfaces;
 
@@ -13,12 +14,11 @@ namespace Logic.Processes
         private IRepository<Data.Maps.Quizze> _quizzes;
         private IRepository<Data.Maps.Group>  _groups;
         private IRepository<Data.Maps.User>   _users;
-        public Quizze(IRepository<Data.Maps.Quizze> quizzes, IRepository<Data.Maps.Group> groups,
-            IRepository<Data.Maps.User> users)
+        public Quizze()
         {
-            _quizzes = quizzes;
-            _groups  = groups;
-            _users   = users;
+            _quizzes = IocKernel.Get<IRepository<Data.Maps.Quizze>>();
+            _groups  = IocKernel.Get<IRepository<Data.Maps.Group>>();
+            _users   = IocKernel.Get<IRepository<Data.Maps.User>>();
         }
 
 

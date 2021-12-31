@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using Data.Interfaces;
+using Logic.Configuration;
 using Logic.DTO;
 using Logic.Interfaces;
 
@@ -10,9 +11,9 @@ namespace Logic.Processes
     {
         private IRepository<Data.Maps.Feedback> _feedbacks;
 
-        public Feedback(IRepository<Data.Maps.Feedback> feedbacks)
+        public Feedback()
         {
-            _feedbacks = feedbacks;
+            _feedbacks = IocKernel.Get<IRepository<Data.Maps.Feedback>>();
         }
 
 
