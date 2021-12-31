@@ -1,0 +1,61 @@
+﻿<Window x:Class="Visual.View.Teacher.Form.QuizTeacher"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Visual.View.Teacher.Form"
+        mc:Ignorable="d"
+        Title="QuizTeacher" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="{Binding TestName}"/>
+        <ComboBox Grid.Column="1">
+            <TextBlock>Студенты</TextBlock>
+            <TextBlock>Группы</TextBlock>
+        </ComboBox>
+        <!-- Списки студентов и групп зависимость от комбобокса -->
+        <ListBox x:Name="StudentsList">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5">
+                        <TextBlock FontSize="16" Text="{Binding Path=Quiz}" HorizontalAlignment="Center" />
+                        <TextBlock FontSize="16" Text="{Binding Path=Teacher}" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ListBox x:Name="GroupssList">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5">
+                        <TextBlock FontSize="16" Text="{Binding Path=Quiz}" HorizontalAlignment="Center" />
+                        <TextBlock FontSize="16" Text="{Binding Path=Teacher}" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="80"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="tBoxFeedback"/>
+            <Button Grid.Column="1" Margin="0 150 5 0" Content="Отправить"/>
+            <Canvas Grid.Row="1" Grid.ColumnSpan="2">
+                <Button Content="Начать тест" Canvas.Bottom="20" Canvas.Right="20" Width="80"/>
+                <Button Content="Просмотр" Canvas.Bottom="20" Canvas.Right="140" Width="80"/>
+            </Canvas>
+        </Grid>
+    </Grid>
+</Window>

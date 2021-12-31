@@ -5,21 +5,18 @@
         <TargetFramework>net5.0-windows</TargetFramework>
         <Nullable>enable</Nullable>
         <UseWPF>true</UseWPF>
-    </PropertyGroup>   
-
-    
+    </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Logic\Logic.csproj" />
+        <ProjectReference Include="..\Logic\Logic.csproj"/>
     </ItemGroup>
-
     
 
     <ItemGroup>
+      <Folder Include="Model\"/>
       <Folder Include="ViewModel\" />
       <Folder Include="View\Students.Form\" />
     </ItemGroup>
-
     
 
     <ItemGroup>
