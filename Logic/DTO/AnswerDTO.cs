@@ -4,8 +4,8 @@ namespace Logic.DTO
     {
         public AnswerDTO(long id, string text, bool isCorrect)
         {
-            Id = id;
-            Text = text;
+            Id        = id;
+            Text      = text;
             IsCorrect = isCorrect;
         }
         public AnswerDTO(Data.Maps.Answer answer)
