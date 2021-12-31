@@ -17,8 +17,6 @@ namespace Visual
         protected override void OnStartup(StartupEventArgs e)
         {
             IocKernel.Initialize(new ProjectConfiguration());
-            IUser gg = IocKernel.Get<IUser>();
-            var tmp = gg.GetListEntity();
             base.OnStartup(e);
         }
     }
