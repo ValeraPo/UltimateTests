@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using Data.Interfaces;
 using Data.Maps;
 using Logic.Configuration;
@@ -37,7 +39,7 @@ namespace Logic.Processes
         public UserDTO Authorization(string login, string password)
         {
             _user = _users.GetListEntity().Single(t => t.Login == login.ToLower());
-            if (_user.HashPass != Encryptor.MD5Hash(password))
+            if (_user.HashPass != MD5Hash(password))
                 throw new KeyNotFoundException("Пароль неверный");
             return new UserDTO(_user);
         }
@@ -55,7 +57,7 @@ namespace Logic.Processes
                               Login    = login,
                               ID_Role  = id_role,
                               ID_Group = id_group,
-                              HashPass = Encryptor.MD5Hash(password)
+                              HashPass = MD5Hash(password)
                           });
             _users.Save();
         }
@@ -105,6 +107,22 @@ namespace Logic.Processes
             _users.Update(tmp);
 
             SaveChange();
+        }
+
+
+        private static string MD5Hash(string text)
+        {
+            MD5 md5 = new MD5CryptoServiceProvider();
+
+            md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(text));
+
+            byte[] result = md5.Hash;
+
+            StringBuilder strBuilder = new StringBuilder();
+            for (int i = 0; i < result.Length; i++)
+                strBuilder.Append(result[i].ToString("x2"));
+
+            return strBuilder.ToString();
         }
     }
 }

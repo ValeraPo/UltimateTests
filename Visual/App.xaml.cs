@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 using Logic.Configuration;
+using Logic.Interfaces;
 
 namespace Visual
 {
