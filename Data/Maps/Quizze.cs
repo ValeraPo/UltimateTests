@@ -17,11 +17,12 @@ namespace Data.Maps
             QuizzesCategories  = new HashSet<QuizzesCategory>();
         }
 
-        [Key] public long     ID_Quiz          {get; set;}
-        public       long     ID_UserCreateons {get; set;}
-        public       TimeSpan TimeToComplete   {get; set;}
-        public       int      MaxPoints        {get; set;}
-        public       bool     IsDel            {get; set;}
+        [Key] public                          long     ID_Quiz          {get; set;}
+        public                                long     ID_UserCreateons {get; set;}
+        [Required] [StringLength(280)] public string   Name             {get; set;}
+        public                                TimeSpan TimeToComplete   {get; set;}
+        public                                int      MaxPoints        {get; set;}
+        public                                bool     IsDel            {get; set;}
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage",
             "CA2227:CollectionPropertiesShouldBeReadOnly")]

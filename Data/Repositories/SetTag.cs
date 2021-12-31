@@ -10,7 +10,6 @@ namespace Data.Repositories
     public class SetTag : IRepository<Maps.SetTag>
     {
         private Context db;
-        private bool    _disposed;
 
         public SetTag() => db = Context.GetContext();
 
@@ -30,20 +29,6 @@ namespace Data.Repositories
                 groups.IsDel = true;
             foreach (var quizzes in teg.QuizzesCategories)
                 quizzes.IsDel = true;
-        }
-
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposed && disposing)
-                db.Dispose();
-
-            _disposed = true;
-        }
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
     }
 }

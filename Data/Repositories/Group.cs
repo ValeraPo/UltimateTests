@@ -10,8 +10,7 @@ namespace Data.Repositories
     public class Group : IRepository<Maps.Group>
     {
         private Context db;
-        private bool    _disposed;
-
+        
         public Group() => db = Context.GetContext();
 
 
@@ -31,20 +30,6 @@ namespace Data.Repositories
             foreach (var studens in group.Users)
                 studens.Group = null;
             Save();
-        }
-
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposed && disposing)
-                db.Dispose();
-
-            _disposed = true;
-        }
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
     }
 }
