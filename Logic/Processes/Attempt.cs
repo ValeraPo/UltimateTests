@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using Data.Interfaces;
+using Logic.Configuration;
 using Logic.DTO;
 using Logic.Interfaces;
 
@@ -9,9 +10,9 @@ namespace Logic.Processes
     {
         private IRepository<Data.Maps.Attempt> _attempts;
 
-        public Attempt(IRepository<Data.Maps.Attempt> attempts)
+        public Attempt()
         {
-            _attempts = attempts;
+            _attempts = IocKernel.Get<IRepository<Data.Maps.Attempt>>();
         }
         public AttemptDTO GetEntity(long id)
         {

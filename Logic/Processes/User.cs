@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Data.Interfaces;
 using Data.Maps;
+using Logic.Configuration;
 using Logic.DTO;
 using Logic.Interfaces;
 
@@ -14,10 +15,10 @@ namespace Logic.Processes
         private IRepository<Data.Maps.User>  _users;
         private IRepository<Data.Maps.Group> _groups;
         private Data.Maps.User               _user;
-        public User(IRepository<Data.Maps.User> users, IRepository<Data.Maps.Group> group)
+        public User()
         {
-            _users  = users;
-            _groups = group;
+            _users  = IocKernel.Get<IRepository<Data.Maps.User>>();
+            _groups = IocKernel.Get<IRepository<Data.Maps.Group>>();
         }
 
 

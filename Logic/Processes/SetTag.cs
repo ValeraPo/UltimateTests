@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Data.Interfaces;
+using Logic.Configuration;
 using Logic.DTO;
 using Logic.Interfaces;
 
@@ -11,9 +12,9 @@ namespace Logic.Processes
     public class SetTag : ISetTag
     {
         private IRepository<Data.Maps.SetTag> _tags;
-        public SetTag(IRepository<Data.Maps.SetTag> tags)
+        public SetTag()
         {
-            _tags = tags;
+            _tags = IocKernel.Get<IRepository<Data.Maps.SetTag>>();
         }
 
 

@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using Data.Interfaces;
 using Data.Maps;
+using Logic.Configuration;
 using Logic.DTO;
 using Logic.Interfaces;
 
@@ -11,9 +12,9 @@ namespace Logic.Processes
     {
         private IRepository<Data.Maps.Group> _groups;
 
-        public Group(IRepository<Data.Maps.Group> groups)
+        public Group()
         {
-            _groups = groups;
+            _groups = IocKernel.Get<IRepository<Data.Maps.Group>>();
         }
 
 

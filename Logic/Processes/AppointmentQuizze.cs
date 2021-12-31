@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using Data.Interfaces;
+using Logic.Configuration;
 using Logic.DTO;
 using Logic.Interfaces;
 
@@ -10,9 +11,9 @@ namespace Logic.Processes
     {
         private IRepository<Data.Maps.AppointmentQuizze> _appointments;
 
-        public AppointmentQuizze(IRepository<Data.Maps.AppointmentQuizze> appointments)
+        public AppointmentQuizze()
         {
-            _appointments = appointments;
+            _appointments = IocKernel.Get<IRepository<Data.Maps.AppointmentQuizze>>();
         }
 
 

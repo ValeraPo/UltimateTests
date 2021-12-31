@@ -8,19 +8,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Logic\Logic.csproj"/>
+        <ProjectReference Include="..\Logic\Logic.csproj" />
     </ItemGroup>
     
 
     <ItemGroup>
-      <Folder Include="Model\"/>
+      <Folder Include="Model\" />
       <Folder Include="ViewModel\" />
       <Folder Include="View\Students.Form\" />
-    </ItemGroup>
-    
-
-    <ItemGroup>
-      <PackageReference Include="Ninject" Version="3.3.4" />
     </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 using Ninject;
 using Ninject.Modules;
 
-namespace Visual.Configuration
+namespace Logic.Configuration
 {
     public static class IocKernel
     {

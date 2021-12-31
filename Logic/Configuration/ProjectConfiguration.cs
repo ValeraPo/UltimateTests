@@ -3,7 +3,7 @@ using Data.Maps;
 using Logic.Interfaces;
 using Ninject.Modules;
 
-namespace Visual.Configuration
+namespace Logic.Configuration
 {
     public class ProjectConfiguration : NinjectModule
     {
@@ -19,13 +19,13 @@ namespace Visual.Configuration
             Bind<IRepository<User>>().To<Data.Repositories.User>().InSingletonScope();
             
             //Процессоры
-            Bind<IUser>().To<Logic.Processes.User>().InSingletonScope();
-            Bind<IAttempt>().To<Logic.Processes.Attempt>().InSingletonScope();
-            Bind<IAppointmentQuizze>().To<Logic.Processes.AppointmentQuizze>().InSingletonScope();
-            Bind<IFeedback>().To<Logic.Processes.Feedback>().InSingletonScope();
-            Bind<IGroup>().To<Logic.Processes.Group>().InSingletonScope();
-            Bind<IQuizze>().To<Logic.Processes.Quizze>().InSingletonScope();
-            Bind<ISetTag>().To<Logic.Processes.SetTag>().InSingletonScope();
+            Bind<IUser>().To<Processes.User>().InSingletonScope();
+            Bind<IAttempt>().To<Processes.Attempt>().InSingletonScope();
+            Bind<IAppointmentQuizze>().To<Processes.AppointmentQuizze>().InSingletonScope();
+            Bind<IFeedback>().To<Processes.Feedback>().InSingletonScope();
+            Bind<IGroup>().To<Processes.Group>().InSingletonScope();
+            Bind<IQuizze>().To<Processes.Quizze>().InSingletonScope();
+            Bind<ISetTag>().To<Processes.SetTag>().InSingletonScope();
         }
     }
 }
