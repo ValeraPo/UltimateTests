@@ -45,14 +45,21 @@
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="80"/>
             </Grid.ColumnDefinitions>
-            <TextBox x:Name="tBoxFeedback"/>
-            <Button Grid.Column="1" Margin="0 150 5 0" Content="Отправить"/>
-            <Canvas Grid.Row="1" Grid.ColumnSpan="2">
+            <StackPanel Grid.Column="0" Grid.Row="0">
+                <DatePickerTextBox/>
+                <DatePicker/>
+            </StackPanel>
+
+            <Button Grid.Column="1" Grid.Row="0" Content="Назначить"/>
+            <TextBox x:Name="tBoxFeedback" Grid.Column="0" Grid.Row="1"/>
+            <Button Grid.Column="1" Grid.Row="1" Margin="0 0 5 0" Content="Отправить"/>
+            <Canvas Grid.Row="2" Grid.ColumnSpan="2">
                 <Button Content="Начать тест" Canvas.Bottom="20" Canvas.Right="20" Width="80"/>
                 <Button Content="Просмотр" Canvas.Bottom="20" Canvas.Right="140" Width="80"/>
             </Canvas>
