@@ -17,10 +17,14 @@ namespace Logic.Processes
         private IRepository<Data.Maps.User>  _users;
         private IRepository<Data.Maps.Group> _groups;
         private Data.Maps.User               _user;
+        private List<string>                 logins;
+        private List<string>                 emails;
         public User()
         {
             _users  = IocKernel.Get<IRepository<Data.Maps.User>>();
             _groups = IocKernel.Get<IRepository<Data.Maps.Group>>();
+            logins  = _users.GetListEntity().Select(t => t.Login).ToList();
+            emails  = _users.GetListEntity().Select(t => t.Email).ToList();
         }
 
 
@@ -31,7 +35,7 @@ namespace Logic.Processes
         public ObservableCollection<UserDTO> GetListEntity()
         {
             var res = new ObservableCollection<UserDTO>();
-            foreach (var user in _users.GetListEntity()) 
+            foreach (var user in _users.GetListEntity())
                 res.Add(new UserDTO(user));
 
             return res;
@@ -39,7 +43,7 @@ namespace Logic.Processes
         public ObservableCollection<UserDTO> GetListStud()
         {
             var res = new ObservableCollection<UserDTO>();
-            foreach (var user in _users.GetListEntity().Where(t=> t.ID_Role == 2))
+            foreach (var user in _users.GetListEntity().Where(t => t.ID_Role == 2))
                 res.Add(new UserDTO(user));
 
             return res;
@@ -52,26 +56,17 @@ namespace Logic.Processes
 
             return res;
         }
-        
+
         // Проверка пароля при авторизации
         public UserDTO Authorization(string login, string password)
         {
-            try
-            {
-                _user = _users.GetListEntity().Single(t => t.Login == login.ToLower());
-            }
+            try { _user = _users.GetListEntity().Single(t => t.Login == login.ToLower()); }
             catch (InvalidOperationException)
             {
-                try
-                {
-                    _user = _users.GetListEntity().Single(t => t.Email == login.ToLower());
-                }
-                catch (InvalidOperationException)
-                {
-                    throw new InvalidOperationException();
-                }
+                try { _user = _users.GetListEntity().Single(t => t.Email == login.ToLower()); }
+                catch (InvalidOperationException) { throw new InvalidOperationException(); }
             }
-            
+
             if (_user.HashPass != MD5Hash(password))
                 throw new KeyNotFoundException("Пароль неверный");
             return new UserDTO(_user);
@@ -79,11 +74,10 @@ namespace Logic.Processes
         // Добавить нового пользователя
         public void AddNewUser(string fullName, string email, string login, string password, int id_role, long? id_group = null)
         {
-            List<string> logins = _users.GetListEntity().Select(t => t.Login).ToList();
             //Проверка существования логина
             if (logins.Contains(login.ToLower()))
                 throw new ArgumentException("Логин уже существует");
-            List<string> emails = _users.GetListEntity().Select(t => t.Email).ToList();
+
             //Проверка существования email
             if (emails.Contains(email.ToLower()))
                 throw new ArgumentException("E-mail уже существует");
@@ -149,7 +143,7 @@ namespace Logic.Processes
         {
             Update(user);
             var tmp = _users.GetEntity(user.Id);
-            tmp.Login = login;
+            tmp.Login    = login;
             tmp.HashPass = MD5Hash(password);
             SaveChange();
         }
