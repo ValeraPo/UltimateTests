@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
 using Data.Interfaces;
 using Data.Maps;
 using Logic.Configuration;
@@ -33,13 +33,26 @@ namespace Logic.Processes
         public void AddTag(GroupDTO group, SetTagDTO teg)
         {
             var myGroup = _groups.GetEntity(group.Id);
-            myGroup.GroupsCategories.Add(new GroupsCategory()
-                                         {
-                                             ID_Group  = group.Id,
-                                             ID_TagSet = teg.Id
-                                         });
+            if (myGroup.GroupsCategories.All(t => t.ID_TagSet != teg.Id))
+            {
+                 myGroup.GroupsCategories.Add(new GroupsCategory()
+                                                         {
+                                                             ID_Group  = group.Id,
+                                                             ID_TagSet = teg.Id
+                                                         });
+            }
+            else
+                myGroup.GroupsCategories.Single(t => t.ID_TagSet == teg.Id).IsDel = false;
 
             _groups.Save();
+        }
+        // Создание(добавление) группы
+        public void AddGroup(string text)
+        {
+            _groups.Create(new Data.Maps.Group()
+                           {
+                               NameOfGroup = text
+                           });
         }
         // Удаление группы
         public void RemoveGroup(GroupDTO group)

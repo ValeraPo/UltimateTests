@@ -43,11 +43,17 @@ namespace Logic.Processes
         public void AddTag(QuizzeDTO quizze, SetTagDTO teg)
         {
             var myQuizze = _quizzes.GetEntity(quizze.Id);
-            myQuizze.QuizzesCategories.Add(new QuizzesCategory()
-                                           {
-                                               ID_Quiz   = quizze.Id,
-                                               ID_TagSet = teg.Id
-                                           });
+            if (myQuizze.QuizzesCategories.All(t => t.ID_TagSet != teg.Id))
+            {
+                myQuizze.QuizzesCategories.Add(new QuizzesCategory()
+                                                           {
+                                                               ID_Quiz   = quizze.Id,
+                                                               ID_TagSet = teg.Id
+                                                           });
+            }
+            else
+                myQuizze.QuizzesCategories.Single(t => t.ID_TagSet == teg.Id).IsDel = false;
+
             _quizzes.Save();
         }
 

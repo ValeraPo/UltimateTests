@@ -31,14 +31,47 @@ namespace Logic.Processes
         public ObservableCollection<UserDTO> GetListEntity()
         {
             var res = new ObservableCollection<UserDTO>();
-            foreach (var user in _users.GetListEntity()) { res.Add(new UserDTO(user)); }
+            foreach (var user in _users.GetListEntity()) 
+                res.Add(new UserDTO(user));
 
             return res;
         }
+        public ObservableCollection<UserDTO> GetListStud()
+        {
+            var res = new ObservableCollection<UserDTO>();
+            foreach (var user in _users.GetListEntity().Where(t=> t.ID_Role == 2))
+                res.Add(new UserDTO(user));
+
+            return res;
+        }
+        public ObservableCollection<UserDTO> GetListTeacher()
+        {
+            var res = new ObservableCollection<UserDTO>();
+            foreach (var user in _users.GetListEntity().Where(t => t.ID_Role == 3))
+                res.Add(new UserDTO(user));
+
+            return res;
+        }
+        
         // Проверка пароля при авторизации
         public UserDTO Authorization(string login, string password)
         {
-            _user = _users.GetListEntity().Single(t => t.Login == login.ToLower());
+            try
+            {
+                _user = _users.GetListEntity().Single(t => t.Login == login.ToLower());
+            }
+            catch (InvalidOperationException)
+            {
+                try
+                {
+                    _user = _users.GetListEntity().Single(t => t.Email == login.ToLower());
+                }
+                catch (InvalidOperationException)
+                {
+                    throw new InvalidOperationException();
+                }
+            }
+            
             if (_user.HashPass != MD5Hash(password))
                 throw new KeyNotFoundException("Пароль неверный");
             return new UserDTO(_user);
@@ -106,6 +139,14 @@ namespace Logic.Processes
                 tmp.ID_Group = null;
             _users.Update(tmp);
 
+            SaveChange();
+        }
+        public void Update(UserDTO user, string login, string password)
+        {
+            Update(user);
+            var tmp = _users.GetEntity(user.Id);
+            tmp.Login = login;
+            tmp.HashPass = MD5Hash(password);
             SaveChange();
         }
 
