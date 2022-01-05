@@ -79,10 +79,14 @@ namespace Logic.Processes
         // Добавить нового пользователя
         public void AddNewUser(string fullName, string email, string login, string password, int id_role, long? id_group = null)
         {
-            List<string> logins = _users.GetListEntity().Select(t => t.Login).ToList(); // List<string>
+            List<string> logins = _users.GetListEntity().Select(t => t.Login).ToList();
             //Проверка существования логина
             if (logins.Contains(login.ToLower()))
                 throw new ArgumentException("Логин уже существует");
+            List<string> emails = _users.GetListEntity().Select(t => t.Email).ToList();
+            //Проверка существования email
+            if (emails.Contains(email.ToLower()))
+                throw new ArgumentException("E-mail уже существует");
             _users.Create(new Data.Maps.User()
                           {
                               FullName = fullName,
