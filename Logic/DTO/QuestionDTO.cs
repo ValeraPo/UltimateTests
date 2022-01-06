@@ -11,12 +11,14 @@ namespace Logic.DTO
             Text         = text;
             Answers      = answers;
         }
-        public QuestionDTO(int idQuestType, string text, ObservableCollection<AnswerDTO> answers)
+        public QuestionDTO(string text, int idQuestType, ObservableCollection<AnswerDTO> answers)
         {
             ID_QuestType = idQuestType;
             Text         = text;
             Answers      = answers;
         }
+        public QuestionDTO(string text, int idQuestType = 1) 
+            : this(text, idQuestType, new ObservableCollection<AnswerDTO>()){ }
         public QuestionDTO(Data.Maps.Question question)
         {
             Id           = question.ID_Quest;

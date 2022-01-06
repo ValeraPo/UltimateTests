@@ -4,20 +4,22 @@ namespace Logic.DTO
 {
     public class AttemptDTO
     {
-        public AttemptDTO(long id, int score, TimeSpan transitTime, DateTime dateTime, string nameQuiz)
+        public AttemptDTO(long id, int score, TimeSpan transitTime, DateTime dateTime, string nameQuiz, string nameUser)
         {
             Id          = id;
             Score       = score;
             TransitTime = transitTime;
             DateTime    = dateTime;
             NameQuiz    = nameQuiz;
+            NameUser    = nameUser;
         }
-        public AttemptDTO(int score, TimeSpan transitTime, DateTime dateTime, string nameQuiz)
+        public AttemptDTO(int score, TimeSpan transitTime, DateTime dateTime, string nameQuiz, string nameUser)
         {
             Score       = score;
             TransitTime = transitTime;
             DateTime    = dateTime;
             NameQuiz    = nameQuiz;
+            NameUser    = nameUser;
         }
         public AttemptDTO(Data.Maps.Attempt attempt)
         {
@@ -26,6 +28,7 @@ namespace Logic.DTO
             TransitTime = attempt.TransitTime;
             DateTime    = attempt.DateTime;
             NameQuiz    = attempt.Quizze.Name;
+            NameUser    = attempt.User.FullName;
         }
 
 
@@ -34,5 +37,6 @@ namespace Logic.DTO
         public TimeSpan TransitTime {get; set;}
         public DateTime DateTime    {get; set;}
         public string   NameQuiz    {get; set;}
+        public string   NameUser    {get; set;}
     }
 }

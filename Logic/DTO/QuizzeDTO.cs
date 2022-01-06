@@ -7,20 +7,21 @@ namespace Logic.DTO
     {
         public QuizzeDTO(long id, string nameQuiz, TimeSpan timeToComplete, int maxPoints, ObservableCollection<QuestionDTO> questions)
         {
-            Id = id;
-            NameQuiz = nameQuiz;
-            TimeToComplete = timeToComplete;
-            MaxPoints = maxPoints;
-            Questions = questions;
-        }
-        public QuizzeDTO(string nameQuiz, TimeSpan timeToComplete, int maxPoints, ObservableCollection<QuestionDTO> questions)
-        {
+            Id             = id;
             NameQuiz       = nameQuiz;
             TimeToComplete = timeToComplete;
             MaxPoints      = maxPoints;
             Questions      = questions;
         }
-        public QuizzeDTO(Data.Maps.Quizze quiz, bool flag)
+        public QuizzeDTO(string nameQuiz, TimeSpan timeToComplete, ObservableCollection<QuestionDTO> questions)
+        {
+            NameQuiz       = nameQuiz;
+            TimeToComplete = timeToComplete;
+            Questions      = questions;
+        }
+        public QuizzeDTO(string nameQuiz, TimeSpan timeToComplete)
+            : this(nameQuiz, timeToComplete, new ObservableCollection<QuestionDTO>()) { }
+        public QuizzeDTO(Data.Maps.Quizze quiz, bool flag = false)
         {
             Id             = quiz.ID_Quiz;
             NameQuiz       = quiz.Name;
@@ -32,8 +33,8 @@ namespace Logic.DTO
             foreach (var question in quiz.Questions)
                 Questions.Add(new QuestionDTO(question));
         }
-        
-        
+
+
         public long                              Id             {get; set;}
         public string                            NameQuiz       {get; set;}
         public TimeSpan                          TimeToComplete {get; set;}

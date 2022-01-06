@@ -8,7 +8,7 @@ namespace Logic.DTO
             Text      = text;
             IsCorrect = isCorrect;
         }
-        public AnswerDTO(string text, bool isCorrect)
+        public AnswerDTO(string text, bool isCorrect = false)
         {
             Text      = text;
             IsCorrect = isCorrect;
