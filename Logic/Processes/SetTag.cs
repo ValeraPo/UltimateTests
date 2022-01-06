@@ -63,6 +63,14 @@ namespace Logic.Processes
 
             return quizzesByTeg;
         }
+        // Создание(добавление) тега
+        public void AddTeg(string text)
+        {
+            _tags.Create(new Data.Maps.SetTag()
+                         {
+                             Text = text
+                         });
+        }
         // Удаление тега
         public void RemoveTeg(SetTagDTO teg)
         {
@@ -70,7 +78,7 @@ namespace Logic.Processes
         }
         // Сохранить изменения
         public void SaveChange() => _tags.Save();
-        //Сохранение изменения
+        // Сохранение изменения
         public void Update(SetTagDTO teg)
         {
             var tmp = _tags.GetEntity(teg.Id);

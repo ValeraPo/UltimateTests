@@ -10,6 +10,7 @@ namespace Logic.Interfaces
         public QuizzeDTO GetEntity(long id);
         public QuizzeDTO GetEntityNotNested(long id);
         public ObservableCollection<QuizzeDTO> GetListEntity();
+        public void AddQuiz(QuizzeDTO quiz, UserDTO user);
         public void AddTag(QuizzeDTO quizze, SetTagDTO teg);
         public void RemoveQuizze(QuizzeDTO quizze);
         public void AddAppointmentQuizze(QuizzeDTO quizze, GroupDTO group, DateTime finishBefore);

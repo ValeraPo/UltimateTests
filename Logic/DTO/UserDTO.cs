@@ -10,6 +10,13 @@ namespace Logic.DTO
             Email    = email;
             Group    = group;
         }
+        public UserDTO(int type, string fullName, string email, string group)
+        {
+            Type     = type;
+            FullName = fullName;
+            Email    = email;
+            Group    = group;
+        }
         public UserDTO(Data.Maps.User user)
         {
             Id       = user.ID_User;
