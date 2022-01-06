@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using Data.Interfaces;
 using Data.Maps;
 using Logic.Configuration;
@@ -56,11 +57,16 @@ namespace Logic.Processes
         // Проверка пароля при авторизации
         public UserDTO Authorization(string login, string password)
         {
-            try { _user = _users.GetListEntity().Single(t => t.Login == login.ToLower()); }
+            try
+            {
+                if (Regex.IsMatch(login, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                    _user = _users.GetListEntity().Single(t => t.Email == login.ToLower());
+                else 
+                    _user = _users.GetListEntity().Single(t => t.Login == login.ToLower());
+            }
             catch (InvalidOperationException)
             {
-                try { _user = _users.GetListEntity().Single(t => t.Email == login.ToLower()); }
-                catch (InvalidOperationException) { throw new InvalidOperationException(); }
+                 throw new InvalidOperationException(); 
             }
 
             if (_user.HashPass != MD5Hash(password))
