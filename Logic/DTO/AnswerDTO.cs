@@ -8,6 +8,11 @@ namespace Logic.DTO
             Text      = text;
             IsCorrect = isCorrect;
         }
+        public AnswerDTO(string text, bool isCorrect)
+        {
+            Text      = text;
+            IsCorrect = isCorrect;
+        }
         public AnswerDTO(Data.Maps.Answer answer)
         {
             Id        = answer.ID_Answ;

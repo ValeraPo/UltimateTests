@@ -7,6 +7,10 @@ namespace Logic.DTO
             Id   = id;
             Text = text;
         }
+        public SetTagDTO(string text)
+        {
+            Text = text;
+        }
         public SetTagDTO(Data.Maps.SetTag setTag)
         {
             Id   = setTag.ID_TagSet;

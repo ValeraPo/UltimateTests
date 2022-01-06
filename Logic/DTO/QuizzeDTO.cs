@@ -13,6 +13,13 @@ namespace Logic.DTO
             MaxPoints = maxPoints;
             Questions = questions;
         }
+        public QuizzeDTO(string nameQuiz, TimeSpan timeToComplete, int maxPoints, ObservableCollection<QuestionDTO> questions)
+        {
+            NameQuiz       = nameQuiz;
+            TimeToComplete = timeToComplete;
+            MaxPoints      = maxPoints;
+            Questions      = questions;
+        }
         public QuizzeDTO(Data.Maps.Quizze quiz, bool flag)
         {
             Id             = quiz.ID_Quiz;

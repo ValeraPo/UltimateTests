@@ -10,6 +10,11 @@ namespace Logic.DTO
             FinishBefore = finishBefore;
             NameQuiz     = nameQuiz;
         }
+        public AppointmentQuizzeDTO(DateTime finishBefore, string nameQuiz)
+        {
+            FinishBefore = finishBefore;
+            NameQuiz     = nameQuiz;
+        }
         public AppointmentQuizzeDTO(Data.Maps.AppointmentQuizze appointment)
         {
             Id           = appointment.ID_Appointment;

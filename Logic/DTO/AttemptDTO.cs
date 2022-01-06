@@ -12,6 +12,13 @@ namespace Logic.DTO
             DateTime    = dateTime;
             NameQuiz    = nameQuiz;
         }
+        public AttemptDTO(int score, TimeSpan transitTime, DateTime dateTime, string nameQuiz)
+        {
+            Score       = score;
+            TransitTime = transitTime;
+            DateTime    = dateTime;
+            NameQuiz    = nameQuiz;
+        }
         public AttemptDTO(Data.Maps.Attempt attempt)
         {
             Id          = attempt.ID_Try;
