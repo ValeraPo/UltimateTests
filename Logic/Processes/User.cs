@@ -17,14 +17,10 @@ namespace Logic.Processes
         private IRepository<Data.Maps.User>  _users;
         private IRepository<Data.Maps.Group> _groups;
         private Data.Maps.User               _user;
-        private List<string>                 logins;
-        private List<string>                 emails;
         public User()
         {
             _users  = IocKernel.Get<IRepository<Data.Maps.User>>();
             _groups = IocKernel.Get<IRepository<Data.Maps.Group>>();
-            logins  = _users.GetListEntity().Select(t => t.Login).ToList();
-            emails  = _users.GetListEntity().Select(t => t.Email).ToList();
         }
 
 
@@ -74,6 +70,8 @@ namespace Logic.Processes
         // Добавить нового пользователя
         public void AddNewUser(string fullName, string email, string login, string password, int id_role, long? id_group = null)
         {
+            List<string> logins = _users.GetListEntity().Select(t => t.Login).ToList();
+            List<string> emails = _users.GetListEntity().Select(t => t.Email).ToList();
             //Проверка существования логина
             if (logins.Contains(login.ToLower()))
                 throw new ArgumentException("Логин уже существует");
