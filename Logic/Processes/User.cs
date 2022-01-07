@@ -57,17 +57,9 @@ namespace Logic.Processes
         // Проверка пароля при авторизации
         public UserDTO Authorization(string login, string password)
         {
-            try
-            {
-                if (Regex.IsMatch(login, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-                    _user = _users.GetListEntity().Single(t => t.Email == login.ToLower());
-                else 
-                    _user = _users.GetListEntity().Single(t => t.Login == login.ToLower());
-            }
-            catch (InvalidOperationException)
-            {
-                 throw new InvalidOperationException(); 
-            }
+            _user = Regex.IsMatch(login, @"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+                ? _users.GetListEntity().Single(t => t.Email == login.ToLower())
+                : _users.GetListEntity().Single(t => t.Login == login.ToLower());
 
             if (_user.HashPass != MD5Hash(password))
                 throw new KeyNotFoundException("Пароль неверный");
@@ -108,6 +100,63 @@ namespace Logic.Processes
                                           });
             SaveChange();
         }
+        //Добавление попытки
+        public void AddAttempt(long id_quiz, int score, TimeSpan transitTime)
+        {
+            _user.Attempts.Add(new Data.Maps.Attempt()
+                               {
+                                   DateTime    = DateTime.Now,
+                                   ID_Quiz     = id_quiz,
+                                   User        = _user,
+                                   Score       = score,
+                                   TransitTime = transitTime
+                               });
+            _users.Save();
+        }
+        //Выборка по текущему пользователю
+        public ObservableCollection<AttemptDTO> GetListCurrentUserAttempt()
+        {
+            var res = new ObservableCollection<AttemptDTO>();
+            foreach (var attempt in _user.Attempts)
+                res.Add(new AttemptDTO(attempt));
+            
+            return res;
+        }
+        //Выборка по текущему пользователю с датой
+        public ObservableCollection<AttemptDTO> GetListCurrentUserAttempt(DateTime dateTime)
+        {
+            var res = new ObservableCollection<AttemptDTO>();
+            foreach (var attempt in _user.Attempts.Where(t=> t.DateTime >= dateTime))
+                res.Add(new AttemptDTO(attempt));
+
+            return res;
+        }
+        //Выборка по учителю
+        public ObservableCollection<AttemptDTO> GetListTeacherAttempt()
+        {
+            var res = new ObservableCollection<AttemptDTO>();
+            foreach (var attempt in _user.TeachingGroups
+                                         .Select(t=> t.Group)
+                                         .SelectMany(t=> t.Users)
+                                         .SelectMany(t=> t.Attempts))
+                res.Add(new AttemptDTO(attempt));
+
+            return res;
+        }
+        //Выборка по учителю с датой
+        public ObservableCollection<AttemptDTO> GetListTeacherAttempt(DateTime dateTime)
+        {
+            var res = new ObservableCollection<AttemptDTO>();
+            foreach (var attempt in _user.TeachingGroups
+                                         .Select(t => t.Group)
+                                         .SelectMany(t => t.Users)
+                                         .SelectMany(t => t.Attempts)
+                                         .Where(t => t.DateTime >= dateTime))
+                res.Add(new AttemptDTO(attempt));
+
+            return res;
+        }
+        
 
         // Возвращение назначенных тестов
         public ObservableCollection<QuizzeDTO> GetAppointmentQuizzes()
@@ -116,7 +165,7 @@ namespace Logic.Processes
             foreach (var quiz in _user.AppointmentQuizzes
                                       .Where(t => t.FinishBefore <= DateTime.Now)
                                       .Select(t => t.Quizze))
-                appointmentQuizzes.Add(new QuizzeDTO(quiz, false));
+                appointmentQuizzes.Add(new QuizzeDTO(quiz));
             return appointmentQuizzes;
         }
         // Удаление пользователя

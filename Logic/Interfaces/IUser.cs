@@ -1,3 +1,4 @@
+using System;
 using System.Collections.ObjectModel;
 using Logic.DTO;
 
@@ -12,6 +13,11 @@ namespace Logic.Interfaces
         public UserDTO Authorization(string login, string password);
         public void AddNewUser(string fullName, string email, string login, string password, int id_role, long? id_group = null);
         public void AddTeachingGroup(UserDTO teacher, GroupDTO group);
+        public void AddAttempt(long id_quiz, int score, TimeSpan transitTime);
+        public ObservableCollection<AttemptDTO> GetListCurrentUserAttempt();
+        public ObservableCollection<AttemptDTO> GetListCurrentUserAttempt(DateTime dateTime);
+        public ObservableCollection<AttemptDTO> GetListTeacherAttempt();
+        public ObservableCollection<AttemptDTO> GetListTeacherAttempt(DateTime dateTime);
         public ObservableCollection<QuizzeDTO> GetAppointmentQuizzes();
         public void RemoveUser(UserDTO user);
         public void SaveChange();

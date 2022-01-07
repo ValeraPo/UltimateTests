@@ -28,13 +28,13 @@ namespace Logic.Processes
         }
         public QuizzeDTO GetEntityNotNested(long id)
         {
-            return new QuizzeDTO(_quizzes.GetEntity(id), false);
+            return new QuizzeDTO(_quizzes.GetEntity(id));
         }
         public ObservableCollection<QuizzeDTO> GetListEntity()
         {
             var quizzes = new ObservableCollection<QuizzeDTO>();
             foreach (var quiz in _quizzes.GetListEntity())
-                quizzes.Add(new QuizzeDTO(quiz, false));
+                quizzes.Add(new QuizzeDTO(quiz));
 
             return quizzes;
         }

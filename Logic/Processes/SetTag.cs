@@ -56,7 +56,7 @@ namespace Logic.Processes
             var quizzesByTeg = new ObservableCollection<QuizzeDTO>();
             foreach (var g in mapsTags.SelectMany(t => t.QuizzesCategories.Select(s => s.Quizze)))
             {
-                var tmp = new QuizzeDTO(g, false);
+                var tmp = new QuizzeDTO(g);
                 if (!quizzesByTeg.Contains(tmp))
                     quizzesByTeg.Add(tmp);
             }
