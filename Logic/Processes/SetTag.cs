@@ -25,14 +25,15 @@ namespace Logic.Processes
         public ObservableCollection<SetTagDTO> GetListEntity()
         {
             var tags = new ObservableCollection<SetTagDTO>();
-            foreach (var teg in _tags.GetListEntity()) { tags.Add(new SetTagDTO(teg)); }
+            foreach (var teg in _tags.GetListEntity()) 
+                tags.Add(new SetTagDTO(teg));
 
             return tags;
         }
 
 
         // Поиск по тегу групп
-        public ObservableCollection<GroupDTO> SearchGroupByTeg(ObservableCollection<SetTagDTO> tags)
+        public ObservableCollection<GroupDTO> SearchGroupByTeg(IEnumerable<SetTagDTO> tags)
         {
             if (tags == null || !tags.Any())
                 throw new ArgumentNullException(nameof(tags), "Пустой список");
@@ -48,7 +49,7 @@ namespace Logic.Processes
             return groupByTeg;
         }
         // Поиск по тегу Qiuz
-        public ObservableCollection<QuizzeDTO> SearchQuizzesByTeg(ObservableCollection<SetTagDTO> tags)
+        public ObservableCollection<QuizzeDTO> SearchQuizzesByTeg(IEnumerable<SetTagDTO> tags)
         {
             if (tags == null || !tags.Any())
                 throw new ArgumentNullException(nameof(tags), "Пустой список");

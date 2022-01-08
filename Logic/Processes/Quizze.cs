@@ -75,6 +75,16 @@ namespace Logic.Processes
             _quizzes.Create(quizMap);
             _quizzes.Save();
         }
+        
+        //Выборка попыток
+        public ObservableCollection<AttemptDTO> GetListAttempt(QuizzeDTO quiz)
+        {
+            var res = new ObservableCollection<AttemptDTO>();
+            foreach (var attempt in _quizzes.GetEntity(quiz.Id).Attempts)
+                res.Add(new AttemptDTO(attempt));
+
+            return res;
+        }
 
         //Добавить тег тесту
         public void AddTag(QuizzeDTO quizze, SetTagDTO teg)

@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Resources;
 using Data.Interfaces;
 using Data.Maps;
 using Logic.Configuration;
@@ -45,6 +46,15 @@ namespace Logic.Processes
                 myGroup.GroupsCategories.Single(t => t.ID_TagSet == teg.Id).IsDel = false;
 
             _groups.Save();
+        }
+        //Выборка студентов по группе
+        public ObservableCollection<UserDTO> GetListUser(GroupDTO group)
+        {
+            var res = new ObservableCollection<UserDTO>();
+            foreach (var user in _groups.GetEntity(group.Id).Users)
+                res.Add(new UserDTO(user));
+
+            return res;
         }
         // Создание(добавление) группы
         public void AddGroup(string text)

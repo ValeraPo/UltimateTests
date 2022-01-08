@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -101,62 +102,75 @@ namespace Logic.Processes
             SaveChange();
         }
         //Добавление попытки
-        public void AddAttempt(long id_quiz, int score, TimeSpan transitTime)
+        public void AddAttempt(QuizzeDTO quiz, int score, TimeSpan transitTime)
         {
             _user.Attempts.Add(new Data.Maps.Attempt()
                                {
                                    DateTime    = DateTime.Now,
-                                   ID_Quiz     = id_quiz,
+                                   ID_Quiz     = quiz.Id,
                                    User        = _user,
                                    Score       = score,
                                    TransitTime = transitTime
                                });
             _users.Save();
         }
-        //Выборка по текущему пользователю
-        public ObservableCollection<AttemptDTO> GetListCurrentUserAttempt()
+        //Выборка групп которые курирует преподаватель
+        public ObservableCollection<GroupDTO> GetListGroupTeacher()
         {
-            var res = new ObservableCollection<AttemptDTO>();
-            foreach (var attempt in _user.Attempts)
-                res.Add(new AttemptDTO(attempt));
-            
-            return res;
-        }
-        //Выборка по текущему пользователю с датой
-        public ObservableCollection<AttemptDTO> GetListCurrentUserAttempt(DateTime dateTime)
-        {
-            var res = new ObservableCollection<AttemptDTO>();
-            foreach (var attempt in _user.Attempts.Where(t=> t.DateTime >= dateTime))
-                res.Add(new AttemptDTO(attempt));
+            var res = new ObservableCollection<GroupDTO>();
+            foreach (var group in _user.TeachingGroups.Select(t=>t.Group))
+                res.Add(new GroupDTO(group));
 
             return res;
         }
-        //Выборка по учителю
-        public ObservableCollection<AttemptDTO> GetListTeacherAttempt()
-        {
-            var res = new ObservableCollection<AttemptDTO>();
-            foreach (var attempt in _user.TeachingGroups
-                                         .Select(t=> t.Group)
-                                         .SelectMany(t=> t.Users)
-                                         .SelectMany(t=> t.Attempts))
-                res.Add(new AttemptDTO(attempt));
 
-            return res;
-        }
-        //Выборка по учителю с датой
-        public ObservableCollection<AttemptDTO> GetListTeacherAttempt(DateTime dateTime)
-        {
-            var res = new ObservableCollection<AttemptDTO>();
-            foreach (var attempt in _user.TeachingGroups
-                                         .Select(t => t.Group)
-                                         .SelectMany(t => t.Users)
-                                         .SelectMany(t => t.Attempts)
-                                         .Where(t => t.DateTime >= dateTime))
-                res.Add(new AttemptDTO(attempt));
+        #region Attempt
 
-            return res;
-        }
+                //Для выборок
+                private ObservableCollection<AttemptDTO> GetAttemptCollection(IEnumerable<Data.Maps.Attempt> collection)
+                {
+                    var res = new ObservableCollection<AttemptDTO>();
+                    foreach (var attempt in collection)
+                        res.Add(new AttemptDTO(attempt));
         
+                    return res;
+                }
+                //Выборка попыток по пользователю
+                public ObservableCollection<AttemptDTO> GetListUserAttempt(UserDTO user)
+                {
+                    return GetAttemptCollection(_users.GetEntity(user.Id).Attempts);
+                }
+        
+                //Выборка попыток по текущему пользователю
+                public ObservableCollection<AttemptDTO> GetListCurrentUserAttempt()
+                {
+                    return GetAttemptCollection(_user.Attempts);
+                }
+                //Выборка попыток по текущему пользователю с датой
+                public ObservableCollection<AttemptDTO> GetListCurrentUserAttempt(DateTime dateTime)
+                {
+                    return GetAttemptCollection(_user.Attempts.Where(t => t.DateTime >= dateTime));
+                }
+                //Выборка попыток по учителю
+                public ObservableCollection<AttemptDTO> GetListTeacherAttempt()
+                {
+                    return GetAttemptCollection(_user.TeachingGroups
+                                                     .Select(t => t.Group)
+                                                     .SelectMany(t => t.Users)
+                                                     .SelectMany(t => t.Attempts));
+                }
+                //Выборка попыток по учителю с датой
+                public ObservableCollection<AttemptDTO> GetListTeacherAttempt(DateTime dateTime)
+                {
+                    return GetAttemptCollection(_user.TeachingGroups
+                                                     .Select(t => t.Group)
+                                                     .SelectMany(t => t.Users)
+                                                     .SelectMany(t => t.Attempts)
+                                                     .Where(t => t.DateTime >= dateTime));
+                }
+
+        #endregion
+
 
         // Возвращение назначенных тестов
         public ObservableCollection<QuizzeDTO> GetAppointmentQuizzes()
@@ -201,7 +215,7 @@ namespace Logic.Processes
             SaveChange();
         }
 
-
+        // создание хеша пароля
         private static string MD5Hash(string text)
         {
             MD5 md5 = new MD5CryptoServiceProvider();

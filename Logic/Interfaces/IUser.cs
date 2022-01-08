@@ -13,7 +13,9 @@ namespace Logic.Interfaces
         public UserDTO Authorization(string login, string password);
         public void AddNewUser(string fullName, string email, string login, string password, int id_role, long? id_group = null);
         public void AddTeachingGroup(UserDTO teacher, GroupDTO group);
-        public void AddAttempt(long id_quiz, int score, TimeSpan transitTime);
+        public void AddAttempt(QuizzeDTO quiz, int score, TimeSpan transitTime);
+        public ObservableCollection<GroupDTO> GetListGroupTeacher();
+        public ObservableCollection<AttemptDTO> GetListUserAttempt(UserDTO user);
         public ObservableCollection<AttemptDTO> GetListCurrentUserAttempt();
         public ObservableCollection<AttemptDTO> GetListCurrentUserAttempt(DateTime dateTime);
         public ObservableCollection<AttemptDTO> GetListTeacherAttempt();
