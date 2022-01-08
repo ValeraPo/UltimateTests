@@ -23,5 +23,9 @@ namespace Visual.View.Teacher.Form
         {
             InitializeComponent();
         }
+        public void CurrentTagsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

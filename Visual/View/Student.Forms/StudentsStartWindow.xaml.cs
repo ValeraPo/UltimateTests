@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Visual.AdminsWindows
+namespace Visual.View.Student.Forms
 {
     /// <summary>
-    /// Interaction logic for AdminsStartWindow.xaml
+    /// Interaction logic for StudentsStartWindow.xaml
     /// </summary>
-    public partial class AdminsStartWindow : Window
+    public partial class StudentsStartWindow : Window
     {
-        public AdminsStartWindow()
+        public StudentsStartWindow()
         {
             InitializeComponent();
         }

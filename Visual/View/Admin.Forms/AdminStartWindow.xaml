@@ -1,0 +1,112 @@
+﻿<Window x:Class="Visual.AdminsWindows.AdminsStartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Visual.AdminsWindows"
+        mc:Ignorable="d"
+        Title="Пользователи" Height="700" Width="1000" FontFamily="Poppins"
+        WindowStartupLocation="CenterScreen">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFD573"/>
+            <GradientStop Color="#FFBA73" Offset="1"/>
+            <GradientStop Color="#FFFFC773" Offset="0.5"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Window.Resources>
+        
+    </Window.Resources>
+    
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+       
+        <TabControl Grid.Row="0" Style="{DynamicResource TabControlStyle}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <TabItem Header="Студенты" Style="{DynamicResource TabItemStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <ScrollViewer Grid.Column="0">
+                        <ListBox x:Name="GroupsList">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontSize="16" Text="{Binding Path=NameOfGroup}" HorizontalAlignment="Left"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </ScrollViewer>
+                        
+                    <GridSplitter Grid.Column="1" Width="5"
+        HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
+
+                    <ScrollViewer Grid.Column="2">
+                        <ListView Name="StudentsList" >
+
+                            <!--ItemsSource="{DynamicResource ResourceKey=Logic.DTO.GroupDTO}" >-->
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Header="ФИО" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Company}" Header="Логин"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Header="Пароль"/>
+                                </GridView>
+                            </ListView.View>
+                            <ListView.Resources>
+
+                            </ListView.Resources>
+                        </ListView>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+
+
+            <TabItem Header="Преподаватели" Style="{DynamicResource TabItemStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <ScrollViewer Grid.Column="0">
+                        <StackPanel>
+                            <ListView Name="TeachersList" >
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Header="ФИО" />
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Company}" Header="Логин"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Header="Пароль"/>
+                                    </GridView>
+                                </ListView.View>
+                                <ListView.Resources>
+
+                                </ListView.Resources>
+                            </ListView>
+                        </StackPanel>
+                    </ScrollViewer>
+                    <GridSplitter Grid.Column="1"/>
+                    <ScrollViewer Grid.Column="2">
+                        <ListBox x:Name="GroupsList2">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontSize="16" Text="{Binding Path=NameOfGroup}" HorizontalAlignment="Left"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="add"/>
+            <Button Content="change"/>
+            <Button Content="delete"/>
+        </StackPanel>
+    </Grid>
+</Window>

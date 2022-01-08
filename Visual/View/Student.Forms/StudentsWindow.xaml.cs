@@ -25,20 +25,20 @@ namespace WpfAppTrying
             InitializeComponent();
         }
         
-        View.Student.TaskPage taskPage;
-        View.Student.StatPage statPage;
+        //View.Student.TaskPage taskPage;
+        //View.Student.StatPage statPage;
         
 
-        private void Tasks_Click(object sender, RoutedEventArgs e)
-        {
-            taskPage = new View.Student.TaskPage();
-            Student.Content = taskPage;
-        }
+        //private void Tasks_Click(object sender, RoutedEventArgs e)
+        //{
+        //    taskPage = new View.Student.TaskPage();
+        //    Student.Content = taskPage;
+        //}
 
-        private void Stats_Click(object sender, RoutedEventArgs e)
-        {
-            statPage = new View.Student.StatPage();
-            Student.Content = statPage;
-        }
+        //private void Stats_Click(object sender, RoutedEventArgs e)
+        //{
+        //    statPage = new View.Student.StatPage();
+        //    Student.Content = statPage;
+        //}
     }
 }
