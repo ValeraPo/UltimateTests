@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Logic.DTO;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Logic.Processes;
+using System.Collections.Generic;
 
 namespace Visual
 {
@@ -34,7 +25,7 @@ namespace Visual
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            if (PasswordBox.Password.Length > 0)
+            if (passwordBox.Password.Length > 0)
             {
                 RemovableText.Visibility = Visibility.Collapsed;
             }
@@ -42,6 +33,29 @@ namespace Visual
             {
                 RemovableText.Visibility = Visibility.Visible;
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO classes at Processes should be static!??????? !?
+            //авторизация 
+            //UserDTO currentUser;
+            //try
+            //{
+            //    currentUser = User.Authorization(textBoxLogin.Text, passwordBox.Password); 
+            //}
+            //catch (KeyNotFoundException ex)
+            //{
+            //    MessageBox.Show("Неверный логин или пароль");
+            //}
+
+            //AdminsWindows.AdminsStartWindow asw = new();
+            //asw.Show();
+
+            View.Methodist.Forms.MethodistStartWindow mew = new();
+            View.Methodist.Forms.QuizesWindow qw = new();
+            mew.Show();
+            qw.Show();
         }
     }
 }

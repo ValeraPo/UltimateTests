@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Visual.View.Teacher.Form
+namespace Visual.View.Student.Forms
 {
     /// <summary>
-    /// Interaction logic for QuizPage.xaml
+    /// Interaction logic for StudentsStartWindow.xaml
     /// </summary>
-    public partial class QuizPage : Page
+    public partial class StudentsStartWindow : Window
     {
-        public QuizPage()
+        public StudentsStartWindow()
         {
             InitializeComponent();
         }

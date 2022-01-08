@@ -1,0 +1,55 @@
+﻿<Window x:Class="Visual.View.Student.Forms.StudentsStartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Visual.View.Student.Forms"
+        mc:Ignorable="d"
+        Title="StudentsStartWindow" Height="450" Width="800">
+    <Grid Background="White">
+        <TabControl Grid.Row="0" Style="{DynamicResource TabControlStyle}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <TabItem Header="Задания" Style="{DynamicResource TabItemStyle}">
+                <Grid>
+                    <ScrollViewer Grid.Column="0">
+                        <ListBox x:Name="GroupsList">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontSize="16" Text="{Binding Path=NameOfGroup}" HorizontalAlignment="Left"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </ScrollViewer>
+
+                    
+                </Grid>
+            </TabItem>
+
+
+            <TabItem Header="Результаты" Style="{DynamicResource TabItemStyle}">
+                <Grid>
+                    <ScrollViewer>
+                        <StackPanel>
+                            <ListView Name="TeachersList" >
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Header="Тест"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Header="Дата Выполнения" />
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Company}" Header="Назначен"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Company}" Header="Максимальное количество баллов"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Company}" Header="Количество баллов"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Company}" Header="Результат(%)"/>
+                                    </GridView>
+                                </ListView.View>
+                                <ListView.Resources>
+
+                                </ListView.Resources>
+                            </ListView>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
+
+    </Grid>
+</Window>
