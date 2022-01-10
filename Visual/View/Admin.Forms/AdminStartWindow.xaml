@@ -46,14 +46,13 @@
         HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
 
                     <ScrollViewer Grid.Column="2">
-                        <ListView Name="StudentsList" >
+                        <ListView Name="StudentsList">
 
                             <!--ItemsSource="{DynamicResource ResourceKey=Logic.DTO.GroupDTO}" >-->
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Header="ФИО" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Company}" Header="Логин"/>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Header="Пароль"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=FullName}" Header="ФИО" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Email}" Header="E-mail"/>
                                 </GridView>
                             </ListView.View>
                             <ListView.Resources>
@@ -77,9 +76,8 @@
                             <ListView Name="TeachersList" >
                                 <ListView.View>
                                     <GridView>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Header="ФИО" />
-                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Company}" Header="Логин"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Header="Пароль"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=FullName}" Header="ФИО" />
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Email}" Header="E-mail"/>
                                     </GridView>
                                 </ListView.View>
                                 <ListView.Resources>
@@ -88,7 +86,9 @@
                             </ListView>
                         </StackPanel>
                     </ScrollViewer>
-                    <GridSplitter Grid.Column="1"/>
+                    <GridSplitter Grid.Column="1" Width="5"
+        HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
+                    
                     <ScrollViewer Grid.Column="2">
                         <ListBox x:Name="GroupsList2">
                             <ListBox.ItemTemplate>

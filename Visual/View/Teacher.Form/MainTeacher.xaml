@@ -79,8 +79,9 @@
                                 <GridView>
                                     <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Header="Тест"/>
                                     <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Header="Дата прохождения" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Header="Количество баллов" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Header="Всего баллов" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Header="Количество баллов" >
+                                        
+                                    </GridViewColumn>
                                 </GridView>
                             </ListView.View>
                             <ListView.Resources>

@@ -23,6 +23,7 @@ namespace Visual.AdminsWindows
     public partial class AdminsStartWindow : Window
     {
         IGroup gr = Logic.Configuration.IocKernel.Get<IGroup>();
+        IUser user = Logic.Configuration.IocKernel.Get<IUser>();
         //IGroup gr = new Logic.Processes.Group();
         public AdminsStartWindow()
         {
@@ -30,6 +31,10 @@ namespace Visual.AdminsWindows
             try
             {
                 ObservableCollection<GroupDTO> groupsList = gr.GetListEntity();
+                ObservableCollection<UserDTO> studentsList = user.GetListStud();
+                ObservableCollection<UserDTO> teachersList = user.GetListTeacher();
+                TeachersList.ItemsSource = teachersList;
+                StudentsList.ItemsSource = studentsList;
                 GroupsList.ItemsSource = groupsList;
                 GroupsList2.ItemsSource = groupsList;
             }
