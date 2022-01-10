@@ -25,14 +25,16 @@ namespace Visual.View.Admin.Forms
         IGroup group = Logic.Configuration.IocKernel.Get<IGroup>();
         IUser user = Logic.Configuration.IocKernel.Get<IUser>();
         int _typeOfUser;
+        ObservableCollection<GroupDTO> groupsList;
         
+
         public AddOrChange()
         {
             InitializeComponent();
             
             ObservableCollection<UserDTO> usersList = user.GetListEntity();
 
-            ObservableCollection<GroupDTO> groupsList = group.GetListEntity();
+            groupsList = group.GetListEntity();
             GroupComboBox.ItemsSource = groupsList;
 
         }
@@ -82,6 +84,13 @@ namespace Visual.View.Admin.Forms
         //create user
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            //long newId;
+            //foreach (var el in groupsList)
+            //{
+            //    if (GroupComboBox.Text == el.NameOfGroup)
+            //        newId = el.Id
+            //}
+            //(GroupDTO)GroupComboBox.SelectedItem.Id
             user.AddNewUser(TextBoxFIO.Text, TextBoxEmail.Text, TextBoxLogin.Text, TextBoxPass.Text, _typeOfUser, long.Parse(GroupComboBox.Text)); //херня - переделать
         }
         //add group

@@ -25,10 +25,14 @@ namespace Visual.View.Methodist.Forms
         ISetTag st = Logic.Configuration.IocKernel.Get<ISetTag>();
         IQuizze qui = Logic.Configuration.IocKernel.Get<IQuizze>();
         ObservableCollection<string> _currentTagList;
-        
+
+        IUser user = Logic.Configuration.IocKernel.Get<IUser>();
+        IGroup group = Logic.Configuration.IocKernel.Get<IGroup>();
+
         public MethodistStartWindow()
         {
             InitializeComponent();
+            //TabItem Tests
             ObservableCollection<SetTagDTO> setTags = st.GetListEntity();
             TagsComboBox.ItemsSource = setTags;
             ObservableCollection<QuizzeDTO> quizzes = qui.GetListEntity();
@@ -36,14 +40,23 @@ namespace Visual.View.Methodist.Forms
             _currentTagList = new ObservableCollection<string>();
             CurrentTagsListBox.ItemsSource = _currentTagList;
 
+            //TabItem Statistic
+            //ObservableCollection<UserDTO> studentsList = user.GetListStud();
+            //ObservableCollection<GroupDTO> groupsList = group.GetListEntity();
+           
+            //GroupsTreeView.ItemsSource = groupsList;
+            ////Students tree                                                                         <-----------TODO GetListStudByGroup()
+            //StudentsTreeView.ItemsSource = studentsList;
+            
+
+            //Quizes tree
+           // TagsTreeView.ItemsSource = setTags;
+            QuizesTreeView.ItemsSource = quizzes;
         }
         public void CurrentTagsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //ListBox lBox = (ListBox)sender;
-            //ListBoxItem selectedItem = (ListBoxItem)lBox.SelectedItem;
-            //MessageBox.Show(selectedItem.Content.ToString());
-            //_currentTagList.Remove(selectedItem.Content.ToString());
-
+            //MessageBox.Show(CurrentTagsListBox.SelectedValue.ToString());
+            _currentTagList.Remove((string)CurrentTagsListBox.SelectedItem);
         }
 
         private void TagsComboBox_DropDownClosed(object sender, EventArgs e)

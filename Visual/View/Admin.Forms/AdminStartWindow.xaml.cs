@@ -24,7 +24,6 @@ namespace Visual.AdminsWindows
     {
         IGroup group = Logic.Configuration.IocKernel.Get<IGroup>();
         IUser user = Logic.Configuration.IocKernel.Get<IUser>();
-        //IGroup gr = new Logic.Processes.Group();
         public AdminsStartWindow()
         {
             InitializeComponent();
