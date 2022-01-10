@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Resources;
 using Data.Interfaces;
@@ -59,6 +60,10 @@ namespace Logic.Processes
         // Создание(добавление) группы
         public void AddGroup(string text)
         {
+            if (_groups.GetListEntity()
+                       .Select(t => t.NameOfGroup)
+                       .Contains(text))
+                throw new ArgumentException("Группа с таким названием уже существует");
             _groups.Create(new Data.Maps.Group()
                            {
                                NameOfGroup = text
