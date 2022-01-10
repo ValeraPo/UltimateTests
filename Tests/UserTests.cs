@@ -19,7 +19,7 @@ namespace Tests
         {
             //TODO дописать существующие логин и емайл
             Assert.Throws<System.InvalidOperationException>(()
-                => _user.AddNewUser("Владимир Путин", "blabla", "blabla", "blabla", 1));
+                => _user.AddNewUser("Владимир Путин", "bla-bla", "blabla", "blabla", 1));
         }
     }
 }
