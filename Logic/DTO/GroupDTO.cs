@@ -7,6 +7,10 @@ namespace Logic.DTO
             Id          = idGroup;
             NameOfGroup = nameOfGroup;
         }
+        public GroupDTO(string nameOfGroup)
+        {
+            NameOfGroup = nameOfGroup;
+        }
         public GroupDTO(Data.Maps.Group group)
         {
             Id          = group.ID_Group;

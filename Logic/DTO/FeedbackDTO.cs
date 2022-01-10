@@ -11,6 +11,12 @@ namespace Logic.DTO
             DateTime = dateTime;
             UserName = userName;
         }
+        public FeedbackDTO(string text, DateTime dateTime, string userName)
+        {
+            Text     = text;
+            DateTime = dateTime;
+            UserName = userName;
+        }
         public FeedbackDTO(Data.Maps.Feedback feedback)
         {
             Id       = feedback.ID_Feedback;

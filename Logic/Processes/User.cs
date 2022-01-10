@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using Data.Interfaces;
 using Data.Maps;
 using Logic.Configuration;
@@ -31,14 +32,43 @@ namespace Logic.Processes
         public ObservableCollection<UserDTO> GetListEntity()
         {
             var res = new ObservableCollection<UserDTO>();
-            foreach (var user in _users.GetListEntity()) { res.Add(new UserDTO(user)); }
+            foreach (var user in _users.GetListEntity())
+                res.Add(new UserDTO(user));
 
             return res;
         }
+        public ObservableCollection<UserDTO> GetListStud()
+        {
+            var res = new ObservableCollection<UserDTO>();
+            foreach (var user in _users.GetListEntity().Where(t => t.ID_Role == 2))
+                res.Add(new UserDTO(user));
+
+            return res;
+        }
+        public ObservableCollection<UserDTO> GetListTeacher()
+        {
+            var res = new ObservableCollection<UserDTO>();
+            foreach (var user in _users.GetListEntity().Where(t => t.ID_Role == 3))
+                res.Add(new UserDTO(user));
+
+            return res;
+        }
+
         // Проверка пароля при авторизации
         public UserDTO Authorization(string login, string password)
         {
-            _user = _users.GetListEntity().Single(t => t.Login == login.ToLower());
+            try
+            {
+                if (Regex.IsMatch(login, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                    _user = _users.GetListEntity().Single(t => t.Email == login.ToLower());
+                else 
+                    _user = _users.GetListEntity().Single(t => t.Login == login.ToLower());
+            }
+            catch (InvalidOperationException)
+            {
+                 throw new InvalidOperationException(); 
+            }
+
             if (_user.HashPass != MD5Hash(password))
                 throw new KeyNotFoundException("Пароль неверный");
             return new UserDTO(_user);
@@ -46,10 +76,15 @@ namespace Logic.Processes
         // Добавить нового пользователя
         public void AddNewUser(string fullName, string email, string login, string password, int id_role, long? id_group = null)
         {
-            List<string> logins = _users.GetListEntity().Select(t => t.Login).ToList(); // List<string>
+            List<string> logins = _users.GetListEntity().Select(t => t.Login).ToList();
+            List<string> emails = _users.GetListEntity().Select(t => t.Email).ToList();
             //Проверка существования логина
             if (logins.Contains(login.ToLower()))
                 throw new ArgumentException("Логин уже существует");
+
+            //Проверка существования email
+            if (emails.Contains(email.ToLower()))
+                throw new ArgumentException("E-mail уже существует");
             _users.Create(new Data.Maps.User()
                           {
                               FullName = fullName,
@@ -106,6 +141,14 @@ namespace Logic.Processes
                 tmp.ID_Group = null;
             _users.Update(tmp);
 
+            SaveChange();
+        }
+        public void Update(UserDTO user, string login, string password)
+        {
+            Update(user);
+            var tmp = _users.GetEntity(user.Id);
+            tmp.Login    = login;
+            tmp.HashPass = MD5Hash(password);
             SaveChange();
         }
 

@@ -38,16 +38,59 @@ namespace Logic.Processes
 
             return quizzes;
         }
+        // Добавление нового Quiz из DTO версии + подсчёт MaxPoints
+        //TODO протестить
+        public void AddQuiz(QuizzeDTO quiz, UserDTO user)
+        {
+            var quizMap = new Data.Maps.Quizze
+                          {
+                              Name           = quiz.NameQuiz,
+                              MaxPoints      = 0,
+                              TimeToComplete = quiz.TimeToComplete,
+                              User           = _users.GetEntity(user.Id)
+                          };
+
+            foreach (var question in quiz.Questions)
+            {
+                var questionMap = new Question
+                                  {
+                                      Text         = question.Text,
+                                      ID_QuestType = question.ID_QuestType
+                                  };
+                foreach (var answer in question.Answers)
+                {
+                    var answerMap = new Answer
+                                    {
+                                        Text      = answer.Text,
+                                        IsCorrect = answer.IsCorrect
+                                    };
+                    questionMap.Answers.Add(answerMap);
+                    if (answer.IsCorrect)
+                        quizMap.MaxPoints++;
+                }
+
+                quizMap.Questions.Add(questionMap);
+            }
+
+            _quizzes.Create(quizMap);
+            _quizzes.Save();
+        }
 
         //Добавить тег тесту
         public void AddTag(QuizzeDTO quizze, SetTagDTO teg)
         {
             var myQuizze = _quizzes.GetEntity(quizze.Id);
-            myQuizze.QuizzesCategories.Add(new QuizzesCategory()
-                                           {
-                                               ID_Quiz   = quizze.Id,
-                                               ID_TagSet = teg.Id
-                                           });
+            if (myQuizze.QuizzesCategories.All(t => t.ID_TagSet != teg.Id))
+            {
+                myQuizze.QuizzesCategories.Add(new QuizzesCategory()
+                                                           {
+                                                               ID_Quiz   = quizze.Id,
+                                                               ID_TagSet = teg.Id
+                                                           });
+            }
+            else
+                myQuizze.QuizzesCategories.Single(t => t.ID_TagSet == teg.Id).IsDel = false;
+
             _quizzes.Save();
         }
 
