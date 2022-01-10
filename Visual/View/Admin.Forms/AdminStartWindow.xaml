@@ -104,9 +104,9 @@
         </TabControl>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="add"/>
-            <Button Content="change"/>
-            <Button Content="delete"/>
+            <Button Content="add" Click="Button_Click"/>
+            <Button Content="change" Click="Button_Click_1"/>
+            <Button Content="delete" Click="Button_Click_2"/>
         </StackPanel>
     </Grid>
 </Window>

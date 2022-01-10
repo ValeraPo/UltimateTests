@@ -52,9 +52,9 @@ namespace Visual
             AdminsWindows.AdminsStartWindow asw = new();
             asw.Show();
 
-            //View.Methodist.Forms.MethodistStartWindow mew = new();
+            View.Methodist.Forms.MethodistStartWindow mew = new();
+            mew.Show();
             //View.Methodist.Forms.QuizesWindow qw = new();
-            //mew.Show();
             //qw.Show();
         }
     }

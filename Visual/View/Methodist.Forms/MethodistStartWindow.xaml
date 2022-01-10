@@ -33,23 +33,23 @@
                     <GridSplitter Grid.Column="1" Width="5"
         HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
 
-                    <ScrollViewer Grid.Column="2">
-                        <StackPanel Grid.Column="2">
-                            <ComboBox>
-                                <!--Здесь будет список всех тэгов-->
-                            </ComboBox>
-                            <ListBox x:Name="CurrentTagsList" SelectionChanged="CurrentTagsList_SelectionChanged"
-                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                                
-                                <ListBox.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel />
-                                    </ItemsPanelTemplate>
-                                </ListBox.ItemsPanel>
-                                
-                            </ListBox>
-                        </StackPanel>
-                    </ScrollViewer>
+
+                    <Grid Grid.Column="2" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <ComboBox Grid.Row="0" Name="TagsComboBox" DropDownClosed="TagsComboBox_DropDownClosed">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontSize="16" Text="{Binding Path=Text}" Width="300"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                        <ListBox Grid.Row="1" x:Name="CurrentTagsListBox" SelectionChanged="CurrentTagsList_SelectionChanged"
+                                     />
+                    </Grid>
                 </Grid>
             </TabItem>
 

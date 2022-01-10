@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Logic.DTO;
+using Logic.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -20,19 +22,40 @@ namespace Visual.View.Methodist.Forms
     /// </summary>
     public partial class MethodistStartWindow : Window
     {
-        ObservableCollection<string> _currentTags;
+        ISetTag st = Logic.Configuration.IocKernel.Get<ISetTag>();
+        IQuizze qui = Logic.Configuration.IocKernel.Get<IQuizze>();
+        ObservableCollection<string> _currentTagList;
+        
         public MethodistStartWindow()
         {
             InitializeComponent();
-            _currentTags = new ObservableCollection<string> { "1111", "2", "3", "432"};
-            
-            CurrentTagsList.ItemsSource = _currentTags;
-            
+            ObservableCollection<SetTagDTO> setTags = st.GetListEntity();
+            TagsComboBox.ItemsSource = setTags;
+            ObservableCollection<QuizzeDTO> quizzes = qui.GetListEntity();
+            QuizeList.ItemsSource = quizzes;
+            _currentTagList = new ObservableCollection<string>();
+            CurrentTagsListBox.ItemsSource = _currentTagList;
+
         }
         public void CurrentTagsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //_currentTags.RemoveAt((sender as ListBox).SelectedIndex);
-            _currentTags.RemoveAt(CurrentTagsList.SelectedIndex); //
+            //ListBox lBox = (ListBox)sender;
+            //ListBoxItem selectedItem = (ListBoxItem)lBox.SelectedItem;
+            //MessageBox.Show(selectedItem.Content.ToString());
+            //_currentTagList.Remove(selectedItem.Content.ToString());
+
+        }
+
+        private void TagsComboBox_DropDownClosed(object sender, EventArgs e)
+        {
+            bool flag = false;
+            foreach (var el in _currentTagList)
+            {
+                if (el == TagsComboBox.Text)
+                    flag = true;
+            }
+            if (!flag)
+                _currentTagList.Add(TagsComboBox.Text);
         }
     }
 }
