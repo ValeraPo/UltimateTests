@@ -74,6 +74,10 @@ namespace Logic.Processes
         {
             _groups.Delete(group.Id);
         }
+        public void RemoveGroup(string name)
+        {
+            _groups.Delete(_groups.GetListEntity().Single(t=> t.NameOfGroup == name).ID_Group);
+        }
         // Сохранить изменения
         public void SaveChange() => _groups.Save();
         //Сохранение изменения

@@ -12,6 +12,7 @@ namespace Logic.Interfaces
         public ObservableCollection<QuizzeDTO> SearchQuizzesByTeg(IEnumerable<SetTagDTO> tags);
         public void AddTeg(string text);
         public void RemoveTeg(SetTagDTO teg);
+        public void RemoveTeg(string text);
         public void SaveChange();
         public void Update(SetTagDTO teg);
     }

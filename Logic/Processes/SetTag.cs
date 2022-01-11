@@ -93,6 +93,10 @@ namespace Logic.Processes
         {
             _tags.Delete(teg.Id);
         }
+        public void RemoveTeg(string text)
+        {
+            _tags.Delete(_tags.GetListEntity().Single(t=> t.Text == text).ID_TagSet);
+        }
         // Сохранить изменения
         public void SaveChange() => _tags.Save();
         // Сохранение изменения

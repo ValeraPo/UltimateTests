@@ -34,6 +34,7 @@ namespace Data.Repositories
                     answer.IsDel = true;
                 question.IsDel = true;
             }
+            Save();
         }
     }
 }

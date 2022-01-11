@@ -109,6 +109,10 @@ namespace Logic.Processes
         {
             _quizzes.Delete(quizze.Id);
         }
+        public void RemoveQuizze(string nameQuiz)
+        {
+            _quizzes.Delete(_quizzes.GetListEntity().Single(t=> t.Name == nameQuiz).ID_Quiz);
+        }
         /*
         // Проверка правильности ответа
         public static void CheckAnswer(Answer answer, Attempt attempt, Quizze quiz)

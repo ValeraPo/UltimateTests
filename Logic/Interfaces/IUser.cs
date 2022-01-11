@@ -23,6 +23,7 @@ namespace Logic.Interfaces
         public ObservableCollection<AttemptDTO> GetListTeacherAttempt(DateTime dateTime);
         public ObservableCollection<QuizzeDTO> GetAppointmentQuizzes();
         public void RemoveUser(UserDTO user);
+        public void RemoveUser(string login);
         public void SaveChange();
         public void Update(UserDTO user);
         public void Update(UserDTO user, string login, string password);
