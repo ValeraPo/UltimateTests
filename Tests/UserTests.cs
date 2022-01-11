@@ -30,23 +30,23 @@ namespace Tests
             {
                 case Users.Petrov: 
                 {
-                    return new UserDTO(2, 3, "Петров А.В.", "qqqq@mail.ru", null);
+                    return new UserDTO( 3, "Петров А.В.", "qqqq@mail.ru", null);
                 }
                 case Users.Papov: 
                 {
-                    return new UserDTO(3, 2, "Папов Г.А.", "pppp@mail.ru", "12929/1");
+                    return new UserDTO( 2, "Папов Г.А.", "pppp@mail.ru", "12929/1");
                 }
                 case Users.Pismanic: 
                 {
-                    return new UserDTO(4, 2, "Писманик М.К.", "rrrr@mail.ru", "12929/1");
+                    return new UserDTO( 2, "Писманик М.К.", "rrrr@mail.ru", "12929/1");
                 }
                 case Users.Holo: 
                 {
-                    return new UserDTO(6, 4, "Холо В.П.", "hhhh@mail.ru", null);
+                    return new UserDTO( 4, "Холо В.П.", "hhhh@mail.ru", null);
                 }
                 case Users.Putin: 
                 {
-                    return new UserDTO(7, 4, "Путин В.В.", "bgfd@mail.ru", null);
+                    return new UserDTO( 4, "Путин В.В.", "bgfd@mail.ru", null);
                 }
                 default: throw new ArgumentException();
             }
@@ -58,14 +58,18 @@ namespace Tests
         [TestCase(Users.Putin, "putin", "putin")]
         public void AuthorizationTest(Users user, string login, string password)
         {
-            //IocKernel.Initialize(new ProjectConfiguration());
+            var expectedUser = AuthorizationMockOutputData(user);
+            var actualUser = _user.Authorization(login, password);
 
-            Assert.AreEqual(AuthorizationMockOutputData(user), _user.Authorization(login, password));
+            Assert.AreEqual(expectedUser.Email, actualUser.Email);
+            Assert.AreEqual(expectedUser.Group, actualUser.Group);
+            Assert.AreEqual(expectedUser.Type, actualUser.Type);
+            Assert.AreEqual(expectedUser.FullName, actualUser.FullName);
+
         }
         [Test]
         public void AuthorizationNegativeTest()
         {
-            IocKernel.Initialize(new ProjectConfiguration());
             Assert.Throws<System.InvalidOperationException>(() => _user.Authorization("login", "password"));
         }
         //
@@ -107,18 +111,19 @@ namespace Tests
         [TestCase(NewUsers.four, "4", "4", "4", "4", 4)]
         public void AddNewUserTest(NewUsers user, string fullName, string email, string login, string password, int id_role, long? id_group = null)
         {
-            //IocKernel.Initialize(new ProjectConfiguration());
-            _user.AddNewUser(fullName, email, login, password, id_role, id_group);
-            var myUser = AddNewUserMockOutputData(user);
-            Assert.AreEqual(myUser, _user.Authorization(login, password));
-            //IocKernel.Get<IUser>().RemoveUser(myUser); - мы удаляем при следующем тесте, который ниже
+            var expectedUser = AddNewUserMockOutputData(user);
+            var actualUser = _user.Authorization(login, password);
+
+            Assert.AreEqual(expectedUser.Email, actualUser.Email);
+            Assert.AreEqual(expectedUser.Group, actualUser.Group);
+            Assert.AreEqual(expectedUser.Type, actualUser.Type);
+            Assert.AreEqual(expectedUser.FullName, actualUser.FullName);
         }
         
         [Test]
         public void AddNewUserNegativeTest()
         {
-            //TODO дописать существующие логин и емайл
-            Assert.Throws<ArgumentException>(() => _user.AddNewUser("Владимир Путин", "bla-bla", "blabla", "blabla", 1));
+            Assert.Throws<ArgumentException>(() => _user.AddNewUser("Владимир Путин", "putin@mail.ru", "putin", "putin", 1));
         }
         //
         // Удаление пользователя
@@ -128,7 +133,6 @@ namespace Tests
         [TestCase(NewUsers.four)]
         public void RemoveUserTest(NewUsers user)
         {
-            //IocKernel.Initialize(new ProjectConfiguration());
             var myUser = AddNewUserMockOutputData(user);
             _user.RemoveUser(myUser);
 
@@ -176,7 +180,7 @@ namespace Tests
         [TestCase("gardeeva", "gardeeva", Appointments.gardeeva)]
         public void GetAppointmentQuizzesTest(string login, string password, Appointments appointment)
         {
-            UserDTO user = _user.Authorization(login, password);
+            _user.Authorization(login, password);
 
             ObservableCollection<QuizzeDTO> expected = GetAppointmentQuizzesMockOutputData(appointment);
             ObservableCollection<QuizzeDTO> actual = _user.GetAppointmentQuizzes();

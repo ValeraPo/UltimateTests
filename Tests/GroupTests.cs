@@ -1,4 +1,5 @@
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Logic.Configuration;
 using Logic.DTO;
@@ -11,6 +12,7 @@ namespace Tests
     [TestFixture]
     public class GroupTests
     {
+        private IGroup _group = IocKernel.Get<IGroup>();
         //
         // Добавление группы 
         public enum NewGroups
@@ -49,19 +51,49 @@ namespace Tests
                 default: throw new ArgumentException();
             }
         }
-        [TestCase(NewGroups.one, 14, "1")]
-        [TestCase(NewGroups.two, 15, "3")]
-        [TestCase(NewGroups.three, 16, "3")]
-        [TestCase(NewGroups.four, 17, "4")]
-        [TestCase(NewGroups.five, 18, "5")]
+        
+        [TestCase(NewGroups.one,  "1")]
+        [TestCase(NewGroups.two,  "2")]
+        [TestCase(NewGroups.three, "3")]
+        [TestCase(NewGroups.four,  "4")]
+        [TestCase(NewGroups.five,  "5")]
 
-        public void AddNewUserTest(NewGroups group, long id_group, string name)
+        public void AddGroupTest(NewGroups group,  string name)
         {
-            //IocKernel.Initialize(new ProjectConfiguration());
-            IocKernel.Get<IGroup>().AddGroup(name);
-            var myGroup = AddGroupMockOutputData(group);
-            Assert.AreEqual(myGroup, IocKernel.Get<IGroup>().GetEntity(id_group));
-            IocKernel.Get<IGroup>().RemoveGroup(myGroup);
+            _group.AddGroup(name);
+            var expected = AddGroupMockOutputData(group);
+            var actual = _group.GetEntity(name);
+            Assert.AreEqual(expected.NameOfGroup, actual.NameOfGroup);
+        }
+
+        [Test]
+        public void AddNewUserNegativeTest()
+        {
+            Assert.Throws<ArgumentException>(() => _group.AddGroup("1"));
+        }
+        //
+        //Добавить тег группе
+        [TestCase("1")]
+        [TestCase("2")]
+        [TestCase( "3")]
+        [TestCase( "4")]
+        [TestCase( "5")]
+        public void AddTagTest(string nameGroup)
+        {
+            // Создаем DTO классы группы и теги
+            var setTag = IocKernel.Get<SetTag>();
+            var group = _group.GetEntity(nameGroup);
+            var tag = setTag.GetEntity(16);
+            // Запускаем метод который проверяем
+            _group.AddTag(group, tag);
+            // Создаем коллекцию, которая содержит только что добавленный тег
+            var tags = new ObservableCollection<SetTagDTO>();
+            tags.Add(tag);
+            // Вытаскиваем из БД групы по тегу          
+            var expexted = setTag.SearchGroupByTeg(tags).Select(t =>t.NameOfGroup);
+
+            
+            CollectionAssert.Contains(expexted, group);
         }
         //
         // Удаление группы
@@ -72,11 +104,11 @@ namespace Tests
         [TestCase(NewGroups.five)]
         public void RemoveGroupTest(NewGroups group)
         {
-            //IocKernel.Initialize(new ProjectConfiguration());
             var myGroup = AddGroupMockOutputData(group);
-            IocKernel.Get<IGroup>().RemoveGroup(myGroup);
+            _group.RemoveGroup(myGroup);
 
-            CollectionAssert.DoesNotContain(IocKernel.Get<IGroup>().GetListEntity().Select(t => t.NameOfGroup).ToList(), myGroup.NameOfGroup);
+            CollectionAssert.DoesNotContain(_group.GetListEntity().Select(t => t.NameOfGroup).ToList(), myGroup.NameOfGroup);
         }
+        
     }
 }
