@@ -101,6 +101,13 @@ namespace Logic.Processes
                                           });
             SaveChange();
         }
+        // Удаление группы преподу
+        public void RemoveTeachingGroup(UserDTO teacher, GroupDTO group)
+        {
+            var userEntity = _users.GetEntity(teacher.Id);
+            userEntity.TeachingGroups.Single(t => t.ID_Group == group.Id).IsDel = true;
+            SaveChange();
+        }
         //Добавление попытки
         public void AddAttempt(QuizzeDTO quiz, int score, TimeSpan transitTime)
         {
