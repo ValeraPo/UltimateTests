@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -57,24 +58,16 @@ namespace Logic.Processes
         // Проверка пароля при авторизации
         public UserDTO Authorization(string login, string password)
         {
-            try
-            {
-                if (Regex.IsMatch(login, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-                    _user = _users.GetListEntity().Single(t => t.Email == login.ToLower());
-                else 
-                    _user = _users.GetListEntity().Single(t => t.Login == login.ToLower());
-            }
-            catch (InvalidOperationException)
-            {
-                 throw new InvalidOperationException(); 
-            }
+            _user = Regex.IsMatch(login, @"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+                ? _users.GetListEntity().Single(t => t.Email == login.ToLower())
+                : _users.GetListEntity().Single(t => t.Login == login.ToLower());
 
             if (_user.HashPass != MD5Hash(password))
                 throw new KeyNotFoundException("Пароль неверный");
             return new UserDTO(_user);
         }
         // Добавить нового пользователя
-        public void AddNewUser(string fullName, string email, string login, string password, int id_role, long? id_group = null)
+        public void AddNewUser(string fullName, string email, string login, string password, int id_role, long? group = null)
         {
             List<string> logins = _users.GetListEntity().Select(t => t.Login).ToList();
             List<string> emails = _users.GetListEntity().Select(t => t.Email).ToList();
@@ -91,7 +84,7 @@ namespace Logic.Processes
                               Email    = email,
                               Login    = login,
                               ID_Role  = id_role,
-                              ID_Group = id_group,
+                              ID_Group = group,
                               HashPass = MD5Hash(password)
                           });
             _users.Save();
@@ -108,6 +101,83 @@ namespace Logic.Processes
                                           });
             SaveChange();
         }
+        // Удаление группы преподу
+        public void RemoveTeachingGroup(UserDTO teacher, GroupDTO group)
+        {
+            var userEntity = _users.GetEntity(teacher.Id);
+            userEntity.TeachingGroups.Single(t => t.ID_Group == group.Id).IsDel = true;
+            SaveChange();
+        }
+        //Добавление попытки
+        public void AddAttempt(QuizzeDTO quiz, int score, TimeSpan transitTime)
+        {
+            _user.Attempts.Add(new Data.Maps.Attempt()
+                               {
+                                   DateTime    = DateTime.Now,
+                                   ID_Quiz     = quiz.Id,
+                                   User        = _user,
+                                   Score       = score,
+                                   TransitTime = transitTime
+                               });
+            _users.Save();
+        }
+        //Выборка групп которые курирует преподаватель
+        public ObservableCollection<GroupDTO> GetListGroupTeacher()
+        {
+            var res = new ObservableCollection<GroupDTO>();
+            foreach (var group in _user.TeachingGroups.Select(t=>t.Group))
+                res.Add(new GroupDTO(group));
+
+            return res;
+        }
+
+        #region Attempt
+
+                //Для выборок
+                private ObservableCollection<AttemptDTO> GetAttemptCollection(IEnumerable<Data.Maps.Attempt> collection)
+                {
+                    var res = new ObservableCollection<AttemptDTO>();
+                    foreach (var attempt in collection)
+                        res.Add(new AttemptDTO(attempt));
+        
+                    return res;
+                }
+                //Выборка попыток по пользователю
+                public ObservableCollection<AttemptDTO> GetListUserAttempt(UserDTO user)
+                {
+                    return GetAttemptCollection(_users.GetEntity(user.Id).Attempts);
+                }
+        
+                //Выборка попыток по текущему пользователю
+                public ObservableCollection<AttemptDTO> GetListCurrentUserAttempt()
+                {
+                    return GetAttemptCollection(_user.Attempts);
+                }
+                //Выборка попыток по текущему пользователю с датой
+                public ObservableCollection<AttemptDTO> GetListCurrentUserAttempt(DateTime dateTime)
+                {
+                    return GetAttemptCollection(_user.Attempts.Where(t => t.DateTime >= dateTime));
+                }
+                //Выборка попыток по учителю
+                public ObservableCollection<AttemptDTO> GetListTeacherAttempt()
+                {
+                    return GetAttemptCollection(_user.TeachingGroups
+                                                     .Select(t => t.Group)
+                                                     .SelectMany(t => t.Users)
+                                                     .SelectMany(t => t.Attempts));
+                }
+                //Выборка попыток по учителю с датой
+                public ObservableCollection<AttemptDTO> GetListTeacherAttempt(DateTime dateTime)
+                {
+                    return GetAttemptCollection(_user.TeachingGroups
+                                                     .Select(t => t.Group)
+                                                     .SelectMany(t => t.Users)
+                                                     .SelectMany(t => t.Attempts)
+                                                     .Where(t => t.DateTime >= dateTime));
+                }
+
+        #endregion
+
 
         // Возвращение назначенных тестов
         public ObservableCollection<QuizzeDTO> GetAppointmentQuizzes()
@@ -116,7 +186,7 @@ namespace Logic.Processes
             foreach (var quiz in _user.AppointmentQuizzes
                                       .Where(t => t.FinishBefore <= DateTime.Now)
                                       .Select(t => t.Quizze))
-                appointmentQuizzes.Add(new QuizzeDTO(quiz, false));
+                appointmentQuizzes.Add(new QuizzeDTO(quiz));
             return appointmentQuizzes;
         }
         // Удаление пользователя
@@ -152,7 +222,7 @@ namespace Logic.Processes
             SaveChange();
         }
 
-
+        // создание хеша пароля
         private static string MD5Hash(string text)
         {
             MD5 md5 = new MD5CryptoServiceProvider();

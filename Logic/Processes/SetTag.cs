@@ -12,9 +12,13 @@ namespace Logic.Processes
     public class SetTag : ISetTag
     {
         private IRepository<Data.Maps.SetTag> _tags;
+        private IRepository<Data.Maps.Quizze> _quizzes;
+        private IRepository<Data.Maps.Group>  _grops;
         public SetTag()
         {
-            _tags = IocKernel.Get<IRepository<Data.Maps.SetTag>>();
+            _tags    = IocKernel.Get<IRepository<Data.Maps.SetTag>>();
+            _quizzes = IocKernel.Get<IRepository<Data.Maps.Quizze>>();
+            _grops   = IocKernel.Get<IRepository<Data.Maps.Group>>();
         }
 
 
@@ -25,19 +29,26 @@ namespace Logic.Processes
         public ObservableCollection<SetTagDTO> GetListEntity()
         {
             var tags = new ObservableCollection<SetTagDTO>();
-            foreach (var teg in _tags.GetListEntity()) { tags.Add(new SetTagDTO(teg)); }
+            foreach (var teg in _tags.GetListEntity()) 
+                tags.Add(new SetTagDTO(teg));
 
             return tags;
         }
 
 
         // Поиск по тегу групп
-        public ObservableCollection<GroupDTO> SearchGroupByTeg(ObservableCollection<SetTagDTO> tags)
+        public ObservableCollection<GroupDTO> SearchGroupByTeg(IEnumerable<SetTagDTO> tags)
         {
-            if (tags == null || !tags.Any())
+            if (tags == null)
                 throw new ArgumentNullException(nameof(tags), "Пустой список");
-            var mapsTags   = tags.Select(g => _tags.GetEntity(g.Id)).ToList();
             var groupByTeg = new ObservableCollection<GroupDTO>();
+            if (!tags.Any())
+            {
+                foreach (var group in _grops.GetListEntity())
+                    groupByTeg.Add(new GroupDTO(group));
+                return groupByTeg;
+            }
+            var mapsTags   = tags.Select(g => _tags.GetEntity(g.Id)).ToList();
             foreach (var g in mapsTags.SelectMany(t => t.GroupsCategories.Select(s => s.Group)))
             {
                 var tmp = new GroupDTO(g);
@@ -48,15 +59,21 @@ namespace Logic.Processes
             return groupByTeg;
         }
         // Поиск по тегу Qiuz
-        public ObservableCollection<QuizzeDTO> SearchQuizzesByTeg(ObservableCollection<SetTagDTO> tags)
+        public ObservableCollection<QuizzeDTO> SearchQuizzesByTeg(IEnumerable<SetTagDTO> tags)
         {
-            if (tags == null || !tags.Any())
+            if (tags == null)
                 throw new ArgumentNullException(nameof(tags), "Пустой список");
-            var mapsTags     = tags.Select(g => _tags.GetEntity(g.Id)).ToList();
             var quizzesByTeg = new ObservableCollection<QuizzeDTO>();
+            if (!tags.Any())
+            {
+                foreach (var quiz in _quizzes.GetListEntity())
+                    quizzesByTeg.Add(new QuizzeDTO(quiz));
+                return quizzesByTeg;
+            }
+            var mapsTags     = tags.Select(g => _tags.GetEntity(g.Id)).ToList();
             foreach (var g in mapsTags.SelectMany(t => t.QuizzesCategories.Select(s => s.Quizze)))
             {
-                var tmp = new QuizzeDTO(g, false);
+                var tmp = new QuizzeDTO(g);
                 if (!quizzesByTeg.Contains(tmp))
                     quizzesByTeg.Add(tmp);
             }
