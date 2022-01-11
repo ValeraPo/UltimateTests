@@ -24,6 +24,10 @@ namespace Logic.Processes
         {
             return new GroupDTO(_groups.GetEntity(id));
         }
+        public GroupDTO GetEntity(string name)
+        {
+            return new GroupDTO(_groups.GetListEntity().Single(t=>t.NameOfGroup == name));
+        }
         public ObservableCollection<GroupDTO> GetListEntity()
         {
             var groups = new ObservableCollection<GroupDTO>();
@@ -80,6 +84,10 @@ namespace Logic.Processes
         public void Update(GroupDTO group)
         {
             var tmp = _groups.GetEntity(group.Id);
+            if (_groups.GetListEntity()
+                       .Select(t => t.NameOfGroup)
+                       .Contains(group.NameOfGroup))
+                throw new ArgumentException("Группа с таким названием уже существует");
             tmp.NameOfGroup = group.NameOfGroup;
             _groups.Update(tmp);
 

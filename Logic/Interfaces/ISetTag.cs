@@ -7,6 +7,7 @@ namespace Logic.Interfaces
     public interface ISetTag
     {
         public SetTagDTO GetEntity(long id);
+        public SetTagDTO GetEntity(string text);
         public ObservableCollection<SetTagDTO> GetListEntity();
         public ObservableCollection<GroupDTO> SearchGroupByTeg(IEnumerable<SetTagDTO> tags);
         public ObservableCollection<QuizzeDTO> SearchQuizzesByTeg(IEnumerable<SetTagDTO> tags);

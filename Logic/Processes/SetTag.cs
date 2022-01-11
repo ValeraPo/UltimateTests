@@ -26,6 +26,10 @@ namespace Logic.Processes
         {
             return new SetTagDTO(_tags.GetEntity(id));
         }
+        public SetTagDTO GetEntity(string text)
+        {
+            return new SetTagDTO(_tags.GetListEntity().Single(t => t.Text == text));
+        }
         public ObservableCollection<SetTagDTO> GetListEntity()
         {
             var tags = new ObservableCollection<SetTagDTO>();
@@ -83,6 +87,10 @@ namespace Logic.Processes
         // Создание(добавление) тега
         public void AddTeg(string text)
         {
+            if (_tags.GetListEntity()
+                       .Select(t => t.Text)
+                       .Contains(text))
+                throw new ArgumentException("Такой тег уже существует");
             _tags.Create(new Data.Maps.SetTag()
                          {
                              Text = text
@@ -99,6 +107,10 @@ namespace Logic.Processes
         public void Update(SetTagDTO teg)
         {
             var tmp = _tags.GetEntity(teg.Id);
+            if (_tags.GetListEntity()
+                     .Select(t => t.Text)
+                     .Contains(teg.Text))
+                throw new ArgumentException("Такой тег уже существует");
             tmp.Text  = teg.Text;
             _tags.Update(tmp);
 
