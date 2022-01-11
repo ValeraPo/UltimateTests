@@ -10,6 +10,7 @@ namespace Logic.Interfaces
         public void AddTag(GroupDTO group, SetTagDTO teg);
         public void AddGroup(string text);
         public void RemoveGroup(GroupDTO group);
+        public void RemoveGroup(string name);
         public void SaveChange();
         public void Update(GroupDTO group);
     }

@@ -14,6 +14,7 @@ namespace Logic.Interfaces
         public void AddTeachingGroup(UserDTO teacher, GroupDTO group);
         public ObservableCollection<QuizzeDTO> GetAppointmentQuizzes();
         public void RemoveUser(UserDTO user);
+        public void RemoveUser(string login);
         public void SaveChange();
         public void Update(UserDTO user);
         public void Update(UserDTO user, string login, string password);

@@ -13,6 +13,7 @@ namespace Logic.Interfaces
         public void AddQuiz(QuizzeDTO quiz, UserDTO user);
         public void AddTag(QuizzeDTO quizze, SetTagDTO teg);
         public void RemoveQuizze(QuizzeDTO quizze);
+        public void RemoveQuizze(string nameQuiz);
         public void AddAppointmentQuizze(QuizzeDTO quizze, GroupDTO group, DateTime finishBefore);
         public void AddAppointmentQuizzeUser(QuizzeDTO quizze, UserDTO user, DateTime finishBefore);
         public void AddFeedback(QuizzeDTO quiz, string text, UserDTO user);
