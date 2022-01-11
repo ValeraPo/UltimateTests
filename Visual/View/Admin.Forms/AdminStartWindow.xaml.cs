@@ -22,14 +22,18 @@ namespace Visual.AdminsWindows
     /// </summary>
     public partial class AdminsStartWindow : Window
     {
-        IGroup gr = Logic.Configuration.IocKernel.Get<IGroup>();
-        //IGroup gr = new Logic.Processes.Group();
+        IGroup group = Logic.Configuration.IocKernel.Get<IGroup>();
+        IUser user = Logic.Configuration.IocKernel.Get<IUser>();
         public AdminsStartWindow()
         {
             InitializeComponent();
             try
             {
-                ObservableCollection<GroupDTO> groupsList = gr.GetListEntity();
+                ObservableCollection<GroupDTO> groupsList = group.GetListEntity();
+                ObservableCollection<UserDTO> studentsList = user.GetListStud();
+                ObservableCollection<UserDTO> teachersList = user.GetListTeacher();
+                TeachersList.ItemsSource = teachersList;
+                StudentsList.ItemsSource = studentsList;
                 GroupsList.ItemsSource = groupsList;
                 GroupsList2.ItemsSource = groupsList;
             }
@@ -40,5 +44,21 @@ namespace Visual.AdminsWindows
             }
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            View.Admin.Forms.AddOrChange aoc = new();
+            aoc.Show();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            //user.RemoveUser(user)
+
+        }
     }
 }

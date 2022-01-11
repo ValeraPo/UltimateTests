@@ -49,13 +49,13 @@ namespace Visual
             //    MessageBox.Show("Неверный логин или пароль");
             //}
 
-            //AdminsWindows.AdminsStartWindow asw = new();
-            //asw.Show();
+            AdminsWindows.AdminsStartWindow asw = new();
+            asw.Show();
 
             View.Methodist.Forms.MethodistStartWindow mew = new();
-            View.Methodist.Forms.QuizesWindow qw = new();
             mew.Show();
-            qw.Show();
+            //View.Methodist.Forms.QuizesWindow qw = new();
+            //qw.Show();
         }
     }
 }

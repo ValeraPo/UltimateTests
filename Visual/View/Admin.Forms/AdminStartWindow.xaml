@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Visual.AdminsWindows"
         mc:Ignorable="d"
-        Title="Пользователи" Height="700" Width="1000" FontFamily="Poppins"
+        Title="Admin" Height="700" Width="1000" FontFamily="Poppins"
         WindowStartupLocation="CenterScreen">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -46,14 +46,13 @@
         HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
 
                     <ScrollViewer Grid.Column="2">
-                        <ListView Name="StudentsList" >
+                        <ListView Name="StudentsList">
 
                             <!--ItemsSource="{DynamicResource ResourceKey=Logic.DTO.GroupDTO}" >-->
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Header="ФИО" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Company}" Header="Логин"/>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Header="Пароль"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=FullName}" Header="ФИО" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Email}" Header="E-mail"/>
                                 </GridView>
                             </ListView.View>
                             <ListView.Resources>
@@ -77,9 +76,8 @@
                             <ListView Name="TeachersList" >
                                 <ListView.View>
                                     <GridView>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Header="ФИО" />
-                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Company}" Header="Логин"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Header="Пароль"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=FullName}" Header="ФИО" />
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Email}" Header="E-mail"/>
                                     </GridView>
                                 </ListView.View>
                                 <ListView.Resources>
@@ -88,7 +86,9 @@
                             </ListView>
                         </StackPanel>
                     </ScrollViewer>
-                    <GridSplitter Grid.Column="1"/>
+                    <GridSplitter Grid.Column="1" Width="5"
+        HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
+                    
                     <ScrollViewer Grid.Column="2">
                         <ListBox x:Name="GroupsList2">
                             <ListBox.ItemTemplate>
@@ -104,9 +104,9 @@
         </TabControl>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="add"/>
-            <Button Content="change"/>
-            <Button Content="delete"/>
+            <Button Content="add" Click="Button_Click"/>
+            <Button Content="change" Click="Button_Click_1"/>
+            <Button Content="delete" Click="Button_Click_2"/>
         </StackPanel>
     </Grid>
 </Window>

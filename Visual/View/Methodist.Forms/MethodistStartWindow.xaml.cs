@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Logic.DTO;
+using Logic.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -20,19 +22,53 @@ namespace Visual.View.Methodist.Forms
     /// </summary>
     public partial class MethodistStartWindow : Window
     {
-        ObservableCollection<string> _currentTags;
+        ISetTag st = Logic.Configuration.IocKernel.Get<ISetTag>();
+        IQuizze qui = Logic.Configuration.IocKernel.Get<IQuizze>();
+        ObservableCollection<SetTagDTO> _currentTagList;
+        ObservableCollection<SetTagDTO> setTags;
+
+        IUser user = Logic.Configuration.IocKernel.Get<IUser>();
+        IGroup group = Logic.Configuration.IocKernel.Get<IGroup>();
+
         public MethodistStartWindow()
         {
             InitializeComponent();
-            _currentTags = new ObservableCollection<string> { "1111", "2", "3", "432"};
+            //TabItem Tests
+            setTags = st.GetListEntity();
+            TagsComboBox.ItemsSource = setTags;
+            ObservableCollection<QuizzeDTO> quizzes = qui.GetListEntity();
+            QuizeList.ItemsSource = quizzes;
+            _currentTagList = new ObservableCollection<SetTagDTO>();
+            CurrentTagsListBox.ItemsSource = _currentTagList;
+
+            //TabItem Statistic
+            //ObservableCollection<UserDTO> studentsList = user.GetListStud();
+            //ObservableCollection<GroupDTO> groupsList = group.GetListEntity();
+           
+            //GroupsTreeView.ItemsSource = groupsList;
+            ////Students tree                                                                         <-----------TODO GetListStudByGroup()
+            //StudentsTreeView.ItemsSource = studentsList;
             
-            CurrentTagsList.ItemsSource = _currentTags;
-            
+
+            //Quizes tree
+           // TagsTreeView.ItemsSource = setTags;
+            QuizesTreeView.ItemsSource = quizzes;
         }
         public void CurrentTagsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //_currentTags.RemoveAt((sender as ListBox).SelectedIndex);
-            _currentTags.RemoveAt(CurrentTagsList.SelectedIndex); //
+            //MessageBox.Show(CurrentTagsListBox.SelectedValue.ToString());
+            var temp = (SetTagDTO)CurrentTagsListBox.SelectedValue;
+            _currentTagList.Remove(temp);
+        }
+
+        private void TagsComboBox_DropDownClosed(object sender, EventArgs e)
+        {
+            var temp = (SetTagDTO)TagsComboBox.SelectedValue;
+            
+            if (!_currentTagList.Contains(temp))
+            {
+                _currentTagList.Add(temp);
+            }
         }
     }
 }

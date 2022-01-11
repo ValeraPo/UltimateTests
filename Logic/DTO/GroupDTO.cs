@@ -1,3 +1,6 @@
+using Logic.Interfaces;
+using System.Collections.ObjectModel;
+
 namespace Logic.DTO
 {
     public class GroupDTO

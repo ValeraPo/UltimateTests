@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Visual.View.Methodist.Forms"
         mc:Ignorable="d"
-        Title="MethodistStartWindow" Height="450" Width="800">
+        Title="MethodistStartWindow" Height="450" Width="1000">
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -33,23 +33,29 @@
                     <GridSplitter Grid.Column="1" Width="5"
         HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
 
-                    <ScrollViewer Grid.Column="2">
-                        <StackPanel Grid.Column="2">
-                            <ComboBox>
-                                <!--Здесь будет список всех тэгов-->
-                            </ComboBox>
-                            <ListBox x:Name="CurrentTagsList" SelectionChanged="CurrentTagsList_SelectionChanged"
-                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                                
-                                <ListBox.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel />
-                                    </ItemsPanelTemplate>
-                                </ListBox.ItemsPanel>
-                                
-                            </ListBox>
-                        </StackPanel>
-                    </ScrollViewer>
+
+                    <Grid Grid.Column="2" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <ComboBox Grid.Row="0" Name="TagsComboBox" DropDownClosed="TagsComboBox_DropDownClosed">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontSize="16" Text="{Binding Path=Text}" Width="300"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                        <ListBox Grid.Row="1" x:Name="CurrentTagsListBox" SelectionChanged="CurrentTagsList_SelectionChanged"
+                                     >
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontSize="16" Text="{Binding Path=Text}" HorizontalAlignment="Left"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
                 </Grid>
             </TabItem>
 
@@ -63,12 +69,19 @@
                     </Grid.ColumnDefinitions>
                     <ScrollViewer Grid.Column="0">
                         <TreeView>
-                            <TreeViewItem Header="Студенты" x:Name="StudentsTree">
-                                <TreeViewItem Header="{Binding Path=NameOfGroup}" />
-                                <TreeViewItem Header="{Binding Path=FullName}"/>
-                            </TreeViewItem>
-                            <TreeViewItem Header="Преподаватели" x:Name="TeachersTree">
-                                <TreeViewItem Header="{Binding Path=FullName}" />
+                            <!--<TreeViewItem Header="Студенты" x:Name="StudentsTree">
+                                <TreeViewItem Name="GroupsTreeView" Header="{Binding Path=NameOfGroup}">
+                                    <TreeViewItem  Name="StudentsTreeView" Header="{Binding Path=FullName}"/>
+                                </TreeViewItem>
+                                --><!--<TreeViewItem Name="GroupsTreeView" Header="{Binding Path=NameOfGroup}">
+                                    <TreeViewItem Name="StudentsTreeView" Header="{Binding Path=FullName}"/>
+                                </TreeViewItem>--><!--
+                            </TreeViewItem>-->
+                            
+                            <TreeViewItem Header="Тесты" x:Name="TeachersTree">
+                                <TreeViewItem Name="TagsTreeView" Header="{Binding Path=Text}">
+                                    <TreeViewItem Name="QuizesTreeView" Header="{Binding Path=NameQuiz}" />
+                                </TreeViewItem>
                             </TreeViewItem>
                         </TreeView>
                         
