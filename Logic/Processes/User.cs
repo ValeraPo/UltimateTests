@@ -67,7 +67,7 @@ namespace Logic.Processes
             return new UserDTO(_user);
         }
         // Добавить нового пользователя
-        public void AddNewUser(string fullName, string email, string login, string password, int id_role, string group = null)
+        public void AddNewUser(string fullName, string email, string login, string password, int id_role, long? group = null)
         {
             List<string> logins = _users.GetListEntity().Select(t => t.Login).ToList();
             List<string> emails = _users.GetListEntity().Select(t => t.Email).ToList();
@@ -84,7 +84,7 @@ namespace Logic.Processes
                               Email    = email,
                               Login    = login,
                               ID_Role  = id_role,
-                              ID_Group = group == null ?  null : _groups.GetListEntity().Single(t=> t.NameOfGroup == group).ID_Group,
+                              ID_Group = group,
                               HashPass = MD5Hash(password)
                           });
             _users.Save();
