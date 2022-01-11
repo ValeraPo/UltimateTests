@@ -24,7 +24,8 @@ namespace Visual.View.Methodist.Forms
     {
         ISetTag st = Logic.Configuration.IocKernel.Get<ISetTag>();
         IQuizze qui = Logic.Configuration.IocKernel.Get<IQuizze>();
-        ObservableCollection<string> _currentTagList;
+        ObservableCollection<SetTagDTO> _currentTagList;
+        ObservableCollection<SetTagDTO> setTags;
 
         IUser user = Logic.Configuration.IocKernel.Get<IUser>();
         IGroup group = Logic.Configuration.IocKernel.Get<IGroup>();
@@ -33,11 +34,11 @@ namespace Visual.View.Methodist.Forms
         {
             InitializeComponent();
             //TabItem Tests
-            ObservableCollection<SetTagDTO> setTags = st.GetListEntity();
+            setTags = st.GetListEntity();
             TagsComboBox.ItemsSource = setTags;
             ObservableCollection<QuizzeDTO> quizzes = qui.GetListEntity();
             QuizeList.ItemsSource = quizzes;
-            _currentTagList = new ObservableCollection<string>();
+            _currentTagList = new ObservableCollection<SetTagDTO>();
             CurrentTagsListBox.ItemsSource = _currentTagList;
 
             //TabItem Statistic
@@ -56,19 +57,18 @@ namespace Visual.View.Methodist.Forms
         public void CurrentTagsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //MessageBox.Show(CurrentTagsListBox.SelectedValue.ToString());
-            _currentTagList.Remove((string)CurrentTagsListBox.SelectedItem);
+            var temp = (SetTagDTO)CurrentTagsListBox.SelectedValue;
+            _currentTagList.Remove(temp);
         }
 
         private void TagsComboBox_DropDownClosed(object sender, EventArgs e)
         {
-            bool flag = false;
-            foreach (var el in _currentTagList)
+            var temp = (SetTagDTO)TagsComboBox.SelectedValue;
+            
+            if (!_currentTagList.Contains(temp))
             {
-                if (el == TagsComboBox.Text)
-                    flag = true;
+                _currentTagList.Add(temp);
             }
-            if (!flag)
-                _currentTagList.Add(TagsComboBox.Text);
         }
     }
 }

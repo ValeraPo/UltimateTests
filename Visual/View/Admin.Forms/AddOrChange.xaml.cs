@@ -84,15 +84,16 @@ namespace Visual.View.Admin.Forms
         //create user
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
             //groupsList.Single(t => t.NameOfGroup == GroupComboBox.Text);
             if (_typeOfUser == 2)
             {
-                user.AddNewUser(TextBoxFIO.Text, TextBoxEmail.Text, TextBoxLogin.Text, TextBoxPass.Text, _typeOfUser, _groupsList.Single(t => t.NameOfGroup == GroupComboBox.Text).Id);
+                user.AddNewUser(TextBoxFIO.Text, TextBoxEmail.Text, TextBoxLogin.Text, TextBoxPass.Text, _typeOfUser, ((GroupDTO)GroupComboBox.SelectedValue).Id);
             }
             else
                 user.AddNewUser(TextBoxFIO.Text, TextBoxEmail.Text, TextBoxLogin.Text, TextBoxPass.Text, _typeOfUser, null);
             usersList = user.GetListEntity();
+            
+            this.Close();
         }
         //add group
         private void Button_Click_1(object sender, RoutedEventArgs e)
