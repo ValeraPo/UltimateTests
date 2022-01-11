@@ -1,14 +1,13 @@
-using System;
 using Logic.Configuration;
-using Logic.Interfaces;
 using NUnit.Framework;
-namespace NUnit.Tests
+
+namespace Tests
 {
 
     [SetUpFixture]
     public class Settings
     {
-        [SetUp]
+        [OneTimeSetUp]
         public void Init()
         {
             IocKernel.Initialize(new ProjectConfiguration());

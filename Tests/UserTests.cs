@@ -13,7 +13,7 @@ namespace Tests
     [TestFixture]
     public class UserTests
     {
-        //private IUser _user = IocKernel.Get<IUser>();
+        private IUser _user = IocKernel.Get<IUser>();
         //
         //Авторизация
         public enum Users
@@ -60,13 +60,13 @@ namespace Tests
         {
             //IocKernel.Initialize(new ProjectConfiguration());
 
-            Assert.AreEqual(AuthorizationMockOutputData(user), IocKernel.Get<IUser>().Authorization(login, password));
+            Assert.AreEqual(AuthorizationMockOutputData(user), _user.Authorization(login, password));
         }
         [Test]
         public void AuthorizationNegativeTest()
         {
             IocKernel.Initialize(new ProjectConfiguration());
-            Assert.Throws<System.InvalidOperationException>(() => IocKernel.Get<IUser>().Authorization("login", "password"));
+            Assert.Throws<System.InvalidOperationException>(() => _user.Authorization("login", "password"));
         }
         //
         // Добавление пользователя 
@@ -108,19 +108,17 @@ namespace Tests
         public void AddNewUserTest(NewUsers user, string fullName, string email, string login, string password, int id_role, long? id_group = null)
         {
             //IocKernel.Initialize(new ProjectConfiguration());
-            IocKernel.Get<IUser>().AddNewUser(fullName, email, login, password, id_role, id_group);
+            _user.AddNewUser(fullName, email, login, password, id_role, id_group);
             var myUser = AddNewUserMockOutputData(user);
-            Assert.AreEqual(myUser, IocKernel.Get<IUser>().Authorization(login, password));
+            Assert.AreEqual(myUser, _user.Authorization(login, password));
             //IocKernel.Get<IUser>().RemoveUser(myUser); - мы удаляем при следующем тесте, который ниже
         }
         
         [Test]
         public void AddNewUserNegativeTest()
         {
-            IocKernel.Initialize(new ProjectConfiguration());
             //TODO дописать существующие логин и емайл
-            Assert.Throws<System.InvalidOperationException>(()
-                => IocKernel.Get<IUser>().AddNewUser("Владимир Путин", "bla-bla", "blabla", "blabla", 1));
+            Assert.Throws<ArgumentException>(() => _user.AddNewUser("Владимир Путин", "bla-bla", "blabla", "blabla", 1));
         }
         //
         // Удаление пользователя
@@ -132,9 +130,9 @@ namespace Tests
         {
             //IocKernel.Initialize(new ProjectConfiguration());
             var myUser = AddNewUserMockOutputData(user);
-            IocKernel.Get<IUser>().RemoveUser(myUser);
+            _user.RemoveUser(myUser);
 
-            CollectionAssert.DoesNotContain(IocKernel.Get<IUser>().GetListEntity().Select(t => t.Email).ToList(), myUser.Email);
+            CollectionAssert.DoesNotContain(_user.GetListEntity().Select(t => t.Email).ToList(), myUser.Email);
         }
         //
         // Добавить группу преподу
@@ -178,10 +176,11 @@ namespace Tests
         [TestCase("gardeeva", "gardeeva", Appointments.gardeeva)]
         public void GetAppointmentQuizzesTest(string login, string password, Appointments appointment)
         {
-            UserDTO user = IocKernel.Get<IUser>().Authorization(login, password);
+            UserDTO user = _user.Authorization(login, password);
 
             ObservableCollection<QuizzeDTO> expected = GetAppointmentQuizzesMockOutputData(appointment);
-            ObservableCollection<QuizzeDTO> actual = IocKernel.Get<IUser>().GetAppointmentQuizzes();
+            ObservableCollection<QuizzeDTO> actual = _user.GetAppointmentQuizzes();
+            CollectionAssert.AreEqual(expected, actual);
 
         }
         

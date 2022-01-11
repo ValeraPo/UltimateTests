@@ -29,6 +29,7 @@ namespace Data.Repositories
                 groups.IsDel = true;
             foreach (var quizzes in teg.QuizzesCategories)
                 quizzes.IsDel = true;
+            Save();
         }
     }
 }
