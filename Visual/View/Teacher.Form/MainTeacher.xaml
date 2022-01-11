@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
 
         <TabControl Grid.Row="0" Style="{DynamicResource TabControlStyle}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <TabItem Header="Тэсты" Style="{DynamicResource TabItemStyle}">
+            <TabItem Header="Тесты" Style="{DynamicResource TabItemStyle}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -24,7 +24,7 @@
                         <ListBox x:Name="QuizeList">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock FontSize="16" Text="{Binding Path=NameQuiz}" HorizontalAlignment="Left"/>
+                                    <TextBlock FontSize="16" Text="{Binding NameQuiz}" HorizontalAlignment="Left"/>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
@@ -65,28 +65,23 @@
                     <ScrollViewer Grid.Column="0">
                         <TreeView>
                             <TreeViewItem Header="Группы" x:Name="StudentsTree">
-                                <TreeViewItem Header="{Binding Path=NameOfGroup}"/>
-                                <TreeViewItem Header="{Binding Path=FullName}"/>
+                                <TreeViewItem Header="{Binding NameOfGroup}"/>
+                                <TreeViewItem Header="{Binding FullName}"/>
                             </TreeViewItem>
-                            
+
                         </TreeView>
 
                     </ScrollViewer>
                     <GridSplitter Grid.Column="1"/>
                     <ScrollViewer Grid.Column="2">
-                        <ListView Grid.Column="0" Name="QuizesList" >
+                        <ListView Grid.Column="0" x:Name="QuizesList" >
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Header="Тест"/>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Header="Дата прохождения" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Header="Количество баллов" >
-                                        
-                                    </GridViewColumn>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Тест"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Дата прохождения" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Количество баллов" />
                                 </GridView>
                             </ListView.View>
-                            <ListView.Resources>
-
-                            </ListView.Resources>
                         </ListView>
                     </ScrollViewer>
                 </Grid>

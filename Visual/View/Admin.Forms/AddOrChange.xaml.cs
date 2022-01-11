@@ -25,28 +25,28 @@ namespace Visual.View.Admin.Forms
         IGroup group = Logic.Configuration.IocKernel.Get<IGroup>();
         IUser user = Logic.Configuration.IocKernel.Get<IUser>();
         int _typeOfUser;
-        ObservableCollection<GroupDTO> groupsList;
-        
+        ObservableCollection<GroupDTO> _groupsList;
+        ObservableCollection<UserDTO> usersList;
 
         public AddOrChange()
         {
             InitializeComponent();
-            
-            ObservableCollection<UserDTO> usersList = user.GetListEntity();
 
-            groupsList = group.GetListEntity();
-            GroupComboBox.ItemsSource = groupsList;
+            usersList = user.GetListEntity();
 
+            _groupsList = group.GetListEntity();
+            GroupComboBox.ItemsSource = _groupsList;
+            GroupComboBox.Visibility = Visibility.Visible;
         }
 
         public AddOrChange(UserDTO changingUser)
         {
             InitializeComponent();
 
-            ObservableCollection<UserDTO> usersList = user.GetListEntity();
+            usersList = user.GetListEntity();
+            _groupsList = group.GetListEntity();
 
-            ObservableCollection<GroupDTO> groupsList = group.GetListEntity();
-            GroupComboBox.ItemsSource = groupsList;
+            GroupComboBox.ItemsSource = _groupsList;
             TextBoxFIO.Text = changingUser.FullName;
             TextBoxEmail.Text = changingUser.Email;
             //TextBoxLogin.Text = changingUser.Login;
@@ -63,35 +63,36 @@ namespace Visual.View.Admin.Forms
             if (TypeComboBox.Text == "Студент")
             {
                 GroupComboBox.Visibility = Visibility.Visible;
-                _typeOfUser = 1; //TODO поменять на нужное
+                _typeOfUser = 2; 
             }
             else if (TypeComboBox.Text == "Преподаватель")
             {
                 GroupComboBox.Visibility = Visibility.Collapsed;
-                _typeOfUser = 2; //TODO поменять на нужное
+                _typeOfUser = 3; 
             }
             else if (TypeComboBox.Text == "Методист")
             {
                 GroupComboBox.Visibility = Visibility.Collapsed;
-                _typeOfUser = 3; //TODO поменять на нужное
+                _typeOfUser = 4; 
             }
             else
             {
                 GroupComboBox.Visibility = Visibility.Collapsed;
-                _typeOfUser = 4; //TODO поменять на нужное
+                _typeOfUser = 1; 
             }
         }
         //create user
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //long newId;
-            //foreach (var el in groupsList)
-            //{
-            //    if (GroupComboBox.Text == el.NameOfGroup)
-            //        newId = el.Id
-            //}
-            //(GroupDTO)GroupComboBox.SelectedItem.Id
-            user.AddNewUser(TextBoxFIO.Text, TextBoxEmail.Text, TextBoxLogin.Text, TextBoxPass.Text, _typeOfUser, long.Parse(GroupComboBox.Text)); //херня - переделать
+            
+            //groupsList.Single(t => t.NameOfGroup == GroupComboBox.Text);
+            if (_typeOfUser == 2)
+            {
+                user.AddNewUser(TextBoxFIO.Text, TextBoxEmail.Text, TextBoxLogin.Text, TextBoxPass.Text, _typeOfUser, _groupsList.Single(t => t.NameOfGroup == GroupComboBox.Text).Id);
+            }
+            else
+                user.AddNewUser(TextBoxFIO.Text, TextBoxEmail.Text, TextBoxLogin.Text, TextBoxPass.Text, _typeOfUser, null);
+            usersList = user.GetListEntity();
         }
         //add group
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -100,6 +101,7 @@ namespace Visual.View.Admin.Forms
                 group.AddGroup(TextBoxNewGroup.Text);
             else
                 MessageBox.Show("Поле группы не заполнено!");
+            _groupsList = group.GetListEntity();
         }
         //change
         private void Button_Click_2(object sender, RoutedEventArgs e)
