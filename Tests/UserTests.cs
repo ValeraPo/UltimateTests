@@ -34,11 +34,11 @@ namespace Tests
                 }
                 case Users.Papov: 
                 {
-                    return new UserDTO( 2, "Папов Г.А.", "pppp@mail.ru", "12929/1");
+                    return new UserDTO( 2, "Папов Г.А.", "pppp@mail.ru", "12929/1   ");
                 }
                 case Users.Pismanic: 
                 {
-                    return new UserDTO( 2, "Писманик М.К.", "rrrr@mail.ru", "12929/1");
+                    return new UserDTO( 2, "Писманик М.К.", "rrrr@mail.ru", "12929/1   ");
                 }
                 case Users.Holo: 
                 {
@@ -87,31 +87,32 @@ namespace Tests
             {
                 case NewUsers.one: 
                 {
-                    return new UserDTO(9, 1, "1", "1", null);
+                    return new UserDTO(1, "1", "1", null);
                 }
                 case NewUsers.two: 
                 {
-                    return new UserDTO(10, 2, "2", "2", "12929/1");
+                    return new UserDTO(2, "2", "2", null);
                 }
                 case NewUsers.three: 
                 {
-                    return new UserDTO(11, 3, "3", "3", null);
+                    return new UserDTO(3, "3", "3", null);
                 }
                 case NewUsers.four: 
                 {
-                    return new UserDTO(12, 4, "4", "4", null);
+                    return new UserDTO(4, "4", "4", null);
                 }
                 
                 default: throw new ArgumentException();
             }
         }
         [TestCase(NewUsers.one, "1", "1", "1", "1", 1)]
-        [TestCase(NewUsers.two, "2", "2", "2", "2", 2, 1)]
+        [TestCase(NewUsers.two, "2", "2", "2", "2", 2)]
         [TestCase(NewUsers.three, "3", "3", "3", "3", 3)]
         [TestCase(NewUsers.four, "4", "4", "4", "4", 4)]
         public void AddNewUserTest(NewUsers user, string fullName, string email, string login, string password, int id_role, long? id_group = null)
         {
             var expectedUser = AddNewUserMockOutputData(user);
+            _user.AddNewUser(fullName, email, login, password, id_role, id_group);
             var actualUser = _user.Authorization(login, password);
 
             Assert.AreEqual(expectedUser.Email, actualUser.Email);
@@ -134,7 +135,7 @@ namespace Tests
         public void RemoveUserTest(NewUsers user)
         {
             var myUser = AddNewUserMockOutputData(user);
-            _user.RemoveUser(myUser);
+            _user.RemoveUser(myUser.Email);
 
             CollectionAssert.DoesNotContain(_user.GetListEntity().Select(t => t.Email).ToList(), myUser.Email);
         }

@@ -14,15 +14,15 @@ namespace Tests
         private IQuizze _quiz = IocKernel.Get<IQuizze>();
         //
         // Добавить тест
-        [TestCase("test1", 6, TimeSpan.TicksPerHour)]
-        [TestCase("test2", 6, TimeSpan.TicksPerDay)]
-        [TestCase("test3", 6, TimeSpan.TicksPerMillisecond)]
-        [TestCase("test4", 7, TimeSpan.TicksPerMinute)]
-        [TestCase("test5", 7, TimeSpan.TicksPerHour)]
-        public void AddQuizTest(string nameQuiz, long idUser, TimeSpan timeToComplete)
+        [TestCase("test1", 6, 1,0,0)]
+        [TestCase("test2", 6, 1,30,0)]
+        [TestCase("test3", 6, 0,0,30)]
+        [TestCase("test4", 7, 0,1,0)]
+        [TestCase("test5", 7, 1,30,30)]
+        public void AddAQuizTest(string nameQuiz, long idUser, byte hour, byte min, byte sec)
         {
-            
-            var newQuiz = new QuizzeDTO(nameQuiz, timeToComplete, new ObservableCollection<QuestionDTO>());
+            var tmp = new TimeSpan(hour,min,sec);
+            var newQuiz = new QuizzeDTO(nameQuiz, tmp, new ObservableCollection<QuestionDTO>());
             var user = IocKernel.Get<IUser>().GetEntity(idUser);
             _quiz.AddQuiz(newQuiz, user);
             

@@ -95,6 +95,7 @@ namespace Logic.Processes
                          {
                              Text = text
                          });
+            SaveChange();
         }
         // Удаление тега
         public void RemoveTeg(SetTagDTO teg)
