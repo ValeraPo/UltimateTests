@@ -6,7 +6,7 @@ using Logic.DTO;
 using Logic.Interfaces;
 using NUnit.Framework;
 
-namespace Tests
+namespace Tests.Logic
 {
     [TestFixture]
     public class QuizzeTests

@@ -6,7 +6,7 @@ using Logic.DTO;
 using Logic.Interfaces;
 using Logic.Processes;
 using NUnit.Framework;
-namespace Tests
+namespace Tests.Logic
 {
     [TestFixture]
     public class SetTagTest

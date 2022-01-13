@@ -7,11 +7,11 @@ using Data.Interfaces;
 
 namespace Data.Repositories
 {
-    public class SetTag : IRepository<Maps.SetTag>
+    public class SetTagRepo : IRepository<Maps.SetTag>
     {
         private Context db;
 
-        public SetTag() => db = Context.GetContext();
+        public SetTagRepo() => db = Context.GetContext();
 
 
         public IEnumerable<Maps.SetTag> GetListEntity() => db.SetTags.Where(t => !t.IsDel);

@@ -7,11 +7,11 @@ using Data.Interfaces;
 
 namespace Data.Repositories
 {
-    public class User : IRepository<Maps.User>
+    public class UserRepo : IRepository<Maps.User>
     {
         private Context db;
 
-        public User() => db = Context.GetContext();
+        public UserRepo() => db = Context.GetContext();
 
 
         public IEnumerable<Maps.User> GetListEntity() => db.Users.Where(t => !t.IsDel);

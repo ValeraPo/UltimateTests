@@ -6,11 +6,11 @@ using Data.Interfaces;
 
 namespace Data.Repositories
 {
-    public class Attempt : IRepository<Maps.Attempt>
+    public class AttemptRepo : IRepository<Maps.Attempt>
     {
         private Context db;
 
-        public Attempt() => db = Context.GetContext();
+        public AttemptRepo() => db = Context.GetContext();
 
 
         public IEnumerable<Maps.Attempt> GetListEntity() => db.Attempts;

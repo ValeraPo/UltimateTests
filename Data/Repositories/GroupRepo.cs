@@ -7,11 +7,11 @@ using Data.Interfaces;
 
 namespace Data.Repositories
 {
-    public class Group : IRepository<Maps.Group>
+    public class GroupRepo : IRepository<Maps.Group>
     {
         private Context db;
         
-        public Group() => db = Context.GetContext();
+        public GroupRepo() => db = Context.GetContext();
 
 
         public IEnumerable<Maps.Group> GetListEntity() => db.Groups.Where(t => !t.IsDel);
@@ -27,8 +27,8 @@ namespace Data.Repositories
             group.IsDel = true;
             foreach (var teach in group.TeachingGroups)
                 teach.IsDel = true;
-            foreach (var studens in group.Users)
-                studens.Group = null;
+            foreach (var students in group.Users)
+                students.Group = null;
             foreach (var tags in group.GroupsCategories)
                 tags.IsDel = true;
             Save();

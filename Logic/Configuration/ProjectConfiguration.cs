@@ -10,13 +10,13 @@ namespace Logic.Configuration
         public override void Load()
         {
             //Репозитории
-            Bind<IRepository<AppointmentQuizze>>().To<Data.Repositories.AppointmentQuizze>().InSingletonScope();
-            Bind<IRepository<Attempt>>().To<Data.Repositories.Attempt>().InSingletonScope();
-            Bind<IRepository<Feedback>>().To<Data.Repositories.Feedback>().InSingletonScope();
-            Bind<IRepository<Group>>().To<Data.Repositories.Group>().InSingletonScope();
-            Bind<IRepository<Quizze>>().To<Data.Repositories.Quizze>().InSingletonScope();
-            Bind<IRepository<SetTag>>().To<Data.Repositories.SetTag>().InSingletonScope();
-            Bind<IRepository<User>>().To<Data.Repositories.User>().InSingletonScope();
+            Bind<IRepository<AppointmentQuizze>>().To<Data.Repositories.AppointmentQuizRepo>().InSingletonScope();
+            Bind<IRepository<Attempt>>().To<Data.Repositories.AttemptRepo>().InSingletonScope();
+            Bind<IRepository<Feedback>>().To<Data.Repositories.FeedbackRepo>().InSingletonScope();
+            Bind<IRepository<Group>>().To<Data.Repositories.GroupRepo>().InSingletonScope();
+            Bind<IRepository<Quizze>>().To<Data.Repositories.QuizzeRepo>().InSingletonScope();
+            Bind<IRepository<SetTag>>().To<Data.Repositories.SetTagRepo>().InSingletonScope();
+            Bind<IRepository<User>>().To<Data.Repositories.UserRepo>().InSingletonScope();
             
             //Процессоры
             Bind<IUser>().To<Processes.User>().InSingletonScope();

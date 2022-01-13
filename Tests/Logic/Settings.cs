@@ -1,7 +1,7 @@
 using Logic.Configuration;
 using NUnit.Framework;
 
-namespace Tests
+namespace Tests.Logic
 {
 
     [SetUpFixture]

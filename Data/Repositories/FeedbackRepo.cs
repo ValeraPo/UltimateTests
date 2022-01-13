@@ -7,11 +7,11 @@ using Data.Interfaces;
 
 namespace Data.Repositories
 {
-    public class Feedback : IRepository<Maps.Feedback>
+    public class FeedbackRepo : IRepository<Maps.Feedback>
     {
         private Context db;
 
-        public Feedback() => db = Context.GetContext();
+        public FeedbackRepo() => db = Context.GetContext();
 
 
         public IEnumerable<Maps.Feedback> GetListEntity() => db.Feedbacks.Where(t => !t.IsDel);

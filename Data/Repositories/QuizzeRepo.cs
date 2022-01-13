@@ -7,11 +7,11 @@ using Data.Interfaces;
 
 namespace Data.Repositories
 {
-    public class Quizze : IRepository<Maps.Quizze>
+    public class QuizzeRepo : IRepository<Maps.Quizze>
     {
         private Context db;
 
-        public Quizze() => db = Context.GetContext();
+        public QuizzeRepo() => db = Context.GetContext();
 
 
         public IEnumerable<Maps.Quizze> GetListEntity() => db.Quizzes.Where(t => !t.IsDel);
