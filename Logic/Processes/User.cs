@@ -204,9 +204,9 @@ namespace Logic.Processes
         {
             _users.Delete(user.Id);
         }
-        public void RemoveUser(string login)
+        public void RemoveUser(string email)
         {
-            _users.Delete(_users.GetListEntity().Single(t=> t.Login == login).ID_User);
+            _users.Delete(_users.GetListEntity().Single(t=> t.Email == email).ID_User);
         }
         // Сохранить изменения
         public void SaveChange() => _users.Save();

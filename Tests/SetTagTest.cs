@@ -11,30 +11,30 @@ namespace Tests
     [TestFixture]
     public class SetTagTest
     {
-        private ISetTag _feedback = IocKernel.Get<ISetTag>();
+        private ISetTag _tags = IocKernel.Get<ISetTag>();
         //
         // Возврат групп по тегу
         [TestCase(2, 1)]
-        [TestCase(3, 4)]
-        [TestCase(1, 2)]
+        [TestCase(3, 2)]
+        [TestCase(1, 4)]
         public void SearchGroupByTegTest(long idGroup, long idTag)
         {
             var tags = new ObservableCollection<SetTagDTO>();
-            tags.Add(_feedback.GetEntity(idTag));
+            tags.Add(_tags.GetEntity(idTag));
             var group = IocKernel.Get<IGroup>().GetEntity(idGroup);
-            var ecpected = _feedback.SearchGroupByTeg(tags);
-            CollectionAssert.Contains(ecpected, group);
+            var ecpected = _tags.SearchGroupByTeg(tags).Select(t=>t.NameOfGroup);
+            CollectionAssert.Contains(ecpected, group.NameOfGroup);
 
         }
         //
         // Возврат тестов по тегу
-        [TestCase(1, 17)]
+        [TestCase(2, 17)]
         public void SearchQuizzeTegTest(long idQuizze, long idTag)
         {
             var tags = new ObservableCollection<SetTagDTO>();
-            tags.Add(_feedback.GetEntity(idTag));
+            tags.Add(_tags.GetEntity(idTag));
             var quize = IocKernel.Get<IQuizze>().GetEntity(idQuizze);
-            var ecpected = _feedback.SearchQuizzesByTeg(tags).Select(t =>t.NameQuiz).ToList();
+            var ecpected = _tags.SearchQuizzesByTeg(tags).Select(t =>t.NameQuiz).ToList();
             CollectionAssert.Contains(ecpected, quize.NameQuiz);
 
         }
@@ -47,8 +47,8 @@ namespace Tests
         [TestCase("5")]
         public void AddTegTest(string text)
         {
-            _feedback.AddTeg(text);
-            CollectionAssert.Contains(_feedback.GetListEntity().Select(t => t.Text).ToList(), text);
+            _tags.AddTeg(text);
+            CollectionAssert.Contains(_tags.GetListEntity().Select(t => t.Text).ToList(), text);
         }
         //
         // Удаление тега
@@ -59,8 +59,8 @@ namespace Tests
         [TestCase("5")]
         public void RemoveTegTest(string text)
         {
-            _feedback.RemoveTeg(text);
-            CollectionAssert.DoesNotContain(_feedback.GetListEntity().Select(t => t.Text).ToList(), text);
+            _tags.RemoveTeg(text);
+            CollectionAssert.DoesNotContain(_tags.GetListEntity().Select(t => t.Text).ToList(), text);
         }
     }
 }

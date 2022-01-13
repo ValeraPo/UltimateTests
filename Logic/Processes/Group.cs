@@ -89,6 +89,7 @@ namespace Logic.Processes
                            {
                                NameOfGroup = text
                            });
+            SaveChange();
         }
         // Удаление группы
         public void RemoveGroup(GroupDTO group)

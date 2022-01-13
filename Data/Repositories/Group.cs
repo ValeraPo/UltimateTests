@@ -29,6 +29,8 @@ namespace Data.Repositories
                 teach.IsDel = true;
             foreach (var studens in group.Users)
                 studens.Group = null;
+            foreach (var tags in group.GroupsCategories)
+                tags.IsDel = true;
             Save();
         }
     }

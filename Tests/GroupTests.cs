@@ -45,7 +45,7 @@ namespace Tests
                 }
                 case NewGroups.five: 
                 {
-                    return new GroupDTO(18,  "4");
+                    return new GroupDTO(18,  "5");
                 }
                 
                 default: throw new ArgumentException();
@@ -93,7 +93,7 @@ namespace Tests
             var expexted = setTag.SearchGroupByTeg(tags).Select(t =>t.NameOfGroup);
 
             
-            CollectionAssert.Contains(expexted, group);
+            CollectionAssert.Contains(expexted, group.NameOfGroup);
         }
         //
         // Удаление группы
@@ -105,7 +105,7 @@ namespace Tests
         public void RemoveGroupTest(NewGroups group)
         {
             var myGroup = AddGroupMockOutputData(group);
-            _group.RemoveGroup(myGroup);
+            _group.RemoveGroup(myGroup.NameOfGroup);
 
             CollectionAssert.DoesNotContain(_group.GetListEntity().Select(t => t.NameOfGroup).ToList(), myGroup.NameOfGroup);
         }
