@@ -1,23 +1,23 @@
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using Data.Controllers;
 using Data.Interfaces;
+using Data.Maps;
 
 namespace Data.Repositories
 {
-    public class UserRepo : IRepository<Maps.User>
+    public class UserRepo : IRepository<User>
     {
         private Context db;
 
         public UserRepo() => db = Context.GetContext();
 
 
-        public IEnumerable<Maps.User> GetListEntity() => db.Users.Where(t => !t.IsDel);
-        public Maps.User GetEntity(long id) => db.Users.Single(t => !t.IsDel && t.ID_User == id);
-        public void Create(Maps.User item) => db.Users.Add(item);
-        public void Update(Maps.User item) => db.Entry(item).State = EntityState.Modified;
+        public IEnumerable<User> GetListEntity() => db.Users.Where(t => !t.IsDel);
+        public User GetEntity(long id) => db.Users.Single(t => !t.IsDel && t.ID_User == id);
+        public void Create(User item) => db.Users.Add(item);
+        public void Update(User item) => db.Entry(item).State = EntityState.Modified;
         public void Save() => db.SaveChanges();
         public void Delete(long id)
         {

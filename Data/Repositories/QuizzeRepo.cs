@@ -1,23 +1,23 @@
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using Data.Controllers;
 using Data.Interfaces;
+using Data.Maps;
 
 namespace Data.Repositories
 {
-    public class QuizzeRepo : IRepository<Maps.Quizze>
+    public class QuizzeRepo : IRepository<Quizze>
     {
         private Context db;
 
         public QuizzeRepo() => db = Context.GetContext();
 
 
-        public IEnumerable<Maps.Quizze> GetListEntity() => db.Quizzes.Where(t => !t.IsDel);
-        public Maps.Quizze GetEntity(long id) => db.Quizzes.Single(t => !t.IsDel && t.ID_Quiz == id);
-        public void Create(Maps.Quizze item) => db.Quizzes.Add(item);
-        public void Update(Maps.Quizze item) => db.Entry(item).State = EntityState.Modified;
+        public IEnumerable<Quizze> GetListEntity() => db.Quizzes.Where(t => !t.IsDel);
+        public Quizze GetEntity(long id) => db.Quizzes.Single(t => !t.IsDel && t.ID_Quiz == id);
+        public void Create(Quizze item) => db.Quizzes.Add(item);
+        public void Update(Quizze item) => db.Entry(item).State = EntityState.Modified;
         public void Save() => db.SaveChanges();
         public void Delete(long id)
         {
