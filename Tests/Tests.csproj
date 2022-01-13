@@ -17,4 +17,12 @@
       <ProjectReference Include="..\Logic\Logic.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include="bin\Debug\net5.0\testhost.dll" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="bin\Debug\net5.0\Tests.dll.config" />
+    </ItemGroup>
+
 </Project>

@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Data;
+using Data.Interfaces;
 using Data.Repositories;
 using Data.Maps;
-
+using Logic.Configuration;
 using NUnit.Framework;
 using Tests.Logic;
 
@@ -14,7 +15,7 @@ namespace Tests.Data
     [TestFixture]
     public class AppointmentQuizzeTests
     {
-        private AppointmentQuizRepo _appointment = new AppointmentQuizRepo();
+        private IRepository<AppointmentQuizze> _appointment = IocKernel.Get<IRepository<AppointmentQuizze>>();
         //
         //  
        [Test]
@@ -27,38 +28,40 @@ namespace Tests.Data
         }
         //
         //
-        [TestCase(1, 1, 1)] //TODO исправить когда появятся назначения в бд
+        //[TestCase(1, 1, 1)] //TODO исправить когда появятся назначения в бд
         public void GetEntityTest(long id_appoinment, long id_quiz, long id_user)
         {
             AppointmentQuizze appointmentQuizze = _appointment.GetEntity(id_appoinment);
-            Assert.Equals(appointmentQuizze.ID_Quiz, id_quiz);
-            Assert.Equals(appointmentQuizze.ID_User, id_user);
+            Assert.AreEqual(appointmentQuizze.ID_Quiz, id_quiz);
+            Assert.AreEqual(appointmentQuizze.ID_User, id_user);
 
             
         }
         [Test]
         public void GetEntityNegativeTest()
         {
-            Assert.Throws<System.InvalidOperationException>(() => _appointment.GetEntity(0));
+            Assert.Throws<InvalidOperationException>(() => _appointment.GetEntity(0));
         }
         [Test]
         public void CreateNegativeTestOne()
         {
             AppointmentQuizze item = new AppointmentQuizze();
             item.ID_User = 0;
-            Assert.Throws<System.InvalidOperationException>(() => _appointment.Create(item));
+            _appointment.Create(item);
+            Assert.Throws<System.Data.Entity.Infrastructure.DbUpdateException>(() => _appointment.Save());
         }
         [Test]
         public void CreateNegativeTestTwo()
         {
             AppointmentQuizze item = new AppointmentQuizze();
             item.ID_Quiz = 0;
-            Assert.Throws<System.InvalidOperationException>(() => _appointment.Create(item));
+            _appointment.Create(item);
+            Assert.Throws<System.Data.Entity.Infrastructure.DbUpdateException>(() => _appointment.Save());
         }
         [Test]
         public void DeleteNegativeTest()
         {
-            Assert.Throws<System.InvalidOperationException>(() => _appointment.Delete(0));
+            Assert.Throws<InvalidOperationException>(() => _appointment.Delete(0));
         }
     }
 }

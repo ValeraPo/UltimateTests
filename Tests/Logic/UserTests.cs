@@ -70,7 +70,7 @@ namespace Tests.Logic
         [Test]
         public void AuthorizationNegativeTest()
         {
-            Assert.Throws<System.InvalidOperationException>(() => _user.Authorization("login", "password"));
+            Assert.Throws<InvalidOperationException>(() => _user.Authorization("login", "password"));
         }
         //
         // Добавление пользователя 

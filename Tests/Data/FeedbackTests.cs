@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Data;
+using Data.Interfaces;
 using Data.Repositories;
 using Data.Maps;
-
+using Logic.Configuration;
 using NUnit.Framework;
 using Tests.Logic;
 
@@ -14,7 +15,7 @@ namespace Tests.Data
     [TestFixture]
     public class FeedbackTests
     {
-        private FeedbackRepo _feedback = new FeedbackRepo();
+        private IRepository<Feedback> _feedback = IocKernel.Get<IRepository<Feedback>>();
         //
         //  
         [Test]
@@ -27,33 +28,35 @@ namespace Tests.Data
         }
         //
         //
-        [TestCase(1, 1, 1, "text")] //TODO исправить когда появятся попытки в бд
+        //[TestCase(1, 1, 1, "text")] //TODO исправить когда появятся попытки в бд
         public void GetEntityTest(long id_feedback, long id_quiz, long id_user, string text)
         {
             Feedback feedback = _feedback.GetEntity(id_feedback);
-            Assert.Equals(feedback.ID_Quiz, id_quiz);
-            Assert.Equals(feedback.ID_User, id_user);
-            Assert.Equals(feedback.Text, text);
+            Assert.AreEqual(feedback.ID_Quiz, id_quiz);
+            Assert.AreEqual(feedback.ID_User, id_user);
+            Assert.AreEqual(feedback.Text, text);
 
         }
         [Test]
         public void GetEntityNegativeTest()
         {
-            Assert.Throws<System.InvalidOperationException>(() => _feedback.GetEntity(0));
+            Assert.Throws<InvalidOperationException>(() => _feedback.GetEntity(0));
         }
         [Test]
         public void CreateNegativeTestOne()
         {
             Feedback item = new Feedback();
             item.ID_User = 0;
-            Assert.Throws<System.InvalidOperationException>(() => _feedback.Create(item));
+            _feedback.Create(item);
+            Assert.Throws<System.Data.Entity.Validation.DbEntityValidationException>(() => _feedback.Save());
         }
         [Test]
         public void CreateNegativeTestTwo()
         {
             Feedback item = new Feedback();
             item.ID_Quiz = 0;
-            Assert.Throws<System.InvalidOperationException>(() => _feedback.Create(item));
+            _feedback.Create(item);
+            Assert.Throws<System.Data.Entity.Validation.DbEntityValidationException>(() => _feedback.Save());
         }
         [Test]
         public void CreateNegativeTestThree()
@@ -65,12 +68,13 @@ namespace Tests.Data
                         "12345678901234567890123456789012345678901234567890" +
                         "12345678901234567890123456789012345678901234567890" +
                         "12345678901234567890123456789012345678901234567890";
-            Assert.Throws<System.InvalidOperationException>(() => _feedback.Create(item));
+            _feedback.Create(item);
+            Assert.Throws<System.Data.Entity.Validation.DbEntityValidationException>(() => _feedback.Save());
         }
         [Test]
         public void DeleteNegativeTest()
         {
-            Assert.Throws<System.InvalidOperationException>(() => _feedback.Delete(0));
+            Assert.Throws<InvalidOperationException>(() => _feedback.Delete(0));
         }
     }
 }

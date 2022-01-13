@@ -1,3 +1,4 @@
+using System.Configuration;
 using System.Data.Entity;
 using Data.Maps;
 
@@ -8,7 +9,7 @@ namespace Data.Controllers
         #region Singleton
 
         private Context()
-            : base("data source=25.42.67.177;initial catalog=MyTestBD;User Id = Stepa195; Password = 195;MultipleActiveResultSets=True;App=EntityFramework") { }
+            : base(ConfigurationManager.AppSettings.Get("Connect")) { }
         private static Context _context;
         public static Context GetContext()
         {

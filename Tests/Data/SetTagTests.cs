@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Data;
+using Data.Interfaces;
 using Data.Repositories;
 using Data.Maps;
-
+using Logic.Configuration;
 using NUnit.Framework;
 using Tests.Logic;
 
@@ -14,14 +16,14 @@ namespace Tests.Data
     [TestFixture]
     public class SetTagTests
     {
-        private SetTagRepo _tag = new SetTagRepo();
+        private IRepository<SetTag> _tag = IocKernel.Get<IRepository<SetTag>>();
         //
         //  
         [Test]
         public void GetListEntityTest()
         {
-            var expected = _tag.GetListEntity().Select(t =>t.ID_TagSet);
-            var actual = new ObservableCollection<long>{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
+            var expected = _tag.GetListEntity().Select(t =>t.ID_TagSet).ToList();
+            var actual = new List<long>{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17};
             CollectionAssert.AreEqual(expected, actual);
         }
         //
@@ -35,13 +37,12 @@ namespace Tests.Data
         public void GetEntityTest(long id_tag, string name)
         {
             SetTag setTag = _tag.GetEntity(id_tag);
-            Assert.Equals(setTag.Text, name);
-
+            Assert.AreEqual(setTag.Text, name);
         }
         [Test]
         public void GetEntityNegativeTest()
         {
-            Assert.Throws<System.InvalidOperationException>(() => _tag.GetEntity(0));
+            Assert.Throws<InvalidOperationException>(() => _tag.GetEntity(0));
         }
         [Test]
         public void CreateNegativeTest()
@@ -50,12 +51,13 @@ namespace Tests.Data
             item.Text = "12345678901234567890123456789012345678901234567890" +
                         "12345678901234567890123456789012345678901234567890" +
                         "12345678901234567890123456789012345678901234567890";
-            Assert.Throws<System.InvalidOperationException>(() => _tag.Create(item));
+            _tag.Create(item);
+            Assert.Throws<System.Data.Entity.Validation.DbEntityValidationException>(() => _tag.Save());
         }
         [Test]
         public void DeleteNegativeTest()
         {
-            Assert.Throws<System.InvalidOperationException>(() => _tag.Delete(0));
+            Assert.Throws<System.Data.Entity.Validation.DbEntityValidationException>(() => _tag.Delete(0));
         }
     }
 }
