@@ -9,6 +9,7 @@ namespace Logic.Interfaces
         public GroupDTO GetEntity(string name);
         public ObservableCollection<GroupDTO> GetListEntity();
         public void AddTag(GroupDTO group, SetTagDTO teg);
+        public ObservableCollection<UserDTO> GetListTeach(GroupDTO group);
         public ObservableCollection<UserDTO> GetListUser(GroupDTO group);
         public void AddGroup(string text);
         public void RemoveGroup(GroupDTO group);

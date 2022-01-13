@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Resources;
@@ -52,15 +53,31 @@ namespace Logic.Processes
 
             _groups.Save();
         }
-        //Выборка студентов по группе
-        public ObservableCollection<UserDTO> GetListUser(GroupDTO group)
+
+        #region UsersByGrop
+
+        //Выборка по группе
+        private ObservableCollection<UserDTO> GetListPeople(IEnumerable<Data.Maps.User> collection)
         {
             var res = new ObservableCollection<UserDTO>();
-            foreach (var user in _groups.GetEntity(group.Id).Users)
+            foreach (var user in collection)
                 res.Add(new UserDTO(user));
 
             return res;
         }
+        //Выборка преподавателей по группе
+        public ObservableCollection<UserDTO> GetListTeach(GroupDTO group)
+        {
+            return GetListPeople(_groups.GetEntity(group.Id).TeachingGroups.Select(t => t.User));
+        }
+        //Выборка студентов по группе
+        public ObservableCollection<UserDTO> GetListUser(GroupDTO group)
+        {
+            return GetListPeople(_groups.GetEntity(group.Id).Users); 
+        }
+
+        #endregion
+        
         // Создание(добавление) группы
         public void AddGroup(string text)
         {
