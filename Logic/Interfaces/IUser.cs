@@ -10,6 +10,7 @@ namespace Logic.Interfaces
         public ObservableCollection<UserDTO> GetListEntity();
         public ObservableCollection<UserDTO> GetListStud();
         public ObservableCollection<UserDTO> GetListTeacher();
+        public ObservableCollection<UserDTO> GetListEmployers();
         public UserDTO Authorization(string login, string password);
         public void AddNewUser(string fullName, string email, string login, string password, int id_role, long? group = null);
         public void AddTeachingGroup(UserDTO teacher, GroupDTO group);

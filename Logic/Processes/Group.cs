@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Resources;
@@ -24,6 +25,10 @@ namespace Logic.Processes
         {
             return new GroupDTO(_groups.GetEntity(id));
         }
+        public GroupDTO GetEntity(string name)
+        {
+            return new GroupDTO(_groups.GetListEntity().Single(t=>t.NameOfGroup == name));
+        }
         public ObservableCollection<GroupDTO> GetListEntity()
         {
             var groups = new ObservableCollection<GroupDTO>();
@@ -48,15 +53,31 @@ namespace Logic.Processes
 
             _groups.Save();
         }
-        //Выборка студентов по группе
-        public ObservableCollection<UserDTO> GetListUser(GroupDTO group)
+
+        #region UsersByGrop
+
+        //Выборка по группе
+        private ObservableCollection<UserDTO> GetListPeople(IEnumerable<Data.Maps.User> collection)
         {
             var res = new ObservableCollection<UserDTO>();
-            foreach (var user in _groups.GetEntity(group.Id).Users)
+            foreach (var user in collection)
                 res.Add(new UserDTO(user));
 
             return res;
         }
+        //Выборка преподавателей по группе
+        public ObservableCollection<UserDTO> GetListTeach(GroupDTO group)
+        {
+            return GetListPeople(_groups.GetEntity(group.Id).TeachingGroups.Select(t => t.User));
+        }
+        //Выборка студентов по группе
+        public ObservableCollection<UserDTO> GetListUser(GroupDTO group)
+        {
+            return GetListPeople(_groups.GetEntity(group.Id).Users); 
+        }
+
+        #endregion
+        
         // Создание(добавление) группы
         public void AddGroup(string text)
         {
@@ -84,6 +105,10 @@ namespace Logic.Processes
         public void Update(GroupDTO group)
         {
             var tmp = _groups.GetEntity(group.Id);
+            if (_groups.GetListEntity()
+                       .Select(t => t.NameOfGroup)
+                       .Contains(group.NameOfGroup))
+                throw new ArgumentException("Группа с таким названием уже существует");
             tmp.NameOfGroup = group.NameOfGroup;
             _groups.Update(tmp);
 

@@ -38,22 +38,32 @@ namespace Logic.Processes
 
             return res;
         }
-        public ObservableCollection<UserDTO> GetListStud()
-        {
-            var res = new ObservableCollection<UserDTO>();
-            foreach (var user in _users.GetListEntity().Where(t => t.ID_Role == 2))
-                res.Add(new UserDTO(user));
 
-            return res;
-        }
-        public ObservableCollection<UserDTO> GetListTeacher()
-        {
-            var res = new ObservableCollection<UserDTO>();
-            foreach (var user in _users.GetListEntity().Where(t => t.ID_Role == 3))
-                res.Add(new UserDTO(user));
+        #region Peoples
+                //Выборка людей по типам учётных записей
+                private ObservableCollection<UserDTO> GetListInteriorEmployers(IEnumerable<Data.Maps.User> collections)
+                {
+                    var res = new ObservableCollection<UserDTO>();
+                    foreach (var user in collections)
+                        res.Add(new UserDTO(user));
+        
+                    return res;
+                }
+                public ObservableCollection<UserDTO> GetListStud()
+                {
+                    return GetListInteriorEmployers(_users.GetListEntity().Where(t => t.ID_Role == 2));
+                }
+                public ObservableCollection<UserDTO> GetListTeacher()
+                {
+                    return GetListInteriorEmployers(_users.GetListEntity().Where(t => t.ID_Role == 3));
+                }
+                public ObservableCollection<UserDTO> GetListEmployers()
+                {
+                    return GetListInteriorEmployers(_users.GetListEntity().Where(t => t.ID_Role != 2));
+                }
 
-            return res;
-        }
+        #endregion
+        
 
         // Проверка пароля при авторизации
         public UserDTO Authorization(string login, string password)

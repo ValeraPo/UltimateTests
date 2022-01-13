@@ -9,6 +9,7 @@ namespace Logic.Interfaces
     {
         public QuizzeDTO GetEntity(long id);
         public QuizzeDTO GetEntityNotNested(long id);
+        public QuizzeDTO GetEntityNotNested(string name);
         public ObservableCollection<QuizzeDTO> GetListEntity();
         public void AddQuiz(QuizzeDTO quiz, UserDTO user);
         public ObservableCollection<AttemptDTO> GetListAttempt(QuizzeDTO quiz);

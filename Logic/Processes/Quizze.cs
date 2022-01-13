@@ -30,6 +30,10 @@ namespace Logic.Processes
         {
             return new QuizzeDTO(_quizzes.GetEntity(id));
         }
+        public QuizzeDTO GetEntityNotNested(string name)
+        {
+            return new QuizzeDTO(_quizzes.GetListEntity().Single(t => t.Name == name));
+        }
         public ObservableCollection<QuizzeDTO> GetListEntity()
         {
             var quizzes = new ObservableCollection<QuizzeDTO>();
@@ -42,6 +46,10 @@ namespace Logic.Processes
         //TODO протестить
         public void AddQuiz(QuizzeDTO quiz, UserDTO user)
         {
+            if (_quizzes.GetListEntity()
+                     .Select(t => t.Name)
+                     .Contains(quiz.NameQuiz))
+                throw new ArgumentException("Тест с таким именем уже существует");
             var quizMap = new Data.Maps.Quizze
                           {
                               Name           = quiz.NameQuiz,
