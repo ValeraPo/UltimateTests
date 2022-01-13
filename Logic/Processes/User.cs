@@ -54,6 +54,14 @@ namespace Logic.Processes
 
             return res;
         }
+        public ObservableCollection<UserDTO> GetListEmployers()
+        {
+            var res = new ObservableCollection<UserDTO>();
+            foreach (var user in _users.GetListEntity().Where(t => t.ID_Role != 2))
+                res.Add(new UserDTO(user));
+
+            return res;
+        }
 
         // Проверка пароля при авторизации
         public UserDTO Authorization(string login, string password)

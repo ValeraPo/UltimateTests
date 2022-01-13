@@ -8,14 +8,23 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="ViewModel\**" />
+      <Compile Remove="View\Students.Form\**" />
+      <EmbeddedResource Remove="ViewModel\**" />
+      <EmbeddedResource Remove="View\Students.Form\**" />
+      <None Remove="ViewModel\**" />
+      <None Remove="View\Students.Form\**" />
+      <Page Remove="ViewModel\**" />
+      <Page Remove="View\Students.Form\**" />
+    </ItemGroup>
+
+    <ItemGroup>
         <ProjectReference Include="..\Logic\Logic.csproj" />
     </ItemGroup>
     
 
     <ItemGroup>
       <Folder Include="Model\" />
-      <Folder Include="ViewModel\" />
-      <Folder Include="View\Students.Form\" />
     </ItemGroup>
 
 </Project>

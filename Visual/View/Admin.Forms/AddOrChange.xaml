@@ -49,8 +49,8 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
                     <StackPanel Grid.Row="2" Grid.ColumnSpan="6" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Content="add" Click="Button_Click"/>
-                        <Button Content="change" Click="Button_Click_2"/>
+                        <Button Name="AddButton" Content="add" Click="Button_Click"/>
+                        <Button Name="ChangeButton" Content="change" Click="Button_Click_2"/>
                     </StackPanel>
                 </Grid>
                 

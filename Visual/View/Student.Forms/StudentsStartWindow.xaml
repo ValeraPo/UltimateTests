@@ -11,10 +11,14 @@
             <TabItem Header="Задания" Style="{DynamicResource TabItemStyle}">
                 <Grid>
                     <ScrollViewer Grid.Column="0">
-                        <ListBox x:Name="GroupsList">
+                        <ListBox Grid.Column="0" ItemsSource="{Binding StudentUserView}"
+                 SelectedItem="{Binding SelectedQuiz}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock FontSize="16" Text="{Binding Path=NameOfGroup}" HorizontalAlignment="Left"/>
+                                    <StackPanel Margin="5">
+                                        <TextBlock FontSize="18" Text="{Binding Path=NameQuiz}" />
+                                        <TextBlock DataContext="appQuizzes" Text="{Binding Path=FinishBefore}" />
+                                    </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>

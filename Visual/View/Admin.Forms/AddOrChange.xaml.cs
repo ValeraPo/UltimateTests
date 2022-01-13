@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Visual.View.Admin.Forms;
 
 namespace Visual.View.Admin.Forms
 {
@@ -27,7 +28,7 @@ namespace Visual.View.Admin.Forms
         int _typeOfUser;
         ObservableCollection<GroupDTO> _groupsList;
         ObservableCollection<UserDTO> usersList;
-
+        UserDTO changingUser;
         public AddOrChange()
         {
             InitializeComponent();
@@ -37,24 +38,25 @@ namespace Visual.View.Admin.Forms
             _groupsList = group.GetListEntity();
             GroupComboBox.ItemsSource = _groupsList;
             GroupComboBox.Visibility = Visibility.Visible;
+            ChangeButton.Visibility = Visibility.Collapsed;
         }
 
         public AddOrChange(UserDTO changingUser)
         {
             InitializeComponent();
-
+            AddButton.Visibility = Visibility.Collapsed;
             usersList = user.GetListEntity();
             _groupsList = group.GetListEntity();
-
+            
             GroupComboBox.ItemsSource = _groupsList;
             TextBoxFIO.Text = changingUser.FullName;
             TextBoxEmail.Text = changingUser.Email;
-            //TextBoxLogin.Text = changingUser.Login;
-            //TextBoxPass.Text = changingUser.Pass;
+            TextBoxLogin.Text = "";
+            TextBoxPass.Text = "";
             TypeComboBox.Text = changingUser.Type.ToString(); // заменить на соответсвующий текст
             GroupComboBox.Text = changingUser.Group;
+            this.changingUser = changingUser;
 
-            
         }
 
 
@@ -107,6 +109,10 @@ namespace Visual.View.Admin.Forms
         //change
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
+            if (TextBoxLogin.Text != "" && TextBoxPass.Text != "")
+                user.Update(changingUser, TextBoxLogin.Text, TextBoxPass.Text);
+            else
+                user.Update(changingUser);
             this.Close();
         }
     }

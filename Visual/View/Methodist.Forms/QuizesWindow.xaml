@@ -7,15 +7,24 @@
         mc:Ignorable="d"
         Title="QuizesWindow" Height="350" Width="600">
     <Grid>
-        <DockPanel LastChildFill="True">
-            <TextBlock Text="test #" DockPanel.Dock ="Top"/>
-            <TextBox/>
-            <StackPanel DockPanel.Dock ="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        
+            <StackPanel Orientation="Horizontal" Grid.Row="0">
+                <TextBlock Text="Тест: "/>
+                <TextBlock Text="{Binding Path=NameQuiz}" HorizontalAlignment="Right"/>
+            </StackPanel>
+            
+            <TextBlock Grid.Row="1" Text="feedback"/>
+            <StackPanel  Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Content="Edit"/>
                 <Button Content="Start"/>
             </StackPanel>
-            <TextBlock Text="feedback"/>
-        </DockPanel>
+        
         
     </Grid>
 </Window>

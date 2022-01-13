@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Visual.View.Admin.Forms;
 
 namespace Visual.AdminsWindows
 {
@@ -22,43 +23,44 @@ namespace Visual.AdminsWindows
     /// </summary>
     public partial class AdminsStartWindow : Window
     {
-        IGroup group = Logic.Configuration.IocKernel.Get<IGroup>();
-        IUser user = Logic.Configuration.IocKernel.Get<IUser>();
+        AdminView av;
+        
         public AdminsStartWindow()
         {
             InitializeComponent();
-            try
+            av = new();
+            groupListBox.ItemsSource = av.GroupsList;
+            groupListBox.SelectedItem = av.GroupsList[0];
+        }
+
+        private void groupListBox_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+
+            if (ComboBoxLists.Text == "Список студентов")
             {
-                ObservableCollection<GroupDTO> groupsList = group.GetListEntity();
-                ObservableCollection<UserDTO> studentsList = user.GetListStud();
-                ObservableCollection<UserDTO> teachersList = user.GetListTeacher();
-                TeachersList.ItemsSource = teachersList;
-                StudentsList.ItemsSource = studentsList;
-                GroupsList.ItemsSource = groupsList;
-                GroupsList2.ItemsSource = groupsList;
+                av.CurrentStudentsList = av.GetListStudents((GroupDTO)(groupListBox.SelectedValue));
+                GroupListView.ItemsSource = av.CurrentStudentsList;
             }
-            catch (Exception)
+            else if (ComboBoxLists.Text == "Список преподавателей")
             {
-                MessageBox.Show("Something Wents wrong!");
-                this.Close();
+                av.CurrentTeachersList = av.GetListTeachers((GroupDTO)(groupListBox.SelectedValue));
+                GroupListView.ItemsSource = av.CurrentTeachersList;
             }
+            else
+                return;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void TypeEmployerComboBox_DropDownClosed(object sender, EventArgs e)
         {
-            View.Admin.Forms.AddOrChange aoc = new();
-            aoc.Show();
+            int curIndex = AdminView.GetIndexOfUserTypeByText(TypeEmployerComboBox.Text);
+            av.CurrentEmployersList = av.GetCurrentEmployers(curIndex);
+            EmployersListView.ItemsSource = av.CurrentEmployersList;
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void ComboBoxLists_DropDownClosed(object sender, EventArgs e)
         {
 
-        }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            //user.RemoveUser(user)
-
+            groupListBox_SelectionChanged(null, null);
         }
     }
 }

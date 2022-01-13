@@ -15,7 +15,52 @@
         </LinearGradientBrush>
     </Window.Background>
     <Window.Resources>
-        
+        <!--GroupsList-->
+        <DataTemplate x:Key="TemplateGroupsList">
+            <StackPanel Margin="5">
+                <TextBlock Text="{Binding Path=NameOfGroup}" FontSize="18"/>
+            </StackPanel>
+        </DataTemplate>
+        <Style x:Key="DefBtn" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#FFF5F5F5"/>
+            <Setter Property="BorderBrush" Value="#FFDCDCDC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="#FF666666"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="8,7"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Padding="{TemplateBinding Padding}" 
+                        BorderBrush="{TemplateBinding BorderBrush}" 
+                        CornerRadius="1" 
+                        Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <!--TODO: Set the right colors-->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="Yellow" />
+                                <Setter Property="Foreground" Value="#FF4788c8" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <!--Some setters here-->
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="#ADADAD"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     
     <Grid Background="White">
@@ -25,55 +70,100 @@
         </Grid.RowDefinitions>
        
         <TabControl Grid.Row="0" Style="{DynamicResource TabControlStyle}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <TabItem Header="Студенты" Style="{DynamicResource TabItemStyle}">
+            <TabItem Header="Группы" Style="{DynamicResource TabItemStyle}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <ScrollViewer Grid.Column="0">
-                        <ListBox x:Name="GroupsList">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock FontSize="16" Text="{Binding Path=NameOfGroup}" HorizontalAlignment="Left"/>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <ScrollViewer DockPanel.Dock="Top" Grid.Column="0">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock FontSize="18" Text="Список групп" HorizontalAlignment="Center"/>
+                            <ListBox x:Name="groupListBox"  ItemTemplate="{StaticResource TemplateGroupsList}"
+             SelectionChanged="groupListBox_SelectionChanged"/>
+                        </StackPanel>
                     </ScrollViewer>
-                        
+                    <Button x:Name="AddGroup" Content="Добавить" Grid.Row="1" HorizontalAlignment="Left"
+                             Style="{DynamicResource DefBtn}" Margin="20 0 0 0"/>
                     <GridSplitter Grid.Column="1" Width="5"
         HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
 
                     <ScrollViewer Grid.Column="2">
-                        <ListView Name="StudentsList">
+                        <StackPanel Orientation="Vertical">
+                            <ComboBox Name="ComboBoxLists" HorizontalAlignment="Stretch" DropDownClosed="ComboBoxLists_DropDownClosed">
+                                <TextBlock x:Name="studChoice" FontSize="16" Text="Список студентов" HorizontalAlignment="Left"/>
+                                <TextBlock FontSize="16" Text="Список преподавателей" HorizontalAlignment="Left"/>
+                            </ComboBox>
+                            <ListView Name="GroupListView" DataContext="{Binding ElementName=groupListBox, Path=IsFocused}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=FullName}" Header="ФИО" />
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Email}" Header="E-mail"/>
+                                    </GridView>
+                                </ListView.View>
+                                <ListView.Resources>
 
-                            <!--ItemsSource="{DynamicResource ResourceKey=Logic.DTO.GroupDTO}" >-->
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=FullName}" Header="ФИО" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Email}" Header="E-mail"/>
-                                </GridView>
-                            </ListView.View>
-                            <ListView.Resources>
-
-                            </ListView.Resources>
-                        </ListView>
+                                </ListView.Resources>
+                            </ListView>
+                        </StackPanel>
                     </ScrollViewer>
+                    <Button x:Name="AddStudent" Content="Добавить" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left"
+                             Style="{DynamicResource DefBtn}" Margin="20 0 0 0"/>
+
+                    <GridSplitter Grid.Column="3" Width="5"
+        HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
+
+                    <ScrollViewer Grid.Column="4">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="Список преподавателей" HorizontalAlignment="Center"/>
+                            <ListView Name="teachersListView" DataContext="{Binding ElementName=groupListBox, Path=IsFocused}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=FullName}" Header="ФИО" />
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Email}" Header="E-mail"/>
+                                    </GridView>
+                                </ListView.View>
+                                <ListView.Resources>
+
+                                </ListView.Resources>
+                            </ListView>
+                        </StackPanel>
+                    </ScrollViewer>
+                    <Button x:Name="AddTeacher" Content="Добавить" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Left"
+                             Style="{DynamicResource DefBtn}" Margin="20 0 0 0"/>
                 </Grid>
             </TabItem>
+            
+            
 
-
-            <TabItem Header="Преподаватели" Style="{DynamicResource TabItemStyle}">
+                <!--новая вкладка-->
+            <TabItem Header="Сотрудники" Style="{DynamicResource TabItemStyle}">
                 <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <ScrollViewer Grid.Column="0">
+                    <ComboBox Name="TypeEmployerComboBox" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch"
+                              DropDownClosed="TypeEmployerComboBox_DropDownClosed" SelectedItem="{Binding TeacherBlock}">
+                        <TextBlock x:Name="TeacherBlock" Text ="Преподаватель" />
+                        <TextBlock Text ="Методист" />
+                        <TextBlock Text ="Администратор"/>
+                    </ComboBox>
+                    <ScrollViewer Grid.Column="0" Grid.Row="1">
                         <StackPanel>
-                            <ListView Name="TeachersList" >
+                            <ListView Name="EmployersListView" >
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn DisplayMemberBinding="{Binding Path=FullName}" Header="ФИО" />
@@ -104,9 +194,9 @@
         </TabControl>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="add" Click="Button_Click"/>
-            <Button Content="change" Click="Button_Click_1"/>
-            <Button Content="delete" Click="Button_Click_2"/>
+            <Button Name="AddBut" Content="add"/>
+            <Button Name="ChangeBut" Content="change"/>
+            <Button Name="DelBut" Content="delete"/>
         </StackPanel>
     </Grid>
 </Window>

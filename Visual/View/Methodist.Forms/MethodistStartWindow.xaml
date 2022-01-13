@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
 
         <TabControl Grid.Row="0" Style="{DynamicResource TabControlStyle}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <TabItem Header="Тэсты" Style="{DynamicResource TabItemStyle}">
+            <TabItem Header="Тесты" Style="{DynamicResource TabItemStyle}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>

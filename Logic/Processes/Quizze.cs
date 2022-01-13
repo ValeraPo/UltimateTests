@@ -21,15 +21,17 @@ namespace Logic.Processes
             _users   = IocKernel.Get<IRepository<Data.Maps.User>>();
         }
 
-
+        //отдаст класс дто со всеми полями с коллекциями (в конструктор формы)
         public QuizzeDTO GetEntity(long id)
         {
             return new QuizzeDTO(_quizzes.GetEntity(id), true);
         }
+        
         public QuizzeDTO GetEntityNotNested(long id)
         {
             return new QuizzeDTO(_quizzes.GetEntity(id));
         }
+        //для отображения инфы на форму
         public ObservableCollection<QuizzeDTO> GetListEntity()
         {
             var quizzes = new ObservableCollection<QuizzeDTO>();
