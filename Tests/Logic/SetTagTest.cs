@@ -1,12 +1,11 @@
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Logic.Configuration;
 using Logic.DTO;
 using Logic.Interfaces;
-using Logic.Processes;
 using NUnit.Framework;
-namespace Tests
+
+namespace Tests.Logic
 {
     [TestFixture]
     public class SetTagTest
@@ -21,10 +20,9 @@ namespace Tests
         {
             var tags = new ObservableCollection<SetTagDTO>();
             tags.Add(_tags.GetEntity(idTag));
-            var group = IocKernel.Get<IGroup>().GetEntity(idGroup);
-            var ecpected = _tags.SearchGroupByTeg(tags).Select(t=>t.NameOfGroup);
+            var group    = IocKernel.Get<IGroup>().GetEntity(idGroup);
+            var ecpected = _tags.SearchGroupByTeg(tags).Select(t => t.NameOfGroup);
             CollectionAssert.Contains(ecpected, group.NameOfGroup);
-
         }
         //
         // Возврат тестов по тегу
@@ -33,10 +31,9 @@ namespace Tests
         {
             var tags = new ObservableCollection<SetTagDTO>();
             tags.Add(_tags.GetEntity(idTag));
-            var quize = IocKernel.Get<IQuizze>().GetEntity(idQuizze);
-            var ecpected = _tags.SearchQuizzesByTeg(tags).Select(t =>t.NameQuiz).ToList();
+            var quize    = IocKernel.Get<IQuizze>().GetEntity(idQuizze);
+            var ecpected = _tags.SearchQuizzesByTeg(tags).Select(t => t.NameQuiz).ToList();
             CollectionAssert.Contains(ecpected, quize.NameQuiz);
-
         }
         //
         // Создание(добавление) тега

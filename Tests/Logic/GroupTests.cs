@@ -7,12 +7,13 @@ using Logic.Interfaces;
 using Logic.Processes;
 using NUnit.Framework;
 
-namespace Tests
+namespace Tests.Logic
 {
     [TestFixture]
     public class GroupTests
     {
         private IGroup _group = IocKernel.Get<IGroup>();
+
         //
         // Добавление группы 
         public enum NewGroups
@@ -23,46 +24,30 @@ namespace Tests
             four,
             five
         }
+
         public static GroupDTO AddGroupMockOutputData(NewGroups user)
         {
-            switch (user)
+            return user switch
             {
-                case NewGroups.one: 
-                {
-                    return new GroupDTO(14, "1");
-                }
-                case NewGroups.two: 
-                {
-                    return new GroupDTO(15, "2");
-                }
-                case NewGroups.three: 
-                {
-                    return new GroupDTO(16, "3");
-                }
-                case NewGroups.four: 
-                {
-                    return new GroupDTO(17, "4");
-                }
-                case NewGroups.five: 
-                {
-                    return new GroupDTO(18,  "5");
-                }
-                
-                default: throw new ArgumentException();
-            }
+                NewGroups.one   => new GroupDTO(14, "1"),
+                NewGroups.two   => new GroupDTO(15, "2"),
+                NewGroups.three => new GroupDTO(16, "3"),
+                NewGroups.four  => new GroupDTO(17, "4"),
+                NewGroups.five  => new GroupDTO(18, "5"),
+                _               => throw new ArgumentException()
+            };
         }
-        
-        [TestCase(NewGroups.one,  "1")]
-        [TestCase(NewGroups.two,  "2")]
-        [TestCase(NewGroups.three, "3")]
-        [TestCase(NewGroups.four,  "4")]
-        [TestCase(NewGroups.five,  "5")]
 
-        public void AddGroupTest(NewGroups group,  string name)
+        [TestCase(NewGroups.one, "1")]
+        [TestCase(NewGroups.two, "2")]
+        [TestCase(NewGroups.three, "3")]
+        [TestCase(NewGroups.four, "4")]
+        [TestCase(NewGroups.five, "5")]
+        public void AddGroupTest(NewGroups group, string name)
         {
             _group.AddGroup(name);
             var expected = AddGroupMockOutputData(group);
-            var actual = _group.GetEntity(name);
+            var actual   = _group.GetEntity(name);
             Assert.AreEqual(expected.NameOfGroup, actual.NameOfGroup);
         }
 
@@ -75,24 +60,24 @@ namespace Tests
         //Добавить тег группе
         [TestCase("1")]
         [TestCase("2")]
-        [TestCase( "3")]
-        [TestCase( "4")]
-        [TestCase( "5")]
+        [TestCase("3")]
+        [TestCase("4")]
+        [TestCase("5")]
         public void AddTagTest(string nameGroup)
         {
             // Создаем DTO классы группы и теги
             var setTag = IocKernel.Get<SetTag>();
-            var group = _group.GetEntity(nameGroup);
-            var tag = setTag.GetEntity(16);
+            var group  = _group.GetEntity(nameGroup);
+            var tag    = setTag.GetEntity(16);
             // Запускаем метод который проверяем
             _group.AddTag(group, tag);
             // Создаем коллекцию, которая содержит только что добавленный тег
             var tags = new ObservableCollection<SetTagDTO>();
             tags.Add(tag);
             // Вытаскиваем из БД групы по тегу          
-            var expexted = setTag.SearchGroupByTeg(tags).Select(t =>t.NameOfGroup);
+            var expexted = setTag.SearchGroupByTeg(tags).Select(t => t.NameOfGroup);
 
-            
+
             CollectionAssert.Contains(expexted, group.NameOfGroup);
         }
         //
@@ -107,8 +92,8 @@ namespace Tests
             var myGroup = AddGroupMockOutputData(group);
             _group.RemoveGroup(myGroup.NameOfGroup);
 
-            CollectionAssert.DoesNotContain(_group.GetListEntity().Select(t => t.NameOfGroup).ToList(), myGroup.NameOfGroup);
+            CollectionAssert.DoesNotContain(_group.GetListEntity().Select(t => t.NameOfGroup).ToList(),
+                myGroup.NameOfGroup);
         }
-        
     }
 }

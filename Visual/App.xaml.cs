@@ -28,6 +28,8 @@ namespace Visual
         }
         protected override void OnStartup(StartupEventArgs e)
         {
+            ConfigurationManager.AppSettings.Set("Connect",
+                "data source=25.42.67.177;initial catalog=MyTestBD;User Id = Stepa195; Password = 195;MultipleActiveResultSets=True;App=EntityFramework");
             IocKernel.Initialize(new ProjectConfiguration());
             base.OnStartup(e);
         }
