@@ -14,34 +14,39 @@ namespace Tests.Logic
         private IQuizze _quiz = IocKernel.Get<IQuizze>();
         //
         // Добавить тест
-        [TestCase("test1", 6, 1,0,0)]
-        [TestCase("test2", 6, 1,30,0)]
-        [TestCase("test3", 6, 0,0,30)]
-        [TestCase("test4", 7, 0,1,0)]
-        [TestCase("test5", 7, 1,30,30)]
+        [TestCase("test1", 6, 1, 0, 0)]
+        [TestCase("test2", 6, 1, 30, 0)]
+        [TestCase("test3", 6, 0, 0, 30)]
+        [TestCase("test4", 7, 0, 1, 0)]
+        [TestCase("test5", 7, 1, 30, 30)]
         public void AddAQuizTest(string nameQuiz, long idUser, byte hour, byte min, byte sec)
         {
-            var tmp = new TimeSpan(hour,min,sec);
+            var tmp     = new TimeSpan(hour, min, sec);
             var newQuiz = new QuizzeDTO(nameQuiz, tmp, new ObservableCollection<QuestionDTO>());
-            var user = IocKernel.Get<IUser>().GetEntity(idUser);
+            var user    = IocKernel.Get<IUser>().GetEntity(idUser);
             _quiz.AddQuiz(newQuiz, user);
-            
-            CollectionAssert.Contains(_quiz.GetListEntity().Select(t =>t.NameQuiz).ToList(), nameQuiz);
+
+            CollectionAssert.Contains(_quiz.GetListEntity().Select(t => t.NameQuiz).ToList(), nameQuiz);
         }
         //
         // Добавить тег тесту
+        [TestCase("test1", 5)]
+        [TestCase("test2", 6)]
+        [TestCase("test3", 7)]
+        [TestCase("test4", 8)]
+        [TestCase("test5", 9)]
         public void AddTagTest(string nameQuize, long idTag)
         {
             // Создаем DTO классы теста и тега
             var quiz = _quiz.GetEntityNotNested(nameQuize);
-            var tag = IocKernel.Get<ISetTag>().GetEntity(idTag);
+            var tag  = IocKernel.Get<ISetTag>().GetEntity(idTag);
             //Запускаем тестируемый метод
             _quiz.AddTag(quiz, tag);
             var tags = new ObservableCollection<SetTagDTO>();
             tags.Add(tag);
             // Вытаскиваем из БД групы по тегу          
-            var expexted = IocKernel.Get<ISetTag>().SearchQuizzesByTeg(tags).Select(t =>t.NameQuiz);
-            
+            var expexted = IocKernel.Get<ISetTag>().SearchQuizzesByTeg(tags).Select(t => t.NameQuiz);
+
             CollectionAssert.Contains(expexted, quiz.NameQuiz);
         }
         //
@@ -51,7 +56,7 @@ namespace Tests.Logic
         [TestCase("test3", "test3", 3)]
         [TestCase("test4", "test4", 2)]
         [TestCase("test5", "test5", 1)]
-        public void AddFeedbackTest(string nameQuize, string text, long idUser) 
+        public void AddFeedbackTest(string nameQuize, string text, long idUser)
             //(QuizzeDTO quiz, string text, UserDTO user)
         {
             // Создаем DTO классы теста и юзера
@@ -61,12 +66,11 @@ namespace Tests.Logic
             _quiz.AddFeedback(quiz, text, user);
             // Вытаскиваем список фидбеков этого теста
             var expexted = _quiz.GetFeedback(quiz).Select(t => t.Text);
-            
-            CollectionAssert.Contains(expexted, text);
 
+            CollectionAssert.Contains(expexted, text);
         }
-        
-        
+
+
         //
         // Удалить тест
         [TestCase("test1")]
@@ -77,8 +81,7 @@ namespace Tests.Logic
         public void RemoveQuizzeTest(string nameQuiz)
         {
             _quiz.RemoveQuizze(nameQuiz);
-            CollectionAssert.DoesNotContain(_quiz.GetListEntity().Select(t =>t.NameQuiz).ToList(), nameQuiz);
+            CollectionAssert.DoesNotContain(_quiz.GetListEntity().Select(t => t.NameQuiz).ToList(), nameQuiz);
         }
-
     }
 }

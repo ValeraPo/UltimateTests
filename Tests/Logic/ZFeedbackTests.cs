@@ -1,15 +1,12 @@
-using System;
 using System.Linq;
 using Logic.Configuration;
-using Logic.DTO;
 using Logic.Interfaces;
-using Logic.Processes;
 using NUnit.Framework;
 
 namespace Tests.Logic
 {
     [TestFixture]
-    public class FeedbackTests
+    public class ZFeedbackTests
     {
         private IFeedback _feedback = IocKernel.Get<IFeedback>();
         //

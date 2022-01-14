@@ -1,14 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Data;
 using Data.Interfaces;
-using Data.Repositories;
 using Data.Maps;
 using Logic.Configuration;
 using NUnit.Framework;
-using Tests.Logic;
 
 namespace Tests.Data
 {
@@ -21,20 +17,24 @@ namespace Tests.Data
         [Test]
         public void GetListEntityTest()
         {
-            var expected = _quizze.GetListEntity().Select(t =>t.ID_Quiz);
-            var actual = new ObservableCollection<long>{2};
+            var expected = _quizze.GetListEntity().Select(t => t.ID_Quiz);
+            var actual   = new ObservableCollection<long> { 2, 24, 25, 26, 27, 28 };
             CollectionAssert.AreEqual(expected, actual);
         }
         //
         //
-        //[TestCase(2, 6, 15, "Кто ты из Winx?")] //TODO исправить когда появятся попытки в бд
+        [TestCase(2, 6, 15, "Кто ты из Winx?")]
+        [TestCase(24, 6, 10, "один")]
+        [TestCase(25, 7, 11, "два")]
+        [TestCase(26, 7, 14, "три")]
+        [TestCase(27, 6, 156, "4tblre")]
+        [TestCase(28, 7, 16, "pyat'")]
         public void GetEntityTest(long id_quizze, long id_user, int max_point, string name)
         {
             Quizze quiz = _quizze.GetEntity(id_quizze);
             Assert.AreEqual(quiz.ID_UserCreateons, id_user);
             Assert.AreEqual(quiz.MaxPoints, max_point);
             Assert.AreEqual(quiz.Name, name);
-
         }
         [Test]
         public void GetEntityNegativeTest()
@@ -49,7 +49,7 @@ namespace Tests.Data
             _quizze.Create(item);
             Assert.Throws<System.Data.Entity.Validation.DbEntityValidationException>(() => _quizze.Save());
         }
-        
+
         [Test]
         public void CreateNegativeTestTwo()
         {

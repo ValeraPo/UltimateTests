@@ -1,14 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Data;
 using Data.Interfaces;
-using Data.Repositories;
 using Data.Maps;
 using Logic.Configuration;
 using NUnit.Framework;
-using Tests.Logic;
 
 namespace Tests.Data
 {
@@ -18,17 +14,20 @@ namespace Tests.Data
         private IRepository<Attempt> _attempt = IocKernel.Get<IRepository<Attempt>>();
         //
         //  
-       [Test]
+        [Test]
         public void GetListEntityTest()
         {
-            var expected = _attempt.GetListEntity().Select(t =>t.ID_Try);
-            var actual = new ObservableCollection<Attempt>();
-            //TODO добавить когда появится
-            CollectionAssert.AreEqual(expected, actual.Select(t =>t.ID_Try));
+            var expected = _attempt.GetListEntity().Select(t => t.ID_Try);
+            var actual   = new ObservableCollection<long> { 1, 2, 3, 4, 5 };
+            CollectionAssert.AreEqual(expected, actual);
         }
         //
         //
-        //[TestCase(1, 1, 1)] //TODO исправить когда появятся попытки в бд
+        [TestCase(1, 2, 13)]
+        [TestCase(2, 2, 3)]
+        [TestCase(3, 2, 4)]
+        [TestCase(4, 2, 5)]
+        [TestCase(5, 2, 19)]
         public void GetEntityTest(long id_attempt, long id_quiz, long id_user)
         {
             Attempt attempt = _attempt.GetEntity(id_attempt);

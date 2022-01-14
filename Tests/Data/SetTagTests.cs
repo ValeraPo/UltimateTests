@@ -1,15 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using Data;
 using Data.Interfaces;
-using Data.Repositories;
 using Data.Maps;
 using Logic.Configuration;
 using NUnit.Framework;
-using Tests.Logic;
 
 namespace Tests.Data
 {
@@ -22,8 +17,8 @@ namespace Tests.Data
         [Test]
         public void GetListEntityTest()
         {
-            var expected = _tag.GetListEntity().Select(t =>t.ID_TagSet).ToList();
-            var actual = new List<long>{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17};
+            var expected = _tag.GetListEntity().Select(t => t.ID_TagSet).ToList();
+            var actual   = new List<long> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
             CollectionAssert.AreEqual(expected, actual);
         }
         //
@@ -33,7 +28,6 @@ namespace Tests.Data
         [TestCase(3, "2 курс")]
         [TestCase(4, "1 курс")]
         [TestCase(5, "Отделение ОМиВТ")]
-
         public void GetEntityTest(long id_tag, string name)
         {
             SetTag setTag = _tag.GetEntity(id_tag);

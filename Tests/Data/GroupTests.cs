@@ -1,14 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Data;
 using Data.Interfaces;
-using Data.Repositories;
 using Data.Maps;
 using Logic.Configuration;
 using NUnit.Framework;
-using Tests.Logic;
 
 namespace Tests.Data
 {
@@ -21,8 +17,8 @@ namespace Tests.Data
         [Test]
         public void GetListEntityTest()
         {
-            var expected = _group.GetListEntity().Select(t =>t.ID_Group);
-            var actual = new ObservableCollection<long> {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
+            var expected = _group.GetListEntity().Select(t => t.ID_Group);
+            var actual   = new ObservableCollection<long> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
             CollectionAssert.AreEqual(expected, actual);
         }
         //

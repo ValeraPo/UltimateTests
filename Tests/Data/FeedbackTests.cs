@@ -1,14 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Data;
 using Data.Interfaces;
-using Data.Repositories;
 using Data.Maps;
 using Logic.Configuration;
 using NUnit.Framework;
-using Tests.Logic;
 
 namespace Tests.Data
 {
@@ -21,21 +17,23 @@ namespace Tests.Data
         [Test]
         public void GetListEntityTest()
         {
-            var expected = _feedback.GetListEntity().Select(t =>t.ID_Feedback);
-            var actual = new ObservableCollection<Feedback>();
-            //TODO добавить когда появится
-            CollectionAssert.AreEqual(expected, actual.Select(t =>t.ID_Feedback));
+            var expected = _feedback.GetListEntity().Select(t => t.ID_Feedback);
+            var actual   = new ObservableCollection<long> { 19, 20, 21, 22, 23 };
+            CollectionAssert.AreEqual(expected, actual);
         }
         //
         //
-        //[TestCase(1, 1, 1, "text")] //TODO исправить когда появятся попытки в бд
+        [TestCase(19, 2, 13, "один")]
+        [TestCase(20, 2, 3, "два")]
+        [TestCase(21, 2, 4, "три")]
+        [TestCase(22, 2, 5, "4tblre")]
+        [TestCase(23, 2, 19, "pyat'")]
         public void GetEntityTest(long id_feedback, long id_quiz, long id_user, string text)
         {
             Feedback feedback = _feedback.GetEntity(id_feedback);
             Assert.AreEqual(feedback.ID_Quiz, id_quiz);
             Assert.AreEqual(feedback.ID_User, id_user);
             Assert.AreEqual(feedback.Text, text);
-
         }
         [Test]
         public void GetEntityNegativeTest()
