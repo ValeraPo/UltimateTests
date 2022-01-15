@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Logic.DTO
 {
@@ -25,7 +26,7 @@ namespace Logic.DTO
             ID_QuestType = question.ID_QuestType;
             Text         = question.Text;
             Answers      = new ObservableCollection<AnswerDTO>();
-            foreach (var answer in question.Answers)
+            foreach (var answer in question.Answers.Where(t => !t.IsDel))
                 Answers.Add(new AnswerDTO(answer));
         }
         

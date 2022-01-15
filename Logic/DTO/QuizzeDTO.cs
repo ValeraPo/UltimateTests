@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Logic.DTO
 {
@@ -30,7 +31,7 @@ namespace Logic.DTO
             Questions      = new ObservableCollection<QuestionDTO>();
             if (!flag)
                 return;
-            foreach (var question in quiz.Questions)
+            foreach (var question in quiz.Questions.Where(t => !t.IsDel))
                 Questions.Add(new QuestionDTO(question));
         }
 
