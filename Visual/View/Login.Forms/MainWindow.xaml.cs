@@ -49,16 +49,17 @@ namespace Visual
             //    MessageBox.Show("Неверный логин или пароль");
             //}
 
-            AdminsWindows.AdminsStartWindow asw = new();
-            asw.Show();
+            //AdminsWindows.AdminsStartWindow asw = new();
+            //asw.Show();
 
             //View.Methodist.Forms.MethodistStartWindow mew = new();
             //mew.Show();
             //View.Methodist.Forms.QuizesWindow qw = new();
             //qw.Show();
-            //View.Quiz.Form.QuizWindow qw = new(2);
-            //qw.Show();
-
+            View.Quiz.Form.QuizWindow qw = new(2);
+            qw.Show();
+            View.Quiz.Form.QuizCreationWindow qcw = new();
+            qcw.Show();
             //View.Student.Forms.StudentsStartWindow ssw = new();
             //ssw.Show();
         }

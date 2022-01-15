@@ -16,23 +16,60 @@ using System.Windows.Shapes;
 
 namespace Visual.View.Quiz.Form
 {
-    /// <summary>
-    /// Interaction logic for QuizWindow.xaml
-    /// </summary>
     public partial class QuizWindow : Window
     {
-        QuizViewModel qvm;
+        QuizzeDTO currentQuiz;
+        IQuizze quiz = Logic.Configuration.IocKernel.Get<IQuizze>();
+        int CounterQuiz;
+        string _currentQuestinsInfo;
+
         //ctor
-        public QuizWindow(long QuizID)
+        public QuizWindow(long QuizID, bool TetsTry = false)
         {
             InitializeComponent();
-            qvm = new QuizViewModel((long)2);
-            this.DataContext = qvm;
+            currentQuiz = quiz.GetEntity(QuizID);
+            CounterQuiz = 0;
+            RefreshAnswerField();
         }
-
-        //private void Button_Click(object sender, RoutedEventArgs e)
-        //{
-        //    ((QuizViewModel)DataContext).CurIndex++;
-        //}
+        public void RefreshAnswerField()
+        {
+            stackPanel.Children.Clear();
+            _currentQuestinsInfo = $"Вопрос №{CounterQuiz + 1} из {currentQuiz.Questions.Count}"; // вытащить в отдельный метод
+            QuestionInfoTextBlock.Text = _currentQuestinsInfo;                                    // вытащить в отдельный метод
+            QuestionTextBlock.Text = currentQuiz.Questions[CounterQuiz].Text;
+            SetAnswers();
+        }
+        private void SetAnswers()
+        {
+            switch (currentQuiz.Questions[CounterQuiz].ID_QuestType)
+            {
+                case 1:
+                    foreach (var answ in currentQuiz.Questions[CounterQuiz].Answers)
+                        stackPanel.Children.Add(new RadioButton()
+                        {
+                            Content = answ.Text,
+                        });
+                    break;
+                case 2:
+                    foreach (var answ in currentQuiz.Questions[CounterQuiz].Answers)
+                        stackPanel.Children.Add(new CheckBox()
+                        {
+                            Content = answ.Text,
+                        });
+                    //stackPanel.Children.Add(new ComboBox()
+                    //{
+                    //    ItemsSource = currentQuiz.Questions[CounterQuiz].Answers.Select(t => t.Text)
+                    //});
+                    break;
+                default:
+                    stackPanel.Children.Add(new TextBox());
+                    break;
+            }
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            CounterQuiz++;
+            RefreshAnswerField();
+        }
     }
 }

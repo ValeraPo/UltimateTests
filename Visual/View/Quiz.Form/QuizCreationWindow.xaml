@@ -1,0 +1,97 @@
+﻿<Window x:Class="Visual.View.Quiz.Form.QuizCreationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Visual.View.Quiz.Form"
+        mc:Ignorable="d"
+        Title="QuizCreationWindow" Height="900" Width="850" MaxHeight="850" MaxWidth="850">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" MinWidth="250"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="3" Margin="50 25 50 25">
+            <TextBlock Text="Название теста:" Margin="5"/>
+            <TextBox Name="QuizNameTextBox" Text="Название теста" FontSize="16" Width="400" Margin="25 0 25 0"/>
+            <Button Name="QuizNameButton" Content="Изменить" Click="QuizNameButton_Click"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="2" Margin="5" Orientation="Horizontal">
+            <TextBlock Text="Вопрос:" Margin="25"/>
+            <TextBox x:Name="QuizText" TextWrapping="Wrap" HorizontalAlignment="Stretch" Margin="5" Height="75" Width="450"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" Margin="25 0 25 0">
+            <!-- Время выполнения -->
+            <TextBlock Text="Выремя выполнения:"/>
+            <TextBox Width="200"/>
+        </StackPanel>
+        
+        <GridSplitter Grid.Row="1" Grid.Column="1" Grid.RowSpan="7"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Margin="25 25 40 25">
+            <TextBlock Text="Добавить тэг:" Margin="0 5"/>
+            <ComboBox Name="TagsComboBox" Width="200" Margin="25 0 40 0">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock FontSize="16" Text="{Binding Path=Text}" Width="300"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button Name="TagsButtonAdd" Content="Добавить" Click="TagsButtonAdd_Click"/>
+        </StackPanel>
+
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden"
+                      Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Margin="0" Height ="200">
+            <ItemsControl>
+                
+                <ListBox x:Name="TagsListBox"
+            Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Margin="0" 
+                 Height ="200" VerticalAlignment="Stretch"
+                 ScrollViewer.HorizontalScrollBarVisibility ="Hidden"
+                 SelectionChanged="TagsListBox_SelectionChanged">
+                    
+                    
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock FontSize="14" Text="{Binding Path=Text}" HorizontalAlignment="Left"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ItemsControl>
+        </ScrollViewer>
+        
+        <StackPanel Grid.Column="2" Grid.Row="5" Margin="25 25 40 25" Orientation="Horizontal">
+            <TextBlock Text="Тип ответа:" Margin="0 5"/>
+            <ComboBox Name="QuestionsTypeComboBox" Width="400" Margin="25 0 40 0">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock FontSize="16" Text="{Binding Path=TypeString}" Width="300"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+        <StackPanel x:Name="AnswersStackPanel" Grid.Column="2" Grid.Row="6" Height="150" Orientation="Vertical" Margin="0 0 50 0">
+            <!--Adding answers here-->
+        </StackPanel>
+        <Button Width="75" x:Name="AnswersButtonAdd"  Grid.Column="2" Grid.Row="7" HorizontalAlignment="Right" Margin="50 25 50 25" Click="AnswersButtonAdd_Click"/>
+        <ListBox Name="QuestionsListBox" VerticalAlignment="Stretch" Grid.Row="1" Grid.RowSpan="6"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="8">
+            <Button Name="QuestionsButtonAdd" Content="Добавить"  Click="QuestionsButtonAdd_Click"/>
+            <Button Name="QuestionsButtonDel" Content="Удалить" Width="75"  Click="QuestionsButtonDel_Click" />
+        </StackPanel>
+        <Button x:Name="CreationButton" Width="300" Grid.Column="2" Grid.Row="8" Margin="50 25 50 25" HorizontalAlignment="Center"/>
+    </Grid>
+</Window>

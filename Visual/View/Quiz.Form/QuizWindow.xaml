@@ -6,28 +6,24 @@
         xmlns:local="clr-namespace:Visual.View.Quiz.Form"
         mc:Ignorable="d"
         Title="QuizWindow" Height="450" Width="800">
-    <Grid >
+    <Grid x:Name="GridName" DataContext="QuizWindow">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBox HorizontalAlignment="Center" Text="{Binding Path=CurIndex, Mode=TwoWay}"> </TextBox>
-        <!--<ListBox ItemsSource="{Binding Path=CurrentQuiz.Questions[CurIndex]}" Grid.Row="1">
-            <TextBlock Name="QuestText" TextWrapping="Wrap" Text="{Binding Path=Text}" 
-                       HorizontalAlignment="Stretch"
-                       VerticalAlignment="Stretch"/>
-        </ListBox>-->
-        
+        <TextBlock Name ="QuestionInfoTextBlock" HorizontalAlignment="Center" Text="{Binding Path=CurIndex}"> </TextBlock>
+        <TextBlock TextWrapping="Wrap" FontSize="20" Grid.Row="1" Name ="QuestionTextBlock" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=CurIndex}"> </TextBlock>
+            
         <GroupBox Grid.Row="2" Padding="5">
-            <StackPanel x:Name="stackPanel">
+            <StackPanel x:Name="stackPanel" Orientation="Vertical">
                 
             </StackPanel>
         </GroupBox>
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Назад"/>
-            <Button Content="Пропустить" />
+            <Button Content="Пропустить" Click="Button_Click" />
             <Button Content="Ответить"/>
         </StackPanel>
     </Grid>

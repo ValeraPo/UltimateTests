@@ -49,6 +49,11 @@
 
                         <ListBox Grid.Row="1" x:Name="CurrentTagsListBox" SelectionChanged="CurrentTagsList_SelectionChanged"
                                      >
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock FontSize="16" Text="{Binding Path=Text}" HorizontalAlignment="Left"/>
