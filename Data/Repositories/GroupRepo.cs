@@ -1,24 +1,29 @@
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using Data.Controllers;
 using Data.Interfaces;
 using Data.Maps;
 
 namespace Data.Repositories
 {
-    public class GroupRepo : IRepository<Group>
+    public class GroupRepo : AbstractRepo<Group>, IRepository<Group>
     {
-        private Context db;
-        
-        public GroupRepo() => db = Context.GetContext();
+        public IEnumerable<Group> GetListEntity()
+        {
+            if (!UpdateLintEntity) return LintEntity;
+            
+            LintEntity = db.Groups.Where(t => !t.IsDel);
+            UpdateLintEntity = false;
+            return LintEntity;
+        }
 
-
-        public IEnumerable<Group> GetListEntity() => db.Groups.Where(t => !t.IsDel);
         public Group GetEntity(long id) => db.Groups.Single(t => !t.IsDel && t.ID_Group == id);
-        public void Create(Group item) => db.Groups.Add(item);
-        public void Update(Group item) => db.Entry(item).State = EntityState.Modified;
-        public void Save() => db.SaveChanges();
+        
+        public void Create(Group item)
+        {
+            db.Groups.Add(item);
+            UpdateLintEntity = true;
+        }
+
         public void Delete(long id)
         {
             var group = db.Groups.Find(id);
@@ -32,6 +37,7 @@ namespace Data.Repositories
             foreach (var tags in group.GroupsCategories)
                 tags.IsDel = true;
             Save();
+            UpdateLintEntity = true;
         }
     }
 }

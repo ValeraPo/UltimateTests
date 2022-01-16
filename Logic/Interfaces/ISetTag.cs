@@ -15,6 +15,7 @@ namespace Logic.Interfaces
         public void RemoveTeg(SetTagDTO teg);
         public void RemoveTeg(string text);
         public void SaveChange();
+        public void Refresh();
         public void Update(SetTagDTO teg);
     }
 }

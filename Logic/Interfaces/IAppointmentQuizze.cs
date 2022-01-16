@@ -9,5 +9,6 @@ namespace Logic.Interfaces
         public ObservableCollection<AppointmentQuizzeDTO> GetListEntity();
         public void RemoveAppointment(AppointmentQuizzeDTO appointment);
         public void SaveChange();
+        public void Refresh();
     }
 }

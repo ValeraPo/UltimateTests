@@ -21,6 +21,7 @@ namespace Logic.Interfaces
         public void AddFeedback(QuizzeDTO quiz, string text, UserDTO user);
         public ObservableCollection<FeedbackDTO> GetFeedback(QuizzeDTO quiz);
         public void SaveChange();
+        public void Refresh();
         public void Update(QuizzeDTO quiz);
         public void UpdateQuestion(QuestionDTO questionDto, Question question);
         public void UpdateAnswer(AnswerDTO answerDto, Answer answer);

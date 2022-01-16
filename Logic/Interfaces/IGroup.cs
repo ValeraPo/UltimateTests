@@ -15,6 +15,7 @@ namespace Logic.Interfaces
         public void RemoveGroup(GroupDTO group);
         public void RemoveGroup(string name);
         public void SaveChange();
+        public void Refresh();
         public void Update(GroupDTO group);
     }
 }

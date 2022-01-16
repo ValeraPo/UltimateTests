@@ -26,6 +26,7 @@ namespace Logic.Interfaces
         public void RemoveUser(UserDTO user);
         public void RemoveUser(string login);
         public void SaveChange();
+        public void Refresh();
         public void Update(UserDTO user);
         public void Update(UserDTO user, string login, string password);
     }

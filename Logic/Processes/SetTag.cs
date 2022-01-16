@@ -91,8 +91,8 @@ namespace Logic.Processes
                        .Select(t => t.Text)
                        .Contains(text))
                 throw new ArgumentException("Такой тег уже существует");
-            _tags.Create(new Data.Maps.SetTag()
-                         {
+            _tags.Create(new Data.Maps.SetTag
+            {
                              Text = text
                          });
             SaveChange();
@@ -108,6 +108,8 @@ namespace Logic.Processes
         }
         // Сохранить изменения
         public void SaveChange() => _tags.Save();
+        // Обновление модели (пересоздании зависимостей EF)
+        public void Refresh() => _tags.Refresh();
         // Сохранение изменения
         public void Update(SetTagDTO teg)
         {

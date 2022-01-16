@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Resources;
 using Data.Interfaces;
 using Data.Maps;
 using Logic.Configuration;
@@ -32,7 +31,8 @@ namespace Logic.Processes
         public ObservableCollection<GroupDTO> GetListEntity()
         {
             var groups = new ObservableCollection<GroupDTO>();
-            foreach (var group in _groups.GetListEntity()) { groups.Add(new GroupDTO(group)); }
+            foreach (var group in _groups.GetListEntity()) 
+                groups.Add(new GroupDTO(group));
 
             return groups;
         }
@@ -42,8 +42,8 @@ namespace Logic.Processes
             var myGroup = _groups.GetEntity(group.Id);
             if (myGroup.GroupsCategories.All(t => t.ID_TagSet != teg.Id))
             {
-                 myGroup.GroupsCategories.Add(new GroupsCategory()
-                                                         {
+                 myGroup.GroupsCategories.Add(new GroupsCategory
+                 {
                                                              ID_Group  = group.Id,
                                                              ID_TagSet = teg.Id
                                                          });
@@ -51,7 +51,7 @@ namespace Logic.Processes
             else
                 myGroup.GroupsCategories.Single(t => t.ID_TagSet == teg.Id).IsDel = false;
 
-            _groups.Save();
+            SaveChange();
         }
 
         #region UsersByGrop
@@ -85,8 +85,8 @@ namespace Logic.Processes
                        .Select(t => t.NameOfGroup)
                        .Contains(text))
                 throw new ArgumentException("Группа с таким названием уже существует");
-            _groups.Create(new Data.Maps.Group()
-                           {
+            _groups.Create(new Data.Maps.Group
+            {
                                NameOfGroup = text
                            });
             SaveChange();
@@ -102,6 +102,8 @@ namespace Logic.Processes
         }
         // Сохранить изменения
         public void SaveChange() => _groups.Save();
+        // Обновление модели (пересоздании зависимостей EF)
+        public void Refresh() => _groups.Refresh();
         //Сохранение изменения
         public void Update(GroupDTO group)
         {

@@ -1,24 +1,29 @@
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using Data.Controllers;
 using Data.Interfaces;
 using Data.Maps;
 
 namespace Data.Repositories
 {
-    public class UserRepo : IRepository<User>
+    public class UserRepo : AbstractRepo<User>, IRepository<User>
     {
-        private Context db;
-
-        public UserRepo() => db = Context.GetContext();
-
-
-        public IEnumerable<User> GetListEntity() => db.Users.Where(t => !t.IsDel);
+        public IEnumerable<User> GetListEntity()
+        {
+            if (!UpdateLintEntity) return LintEntity;
+            
+            LintEntity = db.Users.Where(t => !t.IsDel);
+            UpdateLintEntity = false;
+            return LintEntity;
+        }
+        
         public User GetEntity(long id) => db.Users.Single(t => !t.IsDel && t.ID_User == id);
-        public void Create(User item) => db.Users.Add(item);
-        public void Update(User item) => db.Entry(item).State = EntityState.Modified;
-        public void Save() => db.SaveChanges();
+        
+        public void Create(User item)
+        {
+            db.Users.Add(item);
+            UpdateLintEntity = true;
+        }
+        
         public void Delete(long id)
         {
             var user = db.Users.Find(id);
@@ -28,6 +33,7 @@ namespace Data.Repositories
             foreach (var teach in user.TeachingGroups)
                 teach.IsDel = true;
             Save();
+            UpdateLintEntity = true;
         }
     }
 }

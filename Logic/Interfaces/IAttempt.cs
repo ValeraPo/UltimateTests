@@ -8,5 +8,6 @@ namespace Logic.Interfaces
         public AttemptDTO GetEntity(long id);
         public ObservableCollection<AttemptDTO> GetListEntity();
         public void SaveChange();
+        public void Refresh();
     }
 }

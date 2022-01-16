@@ -10,5 +10,6 @@ namespace Logic.Interfaces
         public void RemoveFeedback(FeedbackDTO feedback);
         public void RemoveFeedback(string text);
         public void SaveChange();
+        public void Refresh();
     }
 }
