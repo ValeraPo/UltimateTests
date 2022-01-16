@@ -9,15 +9,16 @@ namespace Data.Repositories
     {
         public IEnumerable<Group> GetListEntity()
         {
-            if (!UpdateLintEntity) return LintEntity;
-            
-            LintEntity = db.Groups.Where(t => !t.IsDel);
+            if (!UpdateLintEntity) 
+                return LintEntity;
+
+            LintEntity       = db.Groups.Where(t => !t.IsDel);
             UpdateLintEntity = false;
             return LintEntity;
         }
 
         public Group GetEntity(long id) => db.Groups.Single(t => !t.IsDel && t.ID_Group == id);
-        
+
         public void Create(Group item)
         {
             db.Groups.Add(item);

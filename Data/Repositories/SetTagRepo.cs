@@ -9,15 +9,16 @@ namespace Data.Repositories
     {
         public IEnumerable<SetTag> GetListEntity()
         {
-            if (!UpdateLintEntity) return LintEntity;
-            
-            LintEntity = db.SetTags.Where(t => !t.IsDel);
+            if (!UpdateLintEntity) 
+                return LintEntity;
+
+            LintEntity       = db.SetTags.Where(t => !t.IsDel);
             UpdateLintEntity = false;
             return LintEntity;
         }
 
         public SetTag GetEntity(long id) => db.SetTags.Single(t => !t.IsDel && t.ID_TagSet == id);
-        
+
         public void Create(SetTag item)
         {
             db.SetTags.Add(item);

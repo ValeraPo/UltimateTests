@@ -9,15 +9,17 @@ namespace Data.Repositories
     {
         public IEnumerable<AppointmentQuizze> GetListEntity()
         {
-            if (!UpdateLintEntity) return LintEntity;
-            
-            LintEntity = db.AppointmentQuizzes.Where(t => !t.IsDel);
+            if (!UpdateLintEntity)
+                return LintEntity;
+
+            LintEntity       = db.AppointmentQuizzes.Where(t => !t.IsDel);
             UpdateLintEntity = false;
             return LintEntity;
         }
 
-        public AppointmentQuizze GetEntity(long id) => db.AppointmentQuizzes.Single(t => !t.IsDel && t.ID_Appointment == id);
-        
+        public AppointmentQuizze GetEntity(long id) =>
+            db.AppointmentQuizzes.Single(t => !t.IsDel && t.ID_Appointment == id);
+
         public void Create(AppointmentQuizze item)
         {
             db.AppointmentQuizzes.Add(item);

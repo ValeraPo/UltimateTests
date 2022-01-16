@@ -9,21 +9,22 @@ namespace Data.Repositories
     {
         public IEnumerable<User> GetListEntity()
         {
-            if (!UpdateLintEntity) return LintEntity;
-            
-            LintEntity = db.Users.Where(t => !t.IsDel);
+            if (!UpdateLintEntity)
+                return LintEntity;
+
+            LintEntity       = db.Users.Where(t => !t.IsDel);
             UpdateLintEntity = false;
             return LintEntity;
         }
-        
+
         public User GetEntity(long id) => db.Users.Single(t => !t.IsDel && t.ID_User == id);
-        
+
         public void Create(User item)
         {
             db.Users.Add(item);
             UpdateLintEntity = true;
         }
-        
+
         public void Delete(long id)
         {
             var user = db.Users.Find(id);

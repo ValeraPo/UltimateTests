@@ -9,15 +9,16 @@ namespace Data.Repositories
     {
         public IEnumerable<Feedback> GetListEntity()
         {
-            if (!UpdateLintEntity) return LintEntity;
-            
-            LintEntity = db.Feedbacks.Where(t => !t.IsDel);
+            if (!UpdateLintEntity) 
+                return LintEntity;
+
+            LintEntity       = db.Feedbacks.Where(t => !t.IsDel);
             UpdateLintEntity = false;
             return LintEntity;
         }
 
         public Feedback GetEntity(long id) => db.Feedbacks.Single(t => !t.IsDel && t.ID_Feedback == id);
-        
+
         public void Create(Feedback item)
         {
             db.Feedbacks.Add(item);

@@ -9,15 +9,16 @@ namespace Data.Repositories
     {
         public IEnumerable<Attempt> GetListEntity()
         {
-            if (!UpdateLintEntity) return LintEntity;
-            
-            LintEntity = db.Attempts;
+            if (!UpdateLintEntity) 
+                return LintEntity;
+
+            LintEntity       = db.Attempts;
             UpdateLintEntity = false;
             return LintEntity;
         }
 
         public Attempt GetEntity(long id) => db.Attempts.Find(id);
-        
+
         public void Create(Attempt item)
         {
             db.Attempts.Add(item);

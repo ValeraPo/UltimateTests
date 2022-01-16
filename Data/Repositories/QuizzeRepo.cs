@@ -9,15 +9,16 @@ namespace Data.Repositories
     {
         public IEnumerable<Quizze> GetListEntity()
         {
-            if (!UpdateLintEntity) return LintEntity;
-            
-            LintEntity = db.Quizzes.Where(t => !t.IsDel);
+            if (!UpdateLintEntity) 
+                return LintEntity;
+
+            LintEntity       = db.Quizzes.Where(t => !t.IsDel);
             UpdateLintEntity = false;
             return LintEntity;
         }
 
         public Quizze GetEntity(long id) => db.Quizzes.Single(t => !t.IsDel && t.ID_Quiz == id);
-        
+
         public void Create(Quizze item)
         {
             db.Quizzes.Add(item);
@@ -39,6 +40,7 @@ namespace Data.Repositories
                     answer.IsDel = true;
                 question.IsDel = true;
             }
+
             Save();
             UpdateLintEntity = true;
         }
