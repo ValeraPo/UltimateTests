@@ -1,7 +1,10 @@
 namespace Logic.DTO
 {
-    public class SetTagDTO
+    public class SetTagDTO : AbstractOnPropertyChanged
     {
+        private string _text;
+        
+        
         public SetTagDTO(long id, string text)
         {
             Id   = id;
@@ -16,14 +19,17 @@ namespace Logic.DTO
             Id   = setTag.ID_TagSet;
             Text = setTag.Text;
         }
-        
-        
-        public long   Id   {get; set;}
-        public string Text {get; set;}
 
-        //public override string ToString()
-        //{
-        //    return Text;
-        //}
+
+        public long Id {get; set;}
+        public string Text
+        {
+            get => _text;
+            set
+            { if (_text == value)
+                  return;
+              _text = value;
+              OnPropertyChanged(nameof(Text)); }
+        }
     }
 }

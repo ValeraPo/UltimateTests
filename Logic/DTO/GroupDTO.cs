@@ -1,7 +1,10 @@
 namespace Logic.DTO
 {
-    public class GroupDTO
+    public class GroupDTO : AbstractOnPropertyChanged
     {
+        private string _nameOfGroup;
+        
+        
         public GroupDTO(long idGroup, string nameOfGroup)
         {
             Id          = idGroup;
@@ -18,7 +21,15 @@ namespace Logic.DTO
         }
 
 
-        public long   Id          {get; set;}
-        public string NameOfGroup {get; set;}
+        public long Id {get; set;}
+        public string NameOfGroup
+        {
+            get => _nameOfGroup;
+            set
+            { if (_nameOfGroup == value)
+                  return;
+              _nameOfGroup = value;
+              OnPropertyChanged(nameof(NameOfGroup)); }
+        }
     }
 }

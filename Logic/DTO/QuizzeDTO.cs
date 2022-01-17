@@ -4,8 +4,14 @@ using System.Linq;
 
 namespace Logic.DTO
 {
-    public class QuizzeDTO
+    public class QuizzeDTO : AbstractOnPropertyChanged
     {
+        private string                            _nameQuiz;
+        private TimeSpan                          _timeToComplete;
+        private int                               _maxPoints;
+        private ObservableCollection<QuestionDTO> _questions;
+        
+        
         public QuizzeDTO(long id, string nameQuiz, TimeSpan timeToComplete, int maxPoints, ObservableCollection<QuestionDTO> questions)
         {
             Id             = id;
@@ -36,10 +42,42 @@ namespace Logic.DTO
         }
 
 
-        public long                              Id             {get; set;}
-        public string                            NameQuiz       {get; set;}
-        public TimeSpan                          TimeToComplete {get; set;}
-        public int                               MaxPoints      {get; set;}
-        public ObservableCollection<QuestionDTO> Questions      {get; set;}
+        public long Id {get; set;}
+        public string NameQuiz
+        {
+            get => _nameQuiz;
+            set
+            { if (_nameQuiz == value)
+                  return;
+              _nameQuiz = value;
+              OnPropertyChanged(nameof(NameQuiz)); }
+        }
+        public TimeSpan TimeToComplete
+        {
+            get => _timeToComplete;
+            set
+            { if (_timeToComplete == value)
+                  return;
+              _timeToComplete = value;
+              OnPropertyChanged(nameof(TimeToComplete)); }
+        }
+        public int MaxPoints
+        {
+            get => _maxPoints;
+            set
+            { if (_maxPoints == value)
+                  return;
+              _maxPoints = value;
+              OnPropertyChanged(nameof(MaxPoints)); }
+        }
+        public ObservableCollection<QuestionDTO> Questions
+        {
+            get => _questions;
+            set
+            { if (_questions == value)
+                  return;
+              _questions = value;
+              OnPropertyChanged(nameof(Questions)); }
+        }
     }
 }
