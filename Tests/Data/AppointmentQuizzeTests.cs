@@ -23,11 +23,11 @@ namespace Tests.Data
         }
         //
         //
-        [TestCase(9, 2, 13)]
-        [TestCase(10, 2, 3)]
-        [TestCase(11, 2, 4)]
-        [TestCase(12, 2, 5)]
-        [TestCase(13, 2, 19)]
+        [TestCase(9, 24, 13)]
+        [TestCase(10, 25, 3)]
+        [TestCase(11, 26, 4)]
+        [TestCase(12, 27, 5)]
+        [TestCase(13, 28, 19)]
         public void GetEntityTest(long id_appoinment, long id_quiz, long id_user)
         {
             AppointmentQuizze appointmentQuizze = _appointment.GetEntity(id_appoinment);

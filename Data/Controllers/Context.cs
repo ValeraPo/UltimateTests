@@ -6,18 +6,20 @@ namespace Data.Controllers
 {
     internal class Context : DbContext
     {
+
         #region Singleton
 
         private Context()
             : base(ConfigurationManager.AppSettings.Get("Connect")) { }
+
         private static Context _context;
+
         public static Context GetContext()
         {
             return _context ??= new Context();
         }
 
         #endregion
-
 
         public virtual DbSet<Answer>            Answers            {get; set;}
         public virtual DbSet<AppointmentQuizze> AppointmentQuizzes {get; set;}

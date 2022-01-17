@@ -1,24 +1,30 @@
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using Data.Controllers;
 using Data.Interfaces;
 using Data.Maps;
 
 namespace Data.Repositories
 {
-    public class QuizzeRepo : IRepository<Quizze>
+    public class QuizzeRepo : AbstractRepo<Quizze>, IRepository<Quizze>
     {
-        private Context db;
+        public IEnumerable<Quizze> GetListEntity()
+        {
+            if (!UpdateLintEntity) 
+                return LintEntity;
 
-        public QuizzeRepo() => db = Context.GetContext();
+            LintEntity       = db.Quizzes.Where(t => !t.IsDel);
+            UpdateLintEntity = false;
+            return LintEntity;
+        }
 
-
-        public IEnumerable<Quizze> GetListEntity() => db.Quizzes.Where(t => !t.IsDel);
         public Quizze GetEntity(long id) => db.Quizzes.Single(t => !t.IsDel && t.ID_Quiz == id);
-        public void Create(Quizze item) => db.Quizzes.Add(item);
-        public void Update(Quizze item) => db.Entry(item).State = EntityState.Modified;
-        public void Save() => db.SaveChanges();
+
+        public void Create(Quizze item)
+        {
+            db.Quizzes.Add(item);
+            UpdateLintEntity = true;
+        }
+
         public void Delete(long id)
         {
             var quizze = db.Quizzes.Find(id);
@@ -34,7 +40,9 @@ namespace Data.Repositories
                     answer.IsDel = true;
                 question.IsDel = true;
             }
+
             Save();
+            UpdateLintEntity = true;
         }
     }
 }

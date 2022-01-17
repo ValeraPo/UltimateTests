@@ -1,7 +1,13 @@
 namespace Logic.DTO
 {
-    public class UserDTO
+    public class UserDTO : AbstractOnPropertyChanged
     {
+        private int    _type;
+        private string _fullName;
+        private string _email;
+        private string _group;
+        
+        
         public UserDTO(long id, int type, string fullName, string email, string group)
         {
             Id       = id;
@@ -25,12 +31,44 @@ namespace Logic.DTO
             Email    = user.Email;
             Group    = user.Group?.NameOfGroup;
         }
-        
-        
-        public long   Id       {get; set;}
-        public int    Type     {get; set;}
-        public string FullName {get; set;}
-        public string Email    {get; set;}
-        public string Group    {get; set;}
+
+
+        public long Id {get; set;}
+        public int Type
+        {
+            get => _type;
+            set
+            { if (_type == value)
+                  return;
+              _type = value;
+              OnPropertyChanged(nameof(Type)); }
+        }
+        public string FullName
+        {
+            get => _fullName;
+            set
+            { if (_fullName == value)
+                  return;
+              _fullName = value;
+              OnPropertyChanged(nameof(FullName)); }
+        }
+        public string Email
+        {
+            get => _email;
+            set
+            { if (_email == value)
+                  return;
+              _email = value;
+              OnPropertyChanged(nameof(Email)); }
+        }
+        public string Group
+        {
+            get => _group;
+            set
+            { if (_group == value)
+                  return;
+              _group = value;
+              OnPropertyChanged(nameof(Group)); }
+        }
     }
 }

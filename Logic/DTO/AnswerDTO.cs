@@ -1,7 +1,11 @@
 namespace Logic.DTO
 {
-    public class AnswerDTO
+    public class AnswerDTO : AbstractOnPropertyChanged
     {
+        private string _text;
+        private bool   _isCorrect;
+        
+        
         public AnswerDTO(long id, string text, bool isCorrect)
         {
             Id        = id;
@@ -19,8 +23,24 @@ namespace Logic.DTO
             Text      = answer.Text;
             IsCorrect = answer.IsCorrect;
         }
-        public long   Id        {get; set;}
-        public string Text      {get; set;}
-        public bool   IsCorrect {get; set;}
+        public long Id {get; set;}
+        public string Text
+        {
+            get => _text;
+            set
+            { if (_text == value)
+                  return;
+              _text = value;
+              OnPropertyChanged(nameof(Text)); }
+        }
+        public bool IsCorrect
+        {
+            get => _isCorrect;
+            set
+            { if (_isCorrect == value)
+                  return;
+              _isCorrect = value;
+              OnPropertyChanged(nameof(IsCorrect)); }
+        }
     }
 }

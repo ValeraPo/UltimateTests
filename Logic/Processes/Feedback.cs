@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using Data.Interfaces;
 using Logic.Configuration;
@@ -41,5 +40,7 @@ namespace Logic.Processes
         }
         // Сохранить изменения
         public void SaveChange() => _feedbacks.Save();
+        // Обновление модели (пересоздании зависимостей EF)
+        public void Refresh() => _feedbacks.Refresh();
     }
 }
