@@ -14,6 +14,7 @@ namespace Logic.Interfaces
         public void AddQuiz(QuizzeDTO quiz, UserDTO user);
         public ObservableCollection<AttemptDTO> GetListAttempt(QuizzeDTO quiz);
         public void AddTag(QuizzeDTO quizze, SetTagDTO teg);
+        public ObservableCollection<SetTagDTO> GetListTags(QuizzeDTO quiz);
         public void RemoveQuizze(QuizzeDTO quizze);
         public void RemoveQuizze(string nameQuiz);
         public void AddAppointmentQuizze(QuizzeDTO quizze, GroupDTO group, DateTime finishBefore);

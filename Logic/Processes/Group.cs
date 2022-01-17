@@ -53,6 +53,15 @@ namespace Logic.Processes
 
             SaveChange();
         }
+        // Текущие теги у Quiz
+        public ObservableCollection<SetTagDTO> GetListTags(GroupDTO group)
+        {
+            var res = new ObservableCollection<SetTagDTO>();
+            foreach (var teg in _groups.GetEntity(group.Id).GroupsCategories.Select(t => t.SetTag))
+                res.Add(new SetTagDTO(teg));
+
+            return res;
+        }
 
         #region UsersByGrop
 

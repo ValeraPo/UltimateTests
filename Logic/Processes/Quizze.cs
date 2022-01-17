@@ -111,6 +111,15 @@ namespace Logic.Processes
 
             SaveChange();
         }
+        // Текущие теги у Quiz
+        public ObservableCollection<SetTagDTO> GetListTags(QuizzeDTO quiz)
+        {
+            var res = new ObservableCollection<SetTagDTO>();
+            foreach (var teg in _quizzes.GetEntity(quiz.Id).QuizzesCategories.Select(t => t.SetTag))
+                res.Add(new SetTagDTO(teg));
+
+            return res;
+        }
 
         // Удаление теста
         public void RemoveQuizze(QuizzeDTO quizze)
