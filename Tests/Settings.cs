@@ -12,7 +12,7 @@ namespace Tests
         public void Init()
         {
             ConfigurationManager.AppSettings.Set("Connect",
-                "data source=25.86.90.41;initial catalog=MyTestBD;User Id = Stepa195; Password = 195;MultipleActiveResultSets=True;App=EntityFramework");
+                "data source=25.42.67.177;initial catalog=MyTestBDTest;User Id = Stepa195; Password = 195;MultipleActiveResultSets=True;App=EntityFramework");
             IocKernel.Initialize(new ProjectConfiguration());
         }
     }
