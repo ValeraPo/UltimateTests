@@ -23,9 +23,22 @@ namespace Visual.Model
 
         #endregion
 
+        #region Ctor
+
+        public FeedbackModel() { }
+        public FeedbackModel(DateTime date, string userName, string text) 
+        {
+            _date = date;
+            _text = text;
+            _userName = userName;
+        }
+
+
+        #endregion
+
         #region Fields
 
-        private string _date;
+        private DateTime _date;
         private string _text;
         private string _userName;
 
@@ -45,7 +58,7 @@ namespace Visual.Model
                 }
             }
         }
-        public string Date
+        public DateTime Date
         {
             get { return _date; }
             set

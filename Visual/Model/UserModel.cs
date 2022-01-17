@@ -23,16 +23,31 @@ namespace Visual.Model
         }
 
         #endregion
-        public UserModel()
-        {
 
+        #region
+        public UserModel() { }
+
+        public UserModel(int type, string fullName, string email)
+        {
+            _type = type;
+            _fullName = fullName;
+            _email = email;
         }
+
+        public UserModel(int type, string fullName, string email, string login, string password) : this (type, fullName, email) 
+        {
+            _login = login;
+            _password = password;
+        }
+        #endregion
         #region Fields
 
-        protected string _num;
-        protected string _type;
+
+        protected int _type;
         protected string _fullName;
         protected string _email;
+        protected string _login;
+        protected string _password;
 
         #endregion
 
@@ -50,15 +65,27 @@ namespace Visual.Model
                 }
             }
         }
-        
-        public string Num
+
+        public string Login
         {
-            get { return _num; }
+            get { return _login; }
             set
             {
-                if (_num != value)
+                if (_login != value)
                 {
-                    _num = value;
+                    _login = value;
+                    OnPropertyChanged("Num");
+                }
+            }
+        }
+        public string Password
+        {
+            get { return _password; }
+            set
+            {
+                if (_password != value)
+                {
+                    _password = value;
                     OnPropertyChanged("Num");
                 }
             }
@@ -76,7 +103,7 @@ namespace Visual.Model
                 }
             }
         }
-        public string Type
+        public int UType
         {
             get { return _type; }
             set
@@ -84,7 +111,7 @@ namespace Visual.Model
                 if (_type != value)
                 {
                     _type = value;
-                    OnPropertyChanged("Type");
+                    OnPropertyChanged("UType");
                 }
             }
         }

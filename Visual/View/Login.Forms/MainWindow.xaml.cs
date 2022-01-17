@@ -58,10 +58,10 @@ namespace Visual
             //qw.Show();
             View.Quiz.Form.QuizWindow qw = new(2);
             qw.Show();
-            View.Quiz.Form.QuizCreationWindow qcw = new();
-            qcw.Show();
-            //View.Student.Forms.StudentsStartWindow ssw = new();
-            //ssw.Show();
+            //View.Quiz.Form.QuizCreationWindow qcw = new();
+            //qcw.Show();
+            View.Student.Forms.StudentsStartWindow ssw = new();
+            ssw.Show();
         }
     }
 }

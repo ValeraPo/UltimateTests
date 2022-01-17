@@ -56,7 +56,7 @@ namespace Visual.View.Quiz.Form
           set { _quizTime = value; } }
         private void QuestionsButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            _newQuestions.Add(new QuestionDTO());
+            //_newQuestions.Add(new QuestionDTO());
             
 
         }

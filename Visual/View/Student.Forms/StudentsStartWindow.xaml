@@ -15,7 +15,7 @@
                  SelectedItem="{Binding SelectedQuiz}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel Margin="5">
+                                    <StackPanel Margin="5" Orientation="Vertical">
                                         <TextBlock FontSize="18" Text="{Binding Path=NameQuiz}" />
                                         <TextBlock DataContext="appQuizzes" Text="{Binding Path=FinishBefore}" />
                                     </StackPanel>
@@ -30,18 +30,18 @@
 
 
             <TabItem Header="Результаты" Style="{DynamicResource TabItemStyle}">
-                <Grid>
+                <Grid  DataContext="{Binding StudentUserView.appQuizzes}">
                     <ScrollViewer>
                         <StackPanel>
-                            <ListView Name="TeachersList" >
+                            <ListView Name="TeachersList">
                                 <ListView.View>
                                     <GridView>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Header="Тест"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Header="Дата Выполнения" />
-                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Company}" Header="Назначен"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Company}" Header="Максимальное количество баллов"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Company}" Header="Количество баллов"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Company}" Header="Результат(%)"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=DateTime}" Header="Дата выполнения"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=NameQuiz}" Header="Тест"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=TransitTime}" Header="Время выполнения" />
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=MaxScore}" Header="Максимальное количество баллов"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Score}" Header="Количество баллов"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Percent}" Header="Результат(%)"/>
                                     </GridView>
                                 </ListView.View>
                                 <ListView.Resources>

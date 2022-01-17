@@ -23,11 +23,22 @@ namespace Visual.Model
         }
 
         #endregion
-        
+
+        #region Ctor
+        public QuestionModel() { }
+        public QuestionModel(int questType, string text, ObservableCollection<AnswerModel> answers) 
+        {
+            _questType = questType;
+            _text = text;
+            _answers = answers;
+        }
+
+        #endregion
+
         #region Fields
 
-        
-        private string _questType;
+
+        private int _questType;
         private string _text;
         private ObservableCollection<AnswerModel> _answers;
 
@@ -36,7 +47,7 @@ namespace Visual.Model
 
         #region Properties
 
-        public string QuestType
+        public int QuestType
         {
             get { return _questType; }
             set

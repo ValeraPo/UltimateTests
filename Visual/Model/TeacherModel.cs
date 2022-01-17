@@ -9,6 +9,15 @@ namespace Visual.Model
 {
     internal class TeacherModel : UserModel
     {
+        #region ctor
+        public TeacherModel() { }
+        public TeacherModel(ObservableCollection<string> groups) : base()
+        {
+            _groups = groups;
+        }
+
+
+        #endregion
         private ObservableCollection<string> _groups;
         public ObservableCollection<string> Groups
         {

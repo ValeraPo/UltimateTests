@@ -22,10 +22,19 @@ namespace Visual.Model
         }
 
         #endregion
-        
+
+        #region Ctor
+        public AnswerModel() { }
+        public AnswerModel(string text, bool isCorrect)
+        {
+            _text = text;
+            _isCorrect = IsCorrect;
+        }
+        #endregion
+
         #region Fields
 
-        private string _type;
+        //private string _type;
         private string _text;
         private string _isCorrect;
 
@@ -45,18 +54,18 @@ namespace Visual.Model
                 }
             }
         }
-        public string Type
-        {
-            get { return _type; }
-            set
-            {
-                if (_type != value)
-                {
-                    _type = value;
-                    OnPropertyChanged("Type");
-                }
-            }
-        }
+        //public string Type
+        //{
+        //    get { return _type; }
+        //    set
+        //    {
+        //        if (_type != value)
+        //        {
+        //            _type = value;
+        //            OnPropertyChanged("Type");
+        //        }
+        //    }
+        //}
         public string IsCorrect
         {
             get { return _isCorrect; }

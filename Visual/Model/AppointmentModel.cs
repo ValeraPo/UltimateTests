@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -22,16 +23,26 @@ namespace Visual.Model
         }
 
         #endregion
-        
+
+        #region Ctor
+        public AppointmentModel() { }
+        public AppointmentModel(DateTime date, QuizModel quiz) 
+        {
+            _date = date;
+            _quiz = quiz;
+        }
+
+        #endregion
         #region Fields
 
-        private string _date;
+        private DateTime _date;
 
+        private QuizModel _quiz;
         #endregion
 
         #region Properties
 
-        public string Date
+        public DateTime Date
         {
             get { return _date; }
             set
@@ -41,6 +52,16 @@ namespace Visual.Model
                     _date = value;
                     OnPropertyChanged("Text");
                 }
+            }
+        }
+
+        public QuizModel Quizzes
+        {
+            get { return _quiz; }
+            set
+            {
+                _quiz = value;
+                OnPropertyChanged("Quizzes");
             }
         }
         #endregion

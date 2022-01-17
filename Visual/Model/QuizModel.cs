@@ -24,12 +24,29 @@ namespace Visual.Model
 
         #endregion
 
+        #region ctor
+        public QuizModel() { }
+        public QuizModel(string nameQuiz, TimeSpan timeToComplite, int max, ObservableCollection<QuestionModel> questions, 
+            ObservableCollection<string> tags, ObservableCollection<FeedbackModel> feedbacks, ObservableCollection<AnswerModel> correctAnswers) 
+        { 
+            _nameQuiz = nameQuiz;
+            _timeToComplete = timeToComplite;
+            _maxPoints = max;
+            _questions = questions;
+            _tags = tags;
+            _feedbacks = feedbacks;
+            _correctAnswers = correctAnswers;
+        }
+
+
+        #endregion
+
         #region Fields
 
-        private string _id { get; set; }
+        //private long _id { get; set; }
         private string _nameQuiz { get; set; }
-        private string _timeToComplete { get; set; }
-        private string _maxPoints { get; set; }
+        private TimeSpan _timeToComplete { get; set; }
+        private int _maxPoints { get; set; }
         private ObservableCollection<QuestionModel> _questions;
         private ObservableCollection<string> _tags;
 
@@ -41,18 +58,18 @@ namespace Visual.Model
 
         #region Properties
 
-        public string Id
-        {
-            get { return _id; }
-            set
-            {
-                if (_id != value)
-                {
-                    _id = value;
-                    OnPropertyChanged("Id");
-                }
-            }
-        }
+        //public long Id
+        //{
+        //    get { return _id; }
+        //    set
+        //    {
+        //        if (_id != value)
+        //        {
+        //            _id = value;
+        //            OnPropertyChanged("Id");
+        //        }
+        //    }
+        //}
         public string NameQuiz
         {
             get { return _nameQuiz; }
@@ -65,7 +82,7 @@ namespace Visual.Model
                 }
             }
         }
-        public string TimeToComplete
+        public TimeSpan TimeToComplete
         {
             get { return _timeToComplete; }
             set
@@ -78,7 +95,7 @@ namespace Visual.Model
             }
         }
 
-        public string MaxPoints
+        public int MaxPoints
         {
             get { return _maxPoints; }
             set

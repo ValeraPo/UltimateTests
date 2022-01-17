@@ -15,16 +15,25 @@ namespace Visual.View.Student.Forms
     {
         IAppointmentQuizze appQ = Logic.Configuration.IocKernel.Get<IAppointmentQuizze>();
         IQuizze quiz = Logic.Configuration.IocKernel.Get<IQuizze>();
-        ObservableCollection<AppointmentQuizzeDTO> appQuizzes;
+        IUser usI = Logic.Configuration.IocKernel.Get<IUser>();
+        public ObservableCollection<AppointmentQuizzeDTO> appQuizzes;
         ObservableCollection<QuizzeDTO> quizzes;
+        public ObservableCollection<AttemptDTO> attempts;
         QuizzeDTO SelectedQuiz;
+        public UserDTO userDTO;
         int QuizCounter;
-        public StudentUserView(long QuizID)
+        long userID;
+        public StudentUserView(long QuizID=2)
         {
+            userID = 1; //  удалить и добавить в конструктор
+            userDTO = usI.GetEntity(userID);
+            attempts = usI.GetListUserAttempt(userDTO);
             appQuizzes = appQ.GetListEntity();
             appQuizzes.Add(new AppointmentQuizzeDTO(1, DateTime.Now, "wtf"));
             quizzes = quiz.GetListEntity();
             SelectedQuiz = quiz.GetEntity(QuizID); // <- заменить параметр на выбранный
+
+            attempts.Add(new AttemptDTO(55, 56, TimeSpan.MaxValue, DateTime.Now, "хз", userDTO.FullName));
         }
 
         
