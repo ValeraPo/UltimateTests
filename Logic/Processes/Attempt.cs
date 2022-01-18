@@ -26,6 +26,12 @@ namespace Logic.Processes
 
             return attempts;
         }
+        // Quiz по назначению
+        public QuizzeDTO GetQuiz(AttemptDTO attempt)
+        {
+            var tmp = _attempts.GetEntity(attempt.Id);
+            return new QuizzeDTO(tmp.Quizze);
+        }
         // Сохранить изменения
         public void SaveChange() => _attempts.Save();
         // Обновление модели (пересоздании зависимостей EF)
