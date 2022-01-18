@@ -7,6 +7,7 @@ namespace Logic.Interfaces
     {
         public AttemptDTO GetEntity(long id);
         public ObservableCollection<AttemptDTO> GetListEntity();
+        public QuizzeDTO GetQuiz(AttemptDTO attempt);
         public void SaveChange();
         public void Refresh();
     }
