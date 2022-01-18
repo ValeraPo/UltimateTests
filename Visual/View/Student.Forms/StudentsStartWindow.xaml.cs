@@ -22,6 +22,8 @@ namespace Visual.View.Student.Forms
         public StudentsStartWindow()
         {
             InitializeComponent();
+            StudentUserView suv = new(2);
+            DataContext = suv;
         }
     }
 }
