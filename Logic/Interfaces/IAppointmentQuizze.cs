@@ -10,5 +10,6 @@ namespace Logic.Interfaces
         public void RemoveAppointment(AppointmentQuizzeDTO appointment);
         public void SaveChange();
         public void Refresh();
+        public QuizzeDTO GetQuiz(AppointmentQuizzeDTO appo);
     }
 }

@@ -5,69 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Visual.View.Admin.Forms"
         mc:Ignorable="d"
-        Title="AddOrChange" Height="200" Width="1000">
+        Title="AddOrChange" Height="Auto" Width="Auto">
     <Grid>
 
-        <TabControl>
-            <TabItem Name="UsersTab" Header="Пользователь"  Style="{DynamicResource TabItemStyle}">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Column="0" Grid.Row="0" Text="ФИО" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <TextBlock Grid.Column="1" Grid.Row="0" Text="E-mail" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <TextBlock Grid.Column="2" Grid.Row="0" Text="Login" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <TextBlock Grid.Column="3" Grid.Row="0" Text="Пароль" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <TextBlock Grid.Column="4" Grid.Row="0" Text="Тип пользователя" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <TextBlock Grid.Column="5" Grid.Row="0" Text="# группы" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <TextBox Name ="TextBoxFIO" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
-                    <TextBox Name ="TextBoxEmail" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
-                    <TextBox Name="TextBoxLogin" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
-                    <TextBox Name="TextBoxPass" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
-                    <ComboBox Name="TypeComboBox" Grid.Column="4" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+        <StackPanel>
+            <TextBlock Text="ФИО" HorizontalAlignment="Center" Margin="15"/>
+            <TextBox  Name ="TextBoxFIO" Margin="15 0 15 0" FontSize="16"/>
+            <TextBlock Text="E-mail" HorizontalAlignment="Center" Margin="15 15 15 10"/>
+            <TextBox  Name ="TextBoxEmail" Margin="15 0 15 0" FontSize="16"/>
+            <TextBlock Text="Login" HorizontalAlignment="Center" Margin="15 15 15 10"/>
+            <TextBox Name="TextBoxLogin"  Margin="15 0 15 0" FontSize="16"/>
+            <TextBlock Text="Пароль" HorizontalAlignment="Center" Margin="15 15 15 10"/>
+            <TextBox Name="TextBoxPass" Margin="15 0 15 0" FontSize="16"/>
+            <TextBlock Text="Тип пользователя" HorizontalAlignment="Center" Margin="15 15 15 10"/>
+            <ComboBox  Name="TypeComboBox"  Margin="15 0 15 0"
                               DropDownClosed="TypeComboBox_DropDownClosed">
-                        <TextBlock Text ="Студент"/>
-                        <TextBlock Text ="Преподаватель" />
-                        <TextBlock Text ="Методист" />
-                        <TextBlock Text ="Администратор"/>
-                    </ComboBox>
-                    <ComboBox Name="GroupComboBox" Grid.Column="5" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock FontSize="16" Text="{Binding Path=NameOfGroup}" HorizontalAlignment="Left"/>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                    <StackPanel Grid.Row="2" Grid.ColumnSpan="6" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Name="AddButton" Content="add" Click="Button_Click"/>
-                        <Button Name="ChangeButton" Content="change" Click="Button_Click_2"/>
-                    </StackPanel>
-                </Grid>
-                
-            </TabItem>
-            <TabItem Name="GroupsTab" Header="Группа"  Style="{DynamicResource TabItemStyle}">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Добавить группу" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <TextBox Name ="TextBoxNewGroup" Text="" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
-                    <Button Content="Добавить" Grid.Column="2" VerticalAlignment="Center" Click="Button_Click_1"/>
-                </Grid>
-            </TabItem>
-        </TabControl>
-        
+                <TextBlock Text ="Студент"/>
+                <TextBlock Text ="Преподаватель" />
+                <TextBlock Text ="Методист" />
+                <TextBlock Text ="Администратор"/>
+            </ComboBox>
+            <TextBlock  Text="# группы" HorizontalAlignment="Center" Margin="15 15 15 10"/>
+            <ComboBox Name="GroupComboBox"  Margin="15 0 15 0">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock FontSize="16" Text="{Binding Path=NameOfGroup}" HorizontalAlignment="Left"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <StackPanel Margin="25" 
+                            Grid.Row="2" Grid.ColumnSpan="6" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Name="AddButton" Content="add" Click="Button_Click"/>
+                <Button Name="ChangeButton" Content="change" Click="Button_Click_2"/>
+            </StackPanel>
+        </StackPanel>
+
     </Grid>
 </Window>

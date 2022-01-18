@@ -97,15 +97,7 @@ namespace Visual.View.Admin.Forms
             
             this.Close();
         }
-        //add group
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            if (TextBoxNewGroup.Text != "")
-                group.AddGroup(TextBoxNewGroup.Text);
-            else
-                MessageBox.Show("Поле группы не заполнено!");
-            _groupsList = group.GetListEntity();
-        }
+       
         //change
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {

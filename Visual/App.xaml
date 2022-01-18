@@ -24,7 +24,7 @@
         <Style TargetType="Button">
             <Setter Property="SnapsToDevicePixels" Value="True" />
             <Setter Property="Foreground" Value="White" />
-            <Setter Property="Background" Value="DarkBlue" />
+            <Setter Property="Background" Value="LightBlue" />
             <Setter Property="Width" Value="150" />
             <Setter Property="Height" Value="35" />
             <Setter Property="FontSize" Value="16" />

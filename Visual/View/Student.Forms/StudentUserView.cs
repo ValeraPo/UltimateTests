@@ -13,27 +13,24 @@ namespace Visual.View.Student.Forms
 {
     internal class StudentUserView 
     {
-        IAppointmentQuizze appQ = Logic.Configuration.IocKernel.Get<IAppointmentQuizze>();
+        public IAppointmentQuizze appQ = Logic.Configuration.IocKernel.Get<IAppointmentQuizze>();
         IQuizze quiz = Logic.Configuration.IocKernel.Get<IQuizze>();
         IUser usI = Logic.Configuration.IocKernel.Get<IUser>();
-        public ObservableCollection<AppointmentQuizzeDTO> appQuizzes;
+        public IAttempt attemptI = Logic.Configuration.IocKernel.Get<IAttempt>();
+        public ObservableCollection<AppointmentQuizzeDTO> appQuizzes;                                       //НАЗНАЧЕННЫЕ
         ObservableCollection<QuizzeDTO> quizzes;
-        public ObservableCollection<AttemptDTO> attempts;
+        public ObservableCollection<AttemptDTO> attempts;                                                   // ПОПЫТКИ!
         QuizzeDTO SelectedQuiz;
         public UserDTO userDTO;
         int QuizCounter;
         long userID;
-        public StudentUserView(long QuizID=2)
+        public StudentUserView(UserDTO currentUserDTO)
         {
-            userID = 1; //  удалить и добавить в конструктор
-            userDTO = usI.GetEntity(userID);
-            attempts = usI.GetListUserAttempt(userDTO);
-            appQuizzes = appQ.GetListEntity();
-            appQuizzes.Add(new AppointmentQuizzeDTO(1, DateTime.Now, "wtf"));
-            quizzes = quiz.GetListEntity();
-            SelectedQuiz = quiz.GetEntity(QuizID); // <- заменить параметр на выбранный
 
-            attempts.Add(new AttemptDTO(55, 56, TimeSpan.MaxValue, DateTime.Now, "хз", userDTO.FullName));
+            attempts = usI.GetListUserAttempt(currentUserDTO);
+            appQuizzes = usI.GetAppointmentQuizzes();
+            quizzes = quiz.GetListEntity();            
+
         }
 
         

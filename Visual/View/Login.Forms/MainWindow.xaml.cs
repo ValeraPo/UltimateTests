@@ -3,6 +3,9 @@ using System.Windows;
 using System.Windows.Input;
 using Logic.Processes;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using Logic.Interfaces;
+using System.Linq;
 
 namespace Visual
 {
@@ -11,8 +14,12 @@ namespace Visual
     /// </summary>
     public partial class MainWindow : Window
     {
+        UserDTO _currentUser;
+        IUser user = Logic.Configuration.IocKernel.Get<IUser>();
+        ObservableCollection<UserDTO> _usersCollection;
         public MainWindow()
         {
+            _usersCollection = user.GetListEntity();
             InitializeComponent();
         }
 
@@ -37,31 +44,65 @@ namespace Visual
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //TODO classes at Processes should be static!??????? !?
-            //авторизация 
-            //UserDTO currentUser;
-            //try
-            //{
-            //    currentUser = User.Authorization(textBoxLogin.Text, passwordBox.Password); 
-            //}
-            //catch (KeyNotFoundException ex)
-            //{
-            //    MessageBox.Show("Неверный логин или пароль");
-            //}
+            try
+            {
+                //_currentUser = user.Authorization("papov", "papov");        // student
+                //_currentUser = user.Authorization("admin", "admin");       //admin
+                //_currentUser = user.Authorization("holo", "holo");         //methodist
+                _currentUser = user.Authorization("petrov", "petrov");        //teacher
+            }
+            catch
+            {
+                MessageBox.Show("Логин или пароль неверны!");
+                return;
+            }
 
-            //AdminsWindows.AdminsStartWindow asw = new();
-            //asw.Show();
+
+            switch (_currentUser.Type)
+            {
+                case 1:
+                    //AdminsWindows.AdminsStartWindow adW = new(_currentUser);
+                    AdminsWindows.AdminsStartWindow adW = new();
+                    Close();
+                    adW.Show();
+                    break;
+                case 2:
+                    View.Student.Forms.StudentsStartWindow stW = new View.Student.Forms.StudentsStartWindow(_currentUser);
+                    //View.Student.Forms.StudentsStartWindow stW = new();
+                    this.Close();
+                    stW.Show();
+                    break;
+                case 3:
+                    //View.Teacher.Form.MainTeacher teW = new View.Teacher.Form.MainTeacher(_currentUser);
+                    View.Teacher.Form.MainTeacher teW = new View.Teacher.Form.MainTeacher();
+                    this.Close();
+                    teW.Show();
+                    break;
+                case 4:
+                    View.Methodist.Forms.MethodistStartWindow weW = new View.Methodist.Forms.MethodistStartWindow();
+                    this.Close();
+                    weW.Show();
+                    break;
+                default:
+
+                    break;
+            }
+
+            //AdminsWindows.AdminsStartWindow adW = new();
+            //this.Close();
+            //adW.Show();
 
             //View.Methodist.Forms.MethodistStartWindow mew = new();
             //mew.Show();
             //View.Methodist.Forms.QuizesWindow qw = new();
             //qw.Show();
-            View.Quiz.Form.QuizWindow qw = new(2);
-            qw.Show();
+            //View.Quiz.Form.QuizWindow qw = new(2);
+            //qw.Show();
             //View.Quiz.Form.QuizCreationWindow qcw = new();
             //qcw.Show();
-            View.Student.Forms.StudentsStartWindow ssw = new();
-            ssw.Show();
+            //View.Student.Forms.StudentsStartWindow stW = new();
+            //this.Close();
+            //stW.Show();
         }
     }
 }

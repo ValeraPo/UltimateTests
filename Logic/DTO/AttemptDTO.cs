@@ -32,7 +32,7 @@ namespace Logic.DTO
             DateTime    = attempt.DateTime;
             NameQuiz    = attempt.Quizze.Name;
             NameUser    = attempt.User.FullName;
-            Percent     = (byte)((double)Score / MaxScore);
+            Percent     = (byte)(((double)Score / MaxScore) * 100);
         }
 
 

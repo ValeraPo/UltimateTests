@@ -16,12 +16,14 @@ namespace Logic.Processes
     public class User : IUser
     {
         private IRepository<Data.Maps.User>  _users;
+        private IRepository<Data.Maps.Quizze> _quizzes;
         private IRepository<Data.Maps.Group> _groups;
         private Data.Maps.User               _user;
         public User()
         {
             _users  = IocKernel.Get<IRepository<Data.Maps.User>>();
             _groups = IocKernel.Get<IRepository<Data.Maps.Group>>();
+            _quizzes = IocKernel.Get<IRepository<Data.Maps.Quizze>>();
         }
 
 
@@ -130,6 +132,19 @@ namespace Logic.Processes
                                });
             SaveChange();
         }
+        // Создание фидбека
+        public void AddFeedback(QuizzeDTO quiz, string text)
+        {
+            var myQuiz = _quizzes.GetEntity(quiz.Id);
+            myQuiz.Feedbacks.Add(new Data.Maps.Feedback
+            {
+                DateTime = DateTime.Now,
+                ID_Quiz = quiz.Id,
+                User = _user,
+                Text = text
+            });
+            SaveChange();
+        }
         //Выборка групп которые курирует преподаватель
         public ObservableCollection<GroupDTO> GetListGroupTeacher()
         {
@@ -189,13 +204,12 @@ namespace Logic.Processes
 
 
         // Возвращение назначенных тестов
-        public ObservableCollection<QuizzeDTO> GetAppointmentQuizzes()
+        public ObservableCollection<AppointmentQuizzeDTO> GetAppointmentQuizzes()
         {
-            var appointmentQuizzes = new ObservableCollection<QuizzeDTO>();
-            foreach (var quiz in _user.AppointmentQuizzes
-                                      .Where(t => t.FinishBefore <= DateTime.Now)
-                                      .Select(t => t.Quizze))
-                appointmentQuizzes.Add(new QuizzeDTO(quiz));
+            var appointmentQuizzes = new ObservableCollection<AppointmentQuizzeDTO>();
+            foreach (var appo in _user.AppointmentQuizzes
+                                      .Where(t => t.FinishBefore >= DateTime.Now))
+                appointmentQuizzes.Add(new AppointmentQuizzeDTO(appo));
             return appointmentQuizzes;
         }
         // Удаление пользователя

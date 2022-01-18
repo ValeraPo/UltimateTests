@@ -23,14 +23,26 @@ namespace Visual.AdminsWindows
     /// </summary>
     public partial class AdminsStartWindow : Window
     {
-        AdminView av;
-        
+        AdminViewModel av;
+        public AdminsStartWindow(UserDTO currentAdmin)
+        {
+            InitializeComponent();
+            av = new();
+            groupListBox.ItemsSource = av.GroupsList;
+            groupListBox.SelectedItem = av.GroupsList[0];
+            ComboBoxLists.SelectedItem = ComboBoxLists.Items[0];
+            //GroupListView.ItemsSource = av.CurrentUsersList;
+            UsersListView.ItemsSource = av.StudentsList;
+        }
         public AdminsStartWindow()
         {
             InitializeComponent();
             av = new();
             groupListBox.ItemsSource = av.GroupsList;
             groupListBox.SelectedItem = av.GroupsList[0];
+            ComboBoxLists.SelectedItem = ComboBoxLists.Items[0];
+            //GroupListView.ItemsSource = av.CurrentUsersList;
+            UsersListView.ItemsSource = av.StudentsList;    
         }
 
         private void groupListBox_SelectionChanged(object sender, RoutedEventArgs e)
@@ -38,24 +50,20 @@ namespace Visual.AdminsWindows
 
             if (ComboBoxLists.Text == "Список студентов")
             {
-                av.CurrentStudentsList = av.GetListStudents((GroupDTO)(groupListBox.SelectedValue));
-                GroupListView.ItemsSource = av.CurrentStudentsList;
+                av.SelectStudents((GroupDTO)groupListBox.SelectedValue); 
             }
-            else if (ComboBoxLists.Text == "Список преподавателей")
+            else //if (ComboBoxLists.Text == "Список преподавателей")
             {
-                av.CurrentTeachersList = av.GetListTeachers((GroupDTO)(groupListBox.SelectedValue));
-                GroupListView.ItemsSource = av.CurrentTeachersList;
+                av.SelectTeachers((GroupDTO)(groupListBox.SelectedValue));                              //нужен запрос из студентов по группе
             }
-            else
-                return;
         }
 
-        private void TypeEmployerComboBox_DropDownClosed(object sender, EventArgs e)
-        {
-            int curIndex = AdminView.GetIndexOfUserTypeByText(TypeEmployerComboBox.Text);
-            av.CurrentEmployersList = av.GetCurrentEmployers(curIndex);
-            EmployersListView.ItemsSource = av.CurrentEmployersList;
-        }
+        //private void TypeEmployerComboBox_DropDownClosed(object sender, EventArgs e)
+        //{
+        //    int curIndex = AdminView.GetIndexOfUserTypeByText(TypeEmployerComboBox.Text);
+        //    av.CurrentEmployersList = av.GetCurrentEmployers(curIndex);
+        //    EmployersListView.ItemsSource = av.CurrentEmployersList;
+        //}
 
         private void ComboBoxLists_DropDownClosed(object sender, EventArgs e)
         {

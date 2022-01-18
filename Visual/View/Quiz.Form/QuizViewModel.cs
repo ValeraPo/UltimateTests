@@ -15,11 +15,10 @@ namespace Visual.View.Quiz.Form
         IQuizze quiz = Logic.Configuration.IocKernel.Get<IQuizze>();
         public QuizzeDTO CurrentQuiz;
         public QuestionDTO CurrentQuestion;
-        public string CurIndex = "хуй";
         
         public QuizViewModel(long QuizID)
         {
-            // получили текущий тест
+            
             CurrentQuiz = quiz.GetEntity(QuizID);
             //CurrentQuestion = CurrentQuiz.Questions[CurIndex];
 

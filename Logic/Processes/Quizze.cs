@@ -54,7 +54,7 @@ namespace Logic.Processes
             var quizMap = new Data.Maps.Quizze
                           {
                               Name           = quiz.NameQuiz,
-                              MaxPoints      = 0,
+                              MaxPoints      = quiz.Questions.Count,
                               TimeToComplete = quiz.TimeToComplete,
                               User           = _users.GetEntity(user.Id)
                           };
@@ -74,8 +74,6 @@ namespace Logic.Processes
                                         IsCorrect = answer.IsCorrect
                                     };
                     questionMap.Answers.Add(answerMap);
-                    if (answer.IsCorrect)
-                        quizMap.MaxPoints++;
                 }
 
                 quizMap.Questions.Add(questionMap);
@@ -175,19 +173,7 @@ namespace Logic.Processes
             SaveChange();
         }
 
-        // Создание фидбека
-        public void AddFeedback(QuizzeDTO quiz, string text, UserDTO user)
-        {
-            var myQuiz = _quizzes.GetEntity(quiz.Id);
-            myQuiz.Feedbacks.Add(new Data.Maps.Feedback
-            {
-                                     DateTime = DateTime.Now,
-                                     ID_Quiz  = quiz.Id,
-                                     ID_User  = user.Id,
-                                     Text     = text
-                                 });
-            SaveChange();
-        }
+        
 
         // Показать фидбеки к тесту методиста
         public ObservableCollection<FeedbackDTO> GetFeedback(QuizzeDTO quiz)
