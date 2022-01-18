@@ -28,5 +28,7 @@ namespace Logic.Processes
         }
         // Сохранить изменения
         public void SaveChange() => _attempts.Save();
+        // Обновление модели (пересоздании зависимостей EF)
+        public void Refresh() => _attempts.Refresh();
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -38,30 +37,32 @@ namespace Logic.Processes
 
             return res;
         }
-        public ObservableCollection<UserDTO> GetListStud()
-        {
-            var res = new ObservableCollection<UserDTO>();
-            foreach (var user in _users.GetListEntity().Where(t => t.ID_Role == 2))
-                res.Add(new UserDTO(user));
 
-            return res;
-        }
-        public ObservableCollection<UserDTO> GetListTeacher()
-        {
-            var res = new ObservableCollection<UserDTO>();
-            foreach (var user in _users.GetListEntity().Where(t => t.ID_Role == 3))
-                res.Add(new UserDTO(user));
+        #region Peoples
+                //Выборка людей по типам учётных записей
+                private ObservableCollection<UserDTO> GetListInteriorEmployers(IEnumerable<Data.Maps.User> collections)
+                {
+                    var res = new ObservableCollection<UserDTO>();
+                    foreach (var user in collections)
+                        res.Add(new UserDTO(user));
+        
+                    return res;
+                }
+                public ObservableCollection<UserDTO> GetListStud()
+                {
+                    return GetListInteriorEmployers(_users.GetListEntity().Where(t => t.ID_Role == 2));
+                }
+                public ObservableCollection<UserDTO> GetListTeacher()
+                {
+                    return GetListInteriorEmployers(_users.GetListEntity().Where(t => t.ID_Role == 3));
+                }
+                public ObservableCollection<UserDTO> GetListEmployers()
+                {
+                    return GetListInteriorEmployers(_users.GetListEntity().Where(t => t.ID_Role != 2));
+                }
 
-            return res;
-        }
-        public ObservableCollection<UserDTO> GetListEmployers()
-        {
-            var res = new ObservableCollection<UserDTO>();
-            foreach (var user in _users.GetListEntity().Where(t => t.ID_Role != 2))
-                res.Add(new UserDTO(user));
-
-            return res;
-        }
+        #endregion
+        
 
         // Проверка пароля при авторизации
         public UserDTO Authorization(string login, string password)
@@ -86,8 +87,8 @@ namespace Logic.Processes
             //Проверка существования email
             if (emails.Contains(email.ToLower()))
                 throw new ArgumentException("E-mail уже существует");
-            _users.Create(new Data.Maps.User()
-                          {
+            _users.Create(new Data.Maps.User
+            {
                               FullName = fullName,
                               Email    = email,
                               Login    = login,
@@ -95,15 +96,15 @@ namespace Logic.Processes
                               ID_Group = group,
                               HashPass = MD5Hash(password)
                           });
-            _users.Save();
+            SaveChange();
         }
 
         // Добавить группу преподу
         public void AddTeachingGroup(UserDTO teacher, GroupDTO group)
         {
             var userEntity = _users.GetEntity(teacher.Id);
-            userEntity.TeachingGroups.Add(new TeachingGroup()
-                                          {
+            userEntity.TeachingGroups.Add(new TeachingGroup
+            {
                                               ID_Group = group.Id,
                                               ID_User  = teacher.Id
                                           });
@@ -119,15 +120,15 @@ namespace Logic.Processes
         //Добавление попытки
         public void AddAttempt(QuizzeDTO quiz, int score, TimeSpan transitTime)
         {
-            _user.Attempts.Add(new Data.Maps.Attempt()
-                               {
+            _user.Attempts.Add(new Data.Maps.Attempt
+            {
                                    DateTime    = DateTime.Now,
                                    ID_Quiz     = quiz.Id,
                                    User        = _user,
                                    Score       = score,
                                    TransitTime = transitTime
                                });
-            _users.Save();
+            SaveChange();
         }
         //Выборка групп которые курирует преподаватель
         public ObservableCollection<GroupDTO> GetListGroupTeacher()
@@ -202,8 +203,15 @@ namespace Logic.Processes
         {
             _users.Delete(user.Id);
         }
+        public void RemoveUser(string email)
+        {
+            _users.Delete(_users.GetListEntity().Single(t=> t.Email == email).ID_User);
+        }
         // Сохранить изменения
         public void SaveChange() => _users.Save();
+        // Обновление модели (пересоздании зависимостей EF)
+        public void Refresh() => _users.Refresh();
+
         //Сохранение изменения
         public void Update(UserDTO user)
         {

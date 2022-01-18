@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using Data.Interfaces;
 using Logic.Configuration;
 using Logic.DTO;
@@ -15,7 +14,6 @@ namespace Logic.Processes
         {
             _appointments = IocKernel.Get<IRepository<Data.Maps.AppointmentQuizze>>();
         }
-
 
         public AppointmentQuizzeDTO GetEntity(long id)
         {
@@ -36,5 +34,7 @@ namespace Logic.Processes
         }
         // Сохранить изменения
         public void SaveChange() => _appointments.Save();
+        // Обновление модели (пересоздании зависимостей EF)
+        public void Refresh() => _appointments.Refresh();
     }
 }

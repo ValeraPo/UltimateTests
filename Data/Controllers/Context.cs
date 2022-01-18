@@ -1,3 +1,4 @@
+using System.Configuration;
 using System.Data.Entity;
 using Data.Maps;
 
@@ -5,18 +6,20 @@ namespace Data.Controllers
 {
     internal class Context : DbContext
     {
+
         #region Singleton
 
         private Context()
-            : base("name=Connect") { }
+            : base(ConfigurationManager.AppSettings.Get("Connect")) { }
+
         private static Context _context;
+
         public static Context GetContext()
         {
             return _context ??= new Context();
         }
 
         #endregion
-
 
         public virtual DbSet<Answer>            Answers            {get; set;}
         public virtual DbSet<AppointmentQuizze> AppointmentQuizzes {get; set;}

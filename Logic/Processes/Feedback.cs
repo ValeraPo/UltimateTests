@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
 using Data.Interfaces;
 using Logic.Configuration;
 using Logic.DTO;
@@ -34,7 +34,13 @@ namespace Logic.Processes
         {
             _feedbacks.Delete(feedback.Id);
         }
+        public void RemoveFeedback(string text)
+        {
+            _feedbacks.Delete(_feedbacks.GetListEntity().Single(t=> t.Text == text).ID_Feedback);
+        }
         // Сохранить изменения
         public void SaveChange() => _feedbacks.Save();
+        // Обновление модели (пересоздании зависимостей EF)
+        public void Refresh() => _feedbacks.Refresh();
     }
 }

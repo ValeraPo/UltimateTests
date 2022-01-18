@@ -26,6 +26,10 @@ namespace Logic.Processes
         {
             return new SetTagDTO(_tags.GetEntity(id));
         }
+        public SetTagDTO GetEntity(string text)
+        {
+            return new SetTagDTO(_tags.GetListEntity().Single(t => t.Text == text));
+        }
         public ObservableCollection<SetTagDTO> GetListEntity()
         {
             var tags = new ObservableCollection<SetTagDTO>();
@@ -83,22 +87,37 @@ namespace Logic.Processes
         // Создание(добавление) тега
         public void AddTeg(string text)
         {
-            _tags.Create(new Data.Maps.SetTag()
-                         {
+            if (_tags.GetListEntity()
+                       .Select(t => t.Text)
+                       .Contains(text))
+                throw new ArgumentException("Такой тег уже существует");
+            _tags.Create(new Data.Maps.SetTag
+            {
                              Text = text
                          });
+            SaveChange();
         }
         // Удаление тега
         public void RemoveTeg(SetTagDTO teg)
         {
             _tags.Delete(teg.Id);
         }
+        public void RemoveTeg(string text)
+        {
+            _tags.Delete(_tags.GetListEntity().Single(t=> t.Text == text).ID_TagSet);
+        }
         // Сохранить изменения
         public void SaveChange() => _tags.Save();
+        // Обновление модели (пересоздании зависимостей EF)
+        public void Refresh() => _tags.Refresh();
         // Сохранение изменения
         public void Update(SetTagDTO teg)
         {
             var tmp = _tags.GetEntity(teg.Id);
+            if (_tags.GetListEntity()
+                     .Select(t => t.Text)
+                     .Contains(teg.Text))
+                throw new ArgumentException("Такой тег уже существует");
             tmp.Text  = teg.Text;
             _tags.Update(tmp);
 

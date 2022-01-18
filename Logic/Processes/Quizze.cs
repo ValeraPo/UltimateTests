@@ -31,7 +31,10 @@ namespace Logic.Processes
         {
             return new QuizzeDTO(_quizzes.GetEntity(id));
         }
-        //для отображения инфы на форму
+        public QuizzeDTO GetEntityNotNested(string name)
+        {
+            return new QuizzeDTO(_quizzes.GetListEntity().Single(t => t.Name == name));
+        }
         public ObservableCollection<QuizzeDTO> GetListEntity()
         {
             var quizzes = new ObservableCollection<QuizzeDTO>();
@@ -44,6 +47,10 @@ namespace Logic.Processes
         //TODO протестить
         public void AddQuiz(QuizzeDTO quiz, UserDTO user)
         {
+            if (_quizzes.GetListEntity()
+                     .Select(t => t.Name)
+                     .Contains(quiz.NameQuiz))
+                throw new ArgumentException("Тест с таким именем уже существует");
             var quizMap = new Data.Maps.Quizze
                           {
                               Name           = quiz.NameQuiz,
@@ -75,7 +82,7 @@ namespace Logic.Processes
             }
 
             _quizzes.Create(quizMap);
-            _quizzes.Save();
+            SaveChange();
         }
         
         //Выборка попыток
@@ -94,8 +101,8 @@ namespace Logic.Processes
             var myQuizze = _quizzes.GetEntity(quizze.Id);
             if (myQuizze.QuizzesCategories.All(t => t.ID_TagSet != teg.Id))
             {
-                myQuizze.QuizzesCategories.Add(new QuizzesCategory()
-                                                           {
+                myQuizze.QuizzesCategories.Add(new QuizzesCategory
+                {
                                                                ID_Quiz   = quizze.Id,
                                                                ID_TagSet = teg.Id
                                                            });
@@ -103,13 +110,26 @@ namespace Logic.Processes
             else
                 myQuizze.QuizzesCategories.Single(t => t.ID_TagSet == teg.Id).IsDel = false;
 
-            _quizzes.Save();
+            SaveChange();
+        }
+        // Текущие теги у Quiz
+        public ObservableCollection<SetTagDTO> GetListTags(QuizzeDTO quiz)
+        {
+            var res = new ObservableCollection<SetTagDTO>();
+            foreach (var teg in _quizzes.GetEntity(quiz.Id).QuizzesCategories.Select(t => t.SetTag))
+                res.Add(new SetTagDTO(teg));
+
+            return res;
         }
 
         // Удаление теста
         public void RemoveQuizze(QuizzeDTO quizze)
         {
             _quizzes.Delete(quizze.Id);
+        }
+        public void RemoveQuizze(string nameQuiz)
+        {
+            _quizzes.Delete(_quizzes.GetListEntity().Single(t=> t.Name == nameQuiz).ID_Quiz);
         }
         /*
         // Проверка правильности ответа
@@ -128,15 +148,15 @@ namespace Logic.Processes
 
             foreach (var person in myGroup.Users)
             {
-                myQuiz.AppointmentQuizzes.Add(new Data.Maps.AppointmentQuizze()
-                                              {
+                myQuiz.AppointmentQuizzes.Add(new Data.Maps.AppointmentQuizze
+                {
                                                   FinishBefore = finishBefore,
                                                   User         = person,
                                                   ID_Quiz      = quizze.Id
                                               });
             }
 
-            _quizzes.Save();
+            SaveChange();
         }
         // Добавить назначение по человеку
         public void AddAppointmentQuizzeUser(QuizzeDTO quizze, UserDTO user, DateTime finishBefore)
@@ -145,28 +165,28 @@ namespace Logic.Processes
             var student = _users.GetEntity(user.Id);
 
 
-            myQuiz.AppointmentQuizzes.Add(new Data.Maps.AppointmentQuizze()
-                                          {
+            myQuiz.AppointmentQuizzes.Add(new Data.Maps.AppointmentQuizze
+            {
                                               FinishBefore = finishBefore,
                                               User         = student,
                                               ID_Quiz      = quizze.Id
                                           });
 
-            _quizzes.Save();
+            SaveChange();
         }
 
         // Создание фидбека
         public void AddFeedback(QuizzeDTO quiz, string text, UserDTO user)
         {
             var myQuiz = _quizzes.GetEntity(quiz.Id);
-            myQuiz.Feedbacks.Add(new Data.Maps.Feedback()
-                                 {
+            myQuiz.Feedbacks.Add(new Data.Maps.Feedback
+            {
                                      DateTime = DateTime.Now,
                                      ID_Quiz  = quiz.Id,
                                      ID_User  = user.Id,
                                      Text     = text
                                  });
-            _quizzes.Save();
+            SaveChange();
         }
 
         // Показать фидбеки к тесту методиста
@@ -180,6 +200,8 @@ namespace Logic.Processes
         }
         // Сохранить изменения
         public void SaveChange() => _users.Save();
+        // Обновление модели (пересоздании зависимостей EF)
+        public void Refresh() => _users.Refresh();
         //Сохранение изменения
         public void Update(QuizzeDTO quiz)
         {

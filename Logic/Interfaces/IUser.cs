@@ -10,6 +10,7 @@ namespace Logic.Interfaces
         public ObservableCollection<UserDTO> GetListEntity();
         public ObservableCollection<UserDTO> GetListStud();
         public ObservableCollection<UserDTO> GetListTeacher();
+        public ObservableCollection<UserDTO> GetListEmployers();
         public UserDTO Authorization(string login, string password);
         public void AddNewUser(string fullName, string email, string login, string password, int id_role, long? group = null);
         public void AddTeachingGroup(UserDTO teacher, GroupDTO group);
@@ -23,7 +24,9 @@ namespace Logic.Interfaces
         public ObservableCollection<AttemptDTO> GetListTeacherAttempt(DateTime dateTime);
         public ObservableCollection<QuizzeDTO> GetAppointmentQuizzes();
         public void RemoveUser(UserDTO user);
+        public void RemoveUser(string login);
         public void SaveChange();
+        public void Refresh();
         public void Update(UserDTO user);
         public void Update(UserDTO user, string login, string password);
     }

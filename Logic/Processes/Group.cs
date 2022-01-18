@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Resources;
 using Data.Interfaces;
 using Data.Maps;
 using Logic.Configuration;
@@ -24,10 +24,15 @@ namespace Logic.Processes
         {
             return new GroupDTO(_groups.GetEntity(id));
         }
+        public GroupDTO GetEntity(string name)
+        {
+            return new GroupDTO(_groups.GetListEntity().Single(t=>t.NameOfGroup == name));
+        }
         public ObservableCollection<GroupDTO> GetListEntity()
         {
             var groups = new ObservableCollection<GroupDTO>();
-            foreach (var group in _groups.GetListEntity()) { groups.Add(new GroupDTO(group)); }
+            foreach (var group in _groups.GetListEntity()) 
+                groups.Add(new GroupDTO(group));
 
             return groups;
         }
@@ -37,8 +42,8 @@ namespace Logic.Processes
             var myGroup = _groups.GetEntity(group.Id);
             if (myGroup.GroupsCategories.All(t => t.ID_TagSet != teg.Id))
             {
-                 myGroup.GroupsCategories.Add(new GroupsCategory()
-                                                         {
+                 myGroup.GroupsCategories.Add(new GroupsCategory
+                 {
                                                              ID_Group  = group.Id,
                                                              ID_TagSet = teg.Id
                                                          });
@@ -46,17 +51,42 @@ namespace Logic.Processes
             else
                 myGroup.GroupsCategories.Single(t => t.ID_TagSet == teg.Id).IsDel = false;
 
-            _groups.Save();
+            SaveChange();
         }
-        //Выборка студентов по группе
-        public ObservableCollection<UserDTO> GetListUser(GroupDTO group)
+        // Текущие теги у Quiz
+        public ObservableCollection<SetTagDTO> GetListTags(GroupDTO group)
+        {
+            var res = new ObservableCollection<SetTagDTO>();
+            foreach (var teg in _groups.GetEntity(group.Id).GroupsCategories.Select(t => t.SetTag))
+                res.Add(new SetTagDTO(teg));
+
+            return res;
+        }
+
+        #region UsersByGrop
+
+        //Выборка по группе
+        private ObservableCollection<UserDTO> GetListPeople(IEnumerable<Data.Maps.User> collection)
         {
             var res = new ObservableCollection<UserDTO>();
-            foreach (var user in _groups.GetEntity(group.Id).Users)
+            foreach (var user in collection)
                 res.Add(new UserDTO(user));
 
             return res;
         }
+        //Выборка преподавателей по группе
+        public ObservableCollection<UserDTO> GetListTeach(GroupDTO group)
+        {
+            return GetListPeople(_groups.GetEntity(group.Id).TeachingGroups.Select(t => t.User));
+        }
+        //Выборка студентов по группе
+        public ObservableCollection<UserDTO> GetListUser(GroupDTO group)
+        {
+            return GetListPeople(_groups.GetEntity(group.Id).Users); 
+        }
+
+        #endregion
+        
         // Создание(добавление) группы
         public void AddGroup(string text)
         {
@@ -64,22 +94,33 @@ namespace Logic.Processes
                        .Select(t => t.NameOfGroup)
                        .Contains(text))
                 throw new ArgumentException("Группа с таким названием уже существует");
-            _groups.Create(new Data.Maps.Group()
-                           {
+            _groups.Create(new Data.Maps.Group
+            {
                                NameOfGroup = text
                            });
+            SaveChange();
         }
         // Удаление группы
         public void RemoveGroup(GroupDTO group)
         {
             _groups.Delete(group.Id);
         }
+        public void RemoveGroup(string name)
+        {
+            _groups.Delete(_groups.GetListEntity().Single(t=> t.NameOfGroup == name).ID_Group);
+        }
         // Сохранить изменения
         public void SaveChange() => _groups.Save();
+        // Обновление модели (пересоздании зависимостей EF)
+        public void Refresh() => _groups.Refresh();
         //Сохранение изменения
         public void Update(GroupDTO group)
         {
             var tmp = _groups.GetEntity(group.Id);
+            if (_groups.GetListEntity()
+                       .Select(t => t.NameOfGroup)
+                       .Contains(group.NameOfGroup))
+                throw new ArgumentException("Группа с таким названием уже существует");
             tmp.NameOfGroup = group.NameOfGroup;
             _groups.Update(tmp);
 
