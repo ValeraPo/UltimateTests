@@ -23,5 +23,12 @@ namespace Visual.View.Teacher.Form
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //QuizWindow qw = new(this,IDQiuz ,true);
+            //qw.Show();
+            //Hide();
+        }
     }
 }

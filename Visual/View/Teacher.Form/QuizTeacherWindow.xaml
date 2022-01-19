@@ -60,7 +60,7 @@
             <TextBox x:Name="tBoxFeedback" Grid.Column="0" Grid.Row="1"/>
             <Button Grid.Column="1" Grid.Row="1" Margin="0 0 5 0" Content="Отправить"/>
             <Canvas Grid.Row="2" Grid.ColumnSpan="2">
-                <Button Content="Начать тест" Canvas.Bottom="20" Canvas.Right="20" Width="80"/>
+                <Button Content="Начать тест" Canvas.Bottom="20" Canvas.Right="20" Width="80" Click="Button_Click"/>
                 <Button Content="Просмотр" Canvas.Bottom="20" Canvas.Right="140" Width="80"/>
             </Canvas>
         </Grid>

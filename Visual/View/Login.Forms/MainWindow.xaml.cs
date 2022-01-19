@@ -53,7 +53,7 @@ namespace Visual
             }
             catch
             {
-                MessageBox.Show("Логин или пароль неверны!");
+                MessageBox.Show("Не верный логин или пароль!");
                 return;
             }
 
@@ -72,19 +72,21 @@ namespace Visual
                     this.Close();
                     stW.Show();
                     break;
-                case 3:
-                    //View.Teacher.Form.MainTeacher teW = new View.Teacher.Form.MainTeacher(_currentUser);
-                    View.Teacher.Form.MainTeacher teW = new View.Teacher.Form.MainTeacher();
-                    this.Close();
-                    teW.Show();
-                    break;
-                case 4:
-                    View.Methodist.Forms.MethodistStartWindow weW = new View.Methodist.Forms.MethodistStartWindow();
-                    this.Close();
-                    weW.Show();
-                    break;
+                //case 3:
+                //    //View.Teacher.Form.MainTeacher teW = new View.Teacher.Form.MainTeacher(_currentUser);
+                //    View.Teacher.Form.MainTeacher teW = new View.Teacher.Form.MainTeacher();
+                //    this.Close();
+                //    teW.Show();
+                //    break;
+                //case 4:
+                //    View.Methodist.Forms.MethodistStartWindow weW = new View.Methodist.Forms.MethodistStartWindow();
+                //    this.Close();
+                //    weW.Show();
+                //    break;
                 default:
-
+                    View.Teacher.Form.MainTeacher teacherOrMethW = new View.Teacher.Form.MainTeacher(_currentUser);
+                    this.Close();
+                    teacherOrMethW.Show();
                     break;
             }
 
