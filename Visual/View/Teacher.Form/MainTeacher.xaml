@@ -1,0 +1,120 @@
+﻿<Window x:Class="Visual.View.Teacher.Form.MainTeacher"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Visual.View.Teacher.Form"
+        mc:Ignorable="d"
+        Title="UltimateTests" Height="500" Width="750" Name="title">
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TabControl Grid.Row="0" Style="{DynamicResource TabControlStyle}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <TabItem Header="Тесты" Style="{DynamicResource TabItemStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <ScrollViewer Grid.Column="0">
+                        <ListBox x:Name="QuizeListBox">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontSize="16" Text="{Binding NameQuiz}" HorizontalAlignment="Left"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </ScrollViewer>
+
+                    <GridSplitter Grid.Column="1" Width="5"
+        HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
+
+                    <ScrollViewer Grid.Column="2">
+                        <StackPanel Grid.Column="2">
+                            <ComboBox Name ="tagsComboBox" DropDownClosed="tagsComboBox_DropDownClosed">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock FontSize="16" Text="{Binding Path=Text}" Width="300"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <ListBox x:Name="CurrentTagsList" 
+                                     SelectionChanged="CurrentTagsList_SelectionChanged"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock FontSize="14" Text="{Binding Path=Text}" HorizontalAlignment="Left"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Button x:Name="startButt"  Content="Начать" Width="75" Click="startButt_Click" Margin="5"/>
+                        <Button x:Name="appButt" Content="Назначить" Width="75" Click="appButt_Click" Margin="5"/>
+                        <Button x:Name="infoButt" Content="info" Width="75" Click="infoButt_Click" Margin="5"/>
+                        <Button x:Name="addButt" Content="Добавить" Width="75" Click="infoButt_Click"  Visibility="Collapsed" Margin="5"/>
+                        <Button x:Name="delButt" Content="Удаллить" Width="75" Click="delButt_Click" Visibility="Collapsed" Margin="5"/>
+                    </StackPanel>
+                    
+
+                </Grid>
+            </TabItem>
+
+
+            <TabItem Header="Статистика" Style="{DynamicResource TabItemStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <ScrollViewer Grid.Column="0">
+                        
+                        <TreeView x:Name="treeView1">
+                            <TreeView.ItemTemplate>
+                                <HierarchicalDataTemplate ItemsSource="{Binding Path=Students}">
+                                    <TextBlock Text="{Binding GroupsName}" />
+                                    <HierarchicalDataTemplate.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Path = FullName}" />
+                                        </DataTemplate>
+                                    </HierarchicalDataTemplate.ItemTemplate>
+                                </HierarchicalDataTemplate>
+                            </TreeView.ItemTemplate>
+                        </TreeView>
+
+                    </ScrollViewer>
+
+                    <GridSplitter Grid.Column="1" Width="5"
+                                      HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
+
+                    <ScrollViewer Grid.Column="2">
+                        <ListView Grid.Column="0" x:Name="QuizesListView" >
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn DisplayMemberBinding="{Binding NameQuiz}" Header="Тест"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding DateTime}" Header="Дата прохождения" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Score}" Header="Набранно" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding MaxScore}" Header="Из" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Percent}" Header="%" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
+
+    </Grid>
+</Window>

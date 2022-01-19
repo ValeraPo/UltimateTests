@@ -1,0 +1,31 @@
+﻿<Window x:Class="Visual.View.Quiz.Form.QuizWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Visual.View.Quiz.Form"
+        mc:Ignorable="d"
+        Title="QuizWindow" Height="450" Width="800">
+    <Grid x:Name="GridName" DataContext="QuizWindow">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Name ="QuestionInfoTextBlock" HorizontalAlignment="Center" Text="{Binding Path=CurIndex}"> </TextBlock>
+        <TextBlock TextWrapping="Wrap" FontSize="20" Grid.Row="1" Name ="QuestionTextBlock" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=CurIndex}"> </TextBlock>
+            
+        <GroupBox Grid.Row="2" Padding="5">
+            <StackPanel x:Name="stackPanel" Orientation="Vertical">
+                
+            </StackPanel>
+        </GroupBox>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock Name="tbTime" Margin="0 0 25 0"/>
+            <Button Content="Назад" Click="Button_Click_2"/>
+            <Button Content="Пропустить" Click="Button_Click" />
+            <Button Content="Ответить" Click="Button_Click_1"/>
+        </StackPanel>
+    </Grid>
+</Window>

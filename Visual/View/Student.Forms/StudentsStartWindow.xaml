@@ -1,0 +1,64 @@
+﻿<Window x:Class="Visual.View.Student.Forms.StudentsStartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Visual.View.Student.Forms"
+        mc:Ignorable="d"
+        Title="StudentsStartWindow" Height="450" Width="800">
+    <Grid Background="White">
+        <TabControl Grid.Row="0" Style="{DynamicResource TabControlStyle}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <TabItem Header="Задания" Style="{DynamicResource TabItemStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <ScrollViewer Grid.Column="0">
+                        <ListBox x:Name="appointmentsListBox"  Grid.Column="0" ItemsSource="{Binding StudentUserView}"
+                 SelectedItem="{Binding SelectedQuiz}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="5" Orientation="Vertical">
+                                        <TextBlock FontSize="18" Text="{Binding Path=NameQuiz}" />
+                                        <TextBlock  Text="Выполнить до: " FontSize="14" FontWeight="Normal"/>
+                                        <TextBlock  Text="{Binding Path=FinishBefore}" FontSize="14" FontWeight="Normal"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </ScrollViewer>
+                    <Button x:Name="startButt" Content="Приступить" Grid.Row="1" HorizontalAlignment="Right" Margin="0 10 25 10" Click="startButt_Click"/>
+
+                </Grid>
+            </TabItem>
+
+
+            <TabItem Header="Результаты" Style="{DynamicResource TabItemStyle}">
+                <Grid  DataContext="{Binding StudentUserView.appQuizzes}">
+                    <ScrollViewer>
+                        <StackPanel>
+                            <ListView Name="resultssListView">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=DateTime}" Header="Дата выполнения"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=NameQuiz}" Header="Тест"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=TransitTime}" Header="Время выполнения" />
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Score}" Header="Набрано баллов"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=MaxScore}" Header="из"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Percent}" Header="%"/>
+                                    </GridView>
+                                </ListView.View>
+                                <ListView.Resources>
+
+                                </ListView.Resources>
+                            </ListView>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
+
+    </Grid>
+</Window>

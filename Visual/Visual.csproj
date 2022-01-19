@@ -7,4 +7,15 @@
         <UseWPF>true</UseWPF>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Compile Remove="View\Students.Form\**" />
+      <EmbeddedResource Remove="View\Students.Form\**" />
+      <None Remove="View\Students.Form\**" />
+      <Page Remove="View\Students.Form\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Logic\Logic.csproj" />
+    </ItemGroup>
+
 </Project>

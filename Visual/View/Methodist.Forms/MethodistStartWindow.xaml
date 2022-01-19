@@ -1,0 +1,115 @@
+﻿<Window x:Class="Visual.View.Methodist.Forms.MethodistStartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Visual.View.Methodist.Forms"
+        mc:Ignorable="d"
+        Title="MethodistStartWindow" Height="450" Width="1000">
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TabControl Grid.Row="0" Style="{DynamicResource TabControlStyle}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <TabItem Header="Тесты" Style="{DynamicResource TabItemStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <ScrollViewer Grid.Column="0">
+                        <ListBox x:Name="QuizeList">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontSize="16" Text="{Binding Path=NameQuiz}" HorizontalAlignment="Left"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </ScrollViewer>
+
+                    <GridSplitter Grid.Column="1" Width="5"
+        HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
+
+
+                    <Grid Grid.Column="2" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <ComboBox Grid.Row="0" Name="TagsComboBox" DropDownClosed="TagsComboBox_DropDownClosed">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontSize="16" Text="{Binding Path=Text}" Width="300"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                        <ListBox Grid.Row="1" x:Name="CurrentTagsListBox" SelectionChanged="CurrentTagsList_SelectionChanged">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontSize="14" Text="{Binding Path=Text}" HorizontalAlignment="Left"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+
+            <TabItem Header="Статистика" Style="{DynamicResource TabItemStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <ScrollViewer Grid.Column="0">
+                        <TreeView>
+                            <!--<TreeViewItem Header="Студенты" x:Name="StudentsTree">
+                                <TreeViewItem Name="GroupsTreeView" Header="{Binding Path=NameOfGroup}">
+                                    <TreeViewItem  Name="StudentsTreeView" Header="{Binding Path=FullName}"/>
+                                </TreeViewItem>
+                                --><!--<TreeViewItem Name="GroupsTreeView" Header="{Binding Path=NameOfGroup}">
+                                    <TreeViewItem Name="StudentsTreeView" Header="{Binding Path=FullName}"/>
+                                </TreeViewItem>--><!--
+                            </TreeViewItem>-->
+                            
+                            <TreeViewItem Header="Тесты" x:Name="TeachersTree">
+                                <TreeViewItem Name="TagsTreeView" Header="{Binding Path=Text}">
+                                    <TreeViewItem Name="QuizesTreeView" Header="{Binding Path=NameQuiz}" />
+                                </TreeViewItem>
+                            </TreeViewItem>
+                        </TreeView>
+                        
+                    </ScrollViewer>
+                    <GridSplitter Grid.Column="1"/>
+                    <ScrollViewer Grid.Column="2">
+                        <ListView Grid.Column="0" Name="QuizesList" >
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Header="Тест"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Header="Дата прохождения" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Header="Количество баллов" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Header="Всего баллов" />
+                                </GridView>
+                            </ListView.View>
+                            <ListView.Resources>
+
+                            </ListView.Resources>
+                        </ListView>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="add"/>
+            <Button Content="change"/>
+            <Button Content="delete"/>
+        </StackPanel>
+    </Grid>
+</Window>

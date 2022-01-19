@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net5.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>   
+
+    <ItemGroup>
+      <None Remove="MainIcon.png" />
+    </ItemGroup>   
+
+    <ItemGroup>
+      <ProjectReference Include="..\Logic\Logic.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="MainIcon.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
+      <PackageReference Include="Ninject" Version="3.3.4" />
+      <PackageReference Include="Ninject.MVC5" Version="3.3.0" />
+    </ItemGroup>
+
+</Project>
