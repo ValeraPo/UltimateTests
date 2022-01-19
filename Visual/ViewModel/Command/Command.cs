@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Visual.Command
 {
     public class Command : ICommand
     {
+
         #region Constructor
 
         public Command(Action<object> action)
@@ -21,8 +18,8 @@ namespace Visual.Command
 
         #region Properties
 
-        public Predicate<object> CanExecuteDelegate { get; set; }
-        public Action<object> ExecuteDelegate { get; set; }
+        public Predicate<object> CanExecuteDelegate {get; set;}
+        public Action<object>    ExecuteDelegate    {get; set;}
 
         #endregion
 
@@ -41,7 +38,7 @@ namespace Visual.Command
 
         public event EventHandler CanExecuteChanged
         {
-            add { CommandManager.RequerySuggested += value; }
+            add { CommandManager.RequerySuggested    += value; }
             remove { CommandManager.RequerySuggested -= value; }
         }
 
@@ -54,5 +51,6 @@ namespace Visual.Command
         }
 
         #endregion
+
     }
 }

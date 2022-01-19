@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Visual.ViewModel
+﻿namespace Visual.ViewModel
 {
     class MainViewModel
     {
+
         #region Constructor
 
         /// <summary>
@@ -57,6 +52,8 @@ namespace Visual.ViewModel
             MessageBox.Show("This is click command.");
         }
         */
+
         #endregion
+
     }
 }

@@ -1,17 +1,10 @@
 ﻿using Logic.DTO;
 using Logic.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Visual.View.Student.Forms
 {
-    internal class StudentUserView 
+    internal class StudentUserView
     {
         public   IAppointmentQuizze                         appQ     = Logic.Configuration.IocKernel.Get<IAppointmentQuizze>();
         readonly IQuizze                                    quiz     = Logic.Configuration.IocKernel.Get<IQuizze>();
@@ -27,12 +20,12 @@ namespace Visual.View.Student.Forms
         public StudentUserView(UserDTO currentUserDTO)
         {
 
-            attempts = usI.GetListUserAttempt(currentUserDTO);
+            attempts   = usI.GetListUserAttempt(currentUserDTO);
             appQuizzes = usI.GetAppointmentQuizzes();
-            quizzes = quiz.GetListEntity();            
+            quizzes    = quiz.GetListEntity();
 
         }
 
-        
+
     }
 }

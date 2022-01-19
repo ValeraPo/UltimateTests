@@ -1,19 +1,9 @@
 ﻿using Logic.DTO;
 using Logic.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Visual.View.Methodist.Forms
 {
@@ -27,31 +17,31 @@ namespace Visual.View.Methodist.Forms
         readonly ObservableCollection<SetTagDTO> _currentTagList;
         readonly ObservableCollection<SetTagDTO> setTags;
 
-        IUser user = Logic.Configuration.IocKernel.Get<IUser>();
+        IUser  user  = Logic.Configuration.IocKernel.Get<IUser>();
         IGroup group = Logic.Configuration.IocKernel.Get<IGroup>();
 
         public MethodistStartWindow()
         {
             InitializeComponent();
             //TabItem Tests
-            setTags = st.GetListEntity();
+            setTags                  = st.GetListEntity();
             TagsComboBox.ItemsSource = setTags;
             ObservableCollection<QuizzeDTO> quizzes = qui.GetListEntity();
-            QuizeList.ItemsSource = quizzes;
-            _currentTagList = new ObservableCollection<SetTagDTO>();
+            QuizeList.ItemsSource          = quizzes;
+            _currentTagList                = new ObservableCollection<SetTagDTO>();
             CurrentTagsListBox.ItemsSource = _currentTagList;
 
             //TabItem Statistic
             //ObservableCollection<UserDTO> studentsList = user.GetListStud();
             //ObservableCollection<GroupDTO> groupsList = group.GetListEntity();
-           
+
             //GroupsTreeView.ItemsSource = groupsList;
-            ////Students tree                                                                         <-----------TODO GetListStudByGroup()
+            ////Students tree                                                                         
             //StudentsTreeView.ItemsSource = studentsList;
-            
+
 
             //Quizes tree
-           // TagsTreeView.ItemsSource = setTags;
+            // TagsTreeView.ItemsSource = setTags;
             QuizesTreeView.ItemsSource = quizzes;
         }
         public void CurrentTagsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -64,7 +54,7 @@ namespace Visual.View.Methodist.Forms
         private void TagsComboBox_DropDownClosed(object sender, EventArgs e)
         {
             var temp = (SetTagDTO)TagsComboBox.SelectedValue;
-            
+
             if (!_currentTagList.Contains(temp))
             {
                 _currentTagList.Add(temp);

@@ -1,20 +1,8 @@
 ﻿using Logic.DTO;
 using Logic.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Visual.View.Admin.Forms;
 
 namespace Visual.View.Admin.Forms
 {
@@ -95,7 +83,7 @@ namespace Visual.View.Admin.Forms
                 user.AddNewUser(TextBoxFIO.Text, TextBoxEmail.Text, TextBoxLogin.Text, TextBoxPass.Text, _typeOfUser, null);
             usersList = user.GetListEntity();
             
-            this.Close();
+            Close();
         }
        
         //change
@@ -105,7 +93,7 @@ namespace Visual.View.Admin.Forms
                 user.Update(changingUser, TextBoxLogin.Text, TextBoxPass.Text);
             else
                 user.Update(changingUser);
-            this.Close();
+            Close();
         }
     }
 }
