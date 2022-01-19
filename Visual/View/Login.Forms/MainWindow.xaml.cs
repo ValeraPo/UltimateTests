@@ -46,10 +46,11 @@ namespace Visual
         {
             try
             {
-                //_currentUser = user.Authorization("papov", "papov");        // student
+                //_currentUser = user.Authorization("papov", "papov");        // student        pppp@mail.ru
                 //_currentUser = user.Authorization("admin", "admin");       //admin
-                _currentUser = user.Authorization("holo", "holo");         //methodist
+                //_currentUser = user.Authorization("holo", "holo");         //methodist
                 //_currentUser = user.Authorization("petrov", "petrov");        //teacher
+                _currentUser = user.Authorization(TextBoxLogin.Text, passwordBox.Password);
             }
             catch
             {

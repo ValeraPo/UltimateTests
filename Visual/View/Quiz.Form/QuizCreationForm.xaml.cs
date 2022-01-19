@@ -38,11 +38,7 @@ namespace Visual.View.Quiz.Form
             SetDictionary(_answersType);
             typeQuestComboBox.ItemsSource = _answersType;
         }
-        //создание
-        public QuizCreationForm(UserDTO curUser) : this()
-        {
-            
-        }
+        
         //изменение/назначение
         public QuizCreationForm(UserDTO curUser, QuizzeDTO selectedQuiz) : this()
         {

@@ -8,7 +8,7 @@
     <Application.Resources>
 
         <!--Colors-->
-        <SolidColorBrush x:Key="PrimaryBlueColor" Color="BlueViolet"></SolidColorBrush>
+        <SolidColorBrush x:Key="PrimaryBlueColor" Color="LightBlue"></SolidColorBrush>
         <SolidColorBrush x:Key="PrimaryTextColor" Color="GhostWhite"></SolidColorBrush>
         <SolidColorBrush x:Key="SecondaryBlueColor" Color="PaleVioletRed"></SolidColorBrush>
         <SolidColorBrush x:Key="SecondaryTextColor" Color="Black"></SolidColorBrush>

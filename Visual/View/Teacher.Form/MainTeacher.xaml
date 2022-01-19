@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Visual.View.Teacher.Form"
         mc:Ignorable="d"
-        Title="MainTeacher" Height="500" Width="750">
+        Title="UltimateTests" Height="500" Width="750" Name="title">
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -59,11 +59,11 @@
                     </ScrollViewer>
 
                     <StackPanel Grid.Row="1" Orientation="Horizontal">
-                        <Button x:Name="startButt"  Content="Начать" Width="75" Click="startButt_Click"/>
-                        <Button x:Name="appButt" Content="Назначить" Width="75" Click="appButt_Click"/>
-                        <Button x:Name="infoButt" Content="info" Width="75" Click="infoButt_Click"/>
-                        <Button x:Name="addButt" Content="Добавить" Width="75" Click="infoButt_Click"  Visibility="Collapsed"/>
-                        <Button x:Name="delButt" Content="Удаллить" Width="75" Click="delButt_Click" Visibility="Collapsed"/>
+                        <Button x:Name="startButt"  Content="Начать" Width="75" Click="startButt_Click" Margin="5"/>
+                        <Button x:Name="appButt" Content="Назначить" Width="75" Click="appButt_Click" Margin="5"/>
+                        <Button x:Name="infoButt" Content="info" Width="75" Click="infoButt_Click" Margin="5"/>
+                        <Button x:Name="addButt" Content="Добавить" Width="75" Click="infoButt_Click"  Visibility="Collapsed" Margin="5"/>
+                        <Button x:Name="delButt" Content="Удаллить" Width="75" Click="delButt_Click" Visibility="Collapsed" Margin="5"/>
                     </StackPanel>
                     
 
