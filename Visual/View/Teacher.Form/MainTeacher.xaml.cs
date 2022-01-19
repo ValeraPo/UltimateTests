@@ -43,12 +43,12 @@ namespace Visual.View.Teacher.Form
             _currentUser = currentUser;
             if (_currentUser.Type == 4)
             {
+                #region Methodist
 
                 appButt.Visibility = Visibility.Collapsed;
                 addButt.Visibility = Visibility.Visible;
                 delButt.Visibility = Visibility.Visible;
 
-                #region Methodist
                 _quizzes = qui.GetListEntity();
                 _setTags = st.GetListEntity();
 
@@ -81,9 +81,9 @@ namespace Visual.View.Teacher.Form
                 _currentTagList = new ObservableCollection<SetTagDTO>();
                 CurrentTagsList.ItemsSource = _currentTagList;
 
-                _groupsTeachers = new ObservableCollection<GroupDTO>();
+                _groupsTeachers = user.GetListGroupTeacher();
                 _users = new ObservableCollection<GroupTreeViewModel>();
-                foreach (var el in gri.GetListEntity())
+                foreach (var el in user.GetListGroupTeacher())
                 {
                     //if ()
                     _users.Add(new GroupTreeViewModel(el));
@@ -116,12 +116,12 @@ namespace Visual.View.Teacher.Form
         {
             if (((QuizzeDTO)QuizeListBox.SelectedItem) == null)
                 return;
-            QuizWindow qw = new(this, _currentUser.Id, true);
+            QuizWindow qw = new(this, ((QuizzeDTO)QuizeListBox.SelectedItem).Id, true);
             qw.Show();
             Hide();
         }
 
-        private void appButt_Click(object sender, RoutedEventArgs e)
+        private void appButt_Click(object sender, RoutedEventArgs e) //назначить
         {
             // создать окно для назначения
         }
@@ -137,6 +137,7 @@ namespace Visual.View.Teacher.Form
         {
             if (((QuizzeDTO)QuizeListBox.SelectedItem) == null)
                 return;
+            QuizCreationForm qcf = new(_currentUser, ((QuizzeDTO)QuizeListBox.SelectedItem));
         }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Visual.View.Teacher.Form"
         mc:Ignorable="d"
-        Title="MainTeacher" Height="500" Width="700">
+        Title="MainTeacher" Height="500" Width="750">
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
