@@ -128,9 +128,9 @@ namespace Tests.Logic
         {
             return appointment switch
             {
-                Appointments.papov    => new ObservableCollection<long> { 25 },
-                Appointments.pismanic => new ObservableCollection<long> { 26 },
-                Appointments.gardeeva => new ObservableCollection<long> { 27 },
+                Appointments.papov    => new ObservableCollection<long> { 10 },
+                Appointments.pismanic => new ObservableCollection<long> { 11 },
+                Appointments.gardeeva => new ObservableCollection<long> { 12 },
                 _                     => throw new ArgumentException()
             };
         }
