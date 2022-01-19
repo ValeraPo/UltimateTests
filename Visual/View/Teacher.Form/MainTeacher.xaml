@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Visual.View.Teacher.Form"
         mc:Ignorable="d"
-        Title="MainTeacher" Height="450" Width="800">
+        Title="MainTeacher" Height="500" Width="750">
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -20,8 +20,12 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
                     <ScrollViewer Grid.Column="0">
-                        <ListBox x:Name="QuizeList">
+                        <ListBox x:Name="QuizeListBox">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock FontSize="16" Text="{Binding NameQuiz}" HorizontalAlignment="Left"/>
@@ -35,22 +39,34 @@
 
                     <ScrollViewer Grid.Column="2">
                         <StackPanel Grid.Column="2">
-                            <ComboBox>
-                                <!--Здесь будет список всех тэгов-->
+                            <ComboBox Name ="tagsComboBox" DropDownClosed="tagsComboBox_DropDownClosed">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock FontSize="16" Text="{Binding Path=Text}" Width="300"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
                             </ComboBox>
                             <ListBox x:Name="CurrentTagsList" 
                                      SelectionChanged="CurrentTagsList_SelectionChanged"
                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-
-                                <ListBox.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel />
-                                    </ItemsPanelTemplate>
-                                </ListBox.ItemsPanel>
-
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock FontSize="14" Text="{Binding Path=Text}" HorizontalAlignment="Left"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
                             </ListBox>
                         </StackPanel>
                     </ScrollViewer>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Button x:Name="startButt"  Content="Начать" Width="75" Click="startButt_Click"/>
+                        <Button x:Name="appButt" Content="Назначить" Width="75" Click="appButt_Click"/>
+                        <Button x:Name="infoButt" Content="info" Width="75" Click="infoButt_Click"/>
+                        <Button x:Name="addButt" Content="Добавить" Width="75" Click="infoButt_Click"  Visibility="Collapsed"/>
+                        <Button x:Name="delButt" Content="Удаллить" Width="75" Click="delButt_Click" Visibility="Collapsed"/>
+                    </StackPanel>
+                    
+
                 </Grid>
             </TabItem>
 
@@ -58,28 +74,39 @@
             <TabItem Header="Статистика" Style="{DynamicResource TabItemStyle}">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
                     <ScrollViewer Grid.Column="0">
-                        <TreeView>
-                            <TreeViewItem Header="Группы" x:Name="StudentsTree">
-                                <TreeViewItem Header="{Binding NameOfGroup}"/>
-                                <TreeViewItem Header="{Binding FullName}"/>
-                            </TreeViewItem>
-
+                        
+                        <TreeView x:Name="treeView1">
+                            <TreeView.ItemTemplate>
+                                <HierarchicalDataTemplate ItemsSource="{Binding Path=Students}">
+                                    <TextBlock Text="{Binding GroupsName}" />
+                                    <HierarchicalDataTemplate.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Path = FullName}" />
+                                        </DataTemplate>
+                                    </HierarchicalDataTemplate.ItemTemplate>
+                                </HierarchicalDataTemplate>
+                            </TreeView.ItemTemplate>
                         </TreeView>
 
                     </ScrollViewer>
-                    <GridSplitter Grid.Column="1"/>
+
+                    <GridSplitter Grid.Column="1" Width="5"
+                                      HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
+
                     <ScrollViewer Grid.Column="2">
-                        <ListView Grid.Column="0" x:Name="QuizesList" >
+                        <ListView Grid.Column="0" x:Name="QuizesListView" >
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Тест"/>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Дата прохождения" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Количество баллов" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding NameQuiz}" Header="Тест"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding DateTime}" Header="Дата прохождения" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Score}" Header="Набранно" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding MaxScore}" Header="Из" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Percent}" Header="%" />
                                 </GridView>
                             </ListView.View>
                         </ListView>

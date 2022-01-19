@@ -1,0 +1,126 @@
+﻿<Window x:Class="Visual.View.Quiz.Form.QuizCreationForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Visual.View.Quiz.Form"
+        mc:Ignorable="d"
+        Title="QuizCreationForm" Height="600" Width="1000">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <!--имя теста-->
+        <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Stretch">
+            <TextBlock Text="Тест: " Margin="25 5"/>
+            <TextBox x:Name="quizNameTextBox" Width="200" Text="{Binding Path=NameQuiz}" Margin="25 5"/>
+            <Button Content="Изменить" Click="Button_Click" Margin="25 5"/>
+        </StackPanel>
+        <!--Список вопросов (№)-->
+        <ScrollViewer Grid.Column="0" Grid.Row="1">
+            <ListBox x:Name="QuizeListBox">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock FontSize="14" Text="{Binding _quizeListBox}" HorizontalAlignment="Left"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
+        <!--кнопки добавить/удалить из списка-->
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Button Width="50" Click="Button_Click_1" Margin="25 5" Content="+"/>
+            <Button Width="50" Click="Button_Click_2" Margin="0 5" Content="-"//>
+        </StackPanel>
+        
+        <!--редактирование и назначение параметров теста-->
+        <StackPanel Orientation ="Vertical" Grid.Row="1" Grid.Column="1">
+                <!--TAG-->
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Тэг:" Margin="25 5"/>
+                <ComboBox Name="TagsComboBox" Width="100" Margin="25 0 25 0" DropDownClosed="TagsComboBox_DropDownClosed">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock FontSize="14" Text="{Binding Path=Text}" Width="400"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBox x:Name="creationsTag" Width="125"/>
+                <Button x:Name="addTagButt" Content="Добавить" Width="50" Margin="10 0 10 0" Click="addTagButt_Click"/>
+                <Button x:Name="delTagButt" Content="Удалить" Width="50" Margin="10 0 25 0" Click="delTagButt_Click"/>
+            </StackPanel>
+
+            <ListBox x:Name="tagsListBox"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 Height ="100" 
+                 Margin="5"    >
+                <ListBox.ItemTemplate >
+                    <DataTemplate>
+                        <TextBlock FontSize="12" Text="{Binding Path=Text}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <!--timeToSpan-->
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="hourTB" Width="50" Margin="25 0 0 0" IsEnabled="{Binding ElementName=timeChBox, Path=IsChecked}"/>
+                <TextBlock Text="ч." Margin="0 0 10 0"/>
+                <TextBox x:Name="minTB" Width="50" IsEnabled="{Binding ElementName=timeChBox, Path=IsChecked}"/>
+                <TextBlock Text="мин." Margin="0 0 10 0"/>
+                <TextBox x:Name="secTB" Width="50" IsEnabled="{Binding ElementName=timeChBox, Path=IsChecked}"/>
+                <TextBlock Text="с." Margin="0 0 10 0"/>
+                <CheckBox x:Name="timeChBox" Content="Установить"  Margin="25 0 0 0"/>
+            </StackPanel>
+            <!--teachers grid-->
+            <Grid x:Name="teachersGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Name="GroupComboBox" 
+                          Grid.ColumnSpan="2"
+                          Height="25"
+                          Width="100" Margin="25 15 25 0" 
+                          >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock FontSize="14" Text="{Binding Path=NameOfGroup}" Width="300"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Calendar Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" Margin="20 15"/>
+                    <TextBlock Text="" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="50 5" Width="250"/>
+                
+            </Grid>
+
+        </StackPanel>
+            <Button x:Name="createButt" Content="Назначить" Grid.Row="2" Grid.Column="1" Click="createButt_Click"/>
+        
+        <!--question-->
+        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" Name="editStackPanel">
+            <TextBlock x:Name="nameQuestions" HorizontalAlignment="Center"/>
+            <TextBlock Text="Вопрос:" Margin="15 5"/>
+            <RichTextBox x:Name="QuestionText" HorizontalAlignment="Stretch" Height="125" Margin="5"/>
+            <ComboBox Name="typeQuestComboBox"/>
+            <StackPanel Orientation="Horizontal"  Height="125" Margin="5">
+                <GroupBox >
+                    <StackPanel x:Name="AnswersStackPanel" Orientation="Vertical" Width="225">
+                        <!--Adding answers here-->
+                    </StackPanel>
+                </GroupBox>
+                <Button Width="75" x:Name="AnswersButtonAdd" Content="Добавить" Click="AnswersButtonAdd_Click"/>
+            </StackPanel>
+        </StackPanel>
+        <Button x:Name="aplyButt" Content="Применить" Grid.Column="2" Grid.Row="2" Click="aplyButt_Click"/>
+    </Grid>
+</Window>

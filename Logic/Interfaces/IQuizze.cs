@@ -18,8 +18,7 @@ namespace Logic.Interfaces
         public void RemoveQuizze(QuizzeDTO quizze);
         public void RemoveQuizze(string nameQuiz);
         public void AddAppointmentQuizze(QuizzeDTO quizze, GroupDTO group, DateTime finishBefore);
-        public void AddAppointmentQuizzeUser(QuizzeDTO quizze, UserDTO user, DateTime finishBefore);
-        public void AddFeedback(QuizzeDTO quiz, string text, UserDTO user);
+        public void AddAppointmentQuizzeUser(QuizzeDTO quizze, UserDTO user, DateTime finishBefore);       
         public ObservableCollection<FeedbackDTO> GetFeedback(QuizzeDTO quiz);
         public void SaveChange();
         public void Refresh();

@@ -10,21 +10,26 @@
         <TabControl Grid.Row="0" Style="{DynamicResource TabControlStyle}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <TabItem Header="Задания" Style="{DynamicResource TabItemStyle}">
                 <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
                     <ScrollViewer Grid.Column="0">
-                        <ListBox Grid.Column="0" ItemsSource="{Binding StudentUserView}"
+                        <ListBox x:Name="appointmentsListBox"  Grid.Column="0" ItemsSource="{Binding StudentUserView}"
                  SelectedItem="{Binding SelectedQuiz}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Margin="5" Orientation="Vertical">
                                         <TextBlock FontSize="18" Text="{Binding Path=NameQuiz}" />
-                                        <TextBlock DataContext="appQuizzes" Text="{Binding Path=FinishBefore}" />
+                                        <TextBlock  Text="Выполнить до: " FontSize="14" FontWeight="Normal"/>
+                                        <TextBlock  Text="{Binding Path=FinishBefore}" FontSize="14" FontWeight="Normal"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
                     </ScrollViewer>
+                    <Button x:Name="startButt" Content="Приступить" Grid.Row="1" HorizontalAlignment="Right" Margin="0 10 25 10" Click="startButt_Click"/>
 
-                    
                 </Grid>
             </TabItem>
 
@@ -33,15 +38,15 @@
                 <Grid  DataContext="{Binding StudentUserView.appQuizzes}">
                     <ScrollViewer>
                         <StackPanel>
-                            <ListView Name="TeachersList">
+                            <ListView Name="resultssListView">
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn DisplayMemberBinding="{Binding Path=DateTime}" Header="Дата выполнения"/>
                                         <GridViewColumn DisplayMemberBinding="{Binding Path=NameQuiz}" Header="Тест"/>
                                         <GridViewColumn DisplayMemberBinding="{Binding Path=TransitTime}" Header="Время выполнения" />
-                                        <GridViewColumn DisplayMemberBinding="{Binding Path=MaxScore}" Header="Максимальное количество баллов"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Score}" Header="Количество баллов"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Percent}" Header="Результат(%)"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Score}" Header="Набрано баллов"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=MaxScore}" Header="из"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Percent}" Header="%"/>
                                     </GridView>
                                 </ListView.View>
                                 <ListView.Resources>

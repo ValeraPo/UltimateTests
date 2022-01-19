@@ -15,6 +15,11 @@ namespace Logic.Processes
             _appointments = IocKernel.Get<IRepository<Data.Maps.AppointmentQuizze>>();
         }
 
+        public QuizzeDTO GetQuiz(AppointmentQuizzeDTO appo)
+        {
+            var tmp = _appointments.GetEntity(appo.Id);
+            return new QuizzeDTO(tmp.Quizze);
+        }
         public AppointmentQuizzeDTO GetEntity(long id)
         {
             return new AppointmentQuizzeDTO(_appointments.GetEntity(id));
