@@ -10,7 +10,7 @@ namespace Tests.Logic
     [TestFixture]
     public class SetTagTest
     {
-        private ISetTag _tags = IocKernel.Get<ISetTag>();
+        private readonly ISetTag _tags = IocKernel.Get<ISetTag>();
         //
         // Возврат групп по тегу
         [TestCase(2, 1)]

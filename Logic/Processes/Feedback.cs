@@ -9,7 +9,7 @@ namespace Logic.Processes
 {
     public class Feedback : IFeedback
     {
-        private IRepository<Data.Maps.Feedback> _feedbacks;
+        private readonly IRepository<Data.Maps.Feedback> _feedbacks;
 
         public Feedback()
         {
@@ -36,7 +36,7 @@ namespace Logic.Processes
         }
         public void RemoveFeedback(string text)
         {
-            _feedbacks.Delete(_feedbacks.GetListEntity().Single(t=> t.Text == text).ID_Feedback);
+            _feedbacks.Delete(_feedbacks.GetListEntity().Single(t => t.Text == text).ID_Feedback);
         }
         // Сохранить изменения
         public void SaveChange() => _feedbacks.Save();

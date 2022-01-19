@@ -12,22 +12,22 @@ namespace Data.Repositories
             if (!UpdateLintEntity) 
                 return LintEntity;
 
-            LintEntity       = db.Quizzes.Where(t => !t.IsDel);
+            LintEntity       = Db.Quizzes.Where(t => !t.IsDel);
             UpdateLintEntity = false;
             return LintEntity;
         }
 
-        public Quizze GetEntity(long id) => db.Quizzes.Single(t => !t.IsDel && t.ID_Quiz == id);
+        public Quizze GetEntity(long id) => Db.Quizzes.Single(t => !t.IsDel && t.ID_Quiz == id);
 
         public void Create(Quizze item)
         {
-            db.Quizzes.Add(item);
+            Db.Quizzes.Add(item);
             UpdateLintEntity = true;
         }
 
         public void Delete(long id)
         {
-            var quizze = db.Quizzes.Find(id);
+            var quizze = Db.Quizzes.Find(id);
             if (quizze == null)
                 return;
             quizze.IsDel = true;

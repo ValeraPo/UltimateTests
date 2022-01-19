@@ -11,7 +11,7 @@ namespace Tests.Data
     [TestFixture]
     public class QuzzeTests
     {
-        private IRepository<Quizze> _quizze = IocKernel.Get<IRepository<Quizze>>();
+        private readonly IRepository<Quizze> _quizze = IocKernel.Get<IRepository<Quizze>>();
         //
         //  
         [Test]

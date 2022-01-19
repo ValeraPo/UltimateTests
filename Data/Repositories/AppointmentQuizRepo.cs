@@ -12,23 +12,23 @@ namespace Data.Repositories
             if (!UpdateLintEntity)
                 return LintEntity;
 
-            LintEntity       = db.AppointmentQuizzes.Where(t => !t.IsDel);
+            LintEntity       = Db.AppointmentQuizzes.Where(t => !t.IsDel);
             UpdateLintEntity = false;
             return LintEntity;
         }
 
         public AppointmentQuizze GetEntity(long id) =>
-            db.AppointmentQuizzes.Single(t => !t.IsDel && t.ID_Appointment == id);
+            Db.AppointmentQuizzes.Single(t => !t.IsDel && t.ID_Appointment == id);
 
         public void Create(AppointmentQuizze item)
         {
-            db.AppointmentQuizzes.Add(item);
+            Db.AppointmentQuizzes.Add(item);
             UpdateLintEntity = true;
         }
 
         public void Delete(long id)
         {
-            var tmp = db.AppointmentQuizzes.Find(id);
+            var tmp = Db.AppointmentQuizzes.Find(id);
             if (tmp == null)
                 return;
             tmp.IsDel = true;

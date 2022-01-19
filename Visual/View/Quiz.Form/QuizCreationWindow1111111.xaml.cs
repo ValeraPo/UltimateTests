@@ -22,15 +22,15 @@ namespace Visual.View.Quiz.Form
     /// </summary>
     public partial class QuizCreationWindow : Window
     {
-        IQuizze quiz = Logic.Configuration.IocKernel.Get<IQuizze>();
-        ISetTag setTag = Logic.Configuration.IocKernel.Get<ISetTag>();
-        QuizzeDTO _currentQuiz;
-        public ObservableCollection<QuestionDTO> _newQuestions;
-        ObservableCollection<SetTagDTO> _setTags;
-        ObservableCollection<SetTagDTO> _currentTags;
-        List<AnswersType> _answersType;
-        int CountOfQuestions = 0;
-        int _quizTime = 0;
+        IQuizze                                    quiz   = Logic.Configuration.IocKernel.Get<IQuizze>();
+        readonly ISetTag                           setTag = Logic.Configuration.IocKernel.Get<ISetTag>();
+        QuizzeDTO                                  _currentQuiz;
+        public   ObservableCollection<QuestionDTO> _newQuestions;
+        readonly ObservableCollection<SetTagDTO>   _setTags;
+        readonly ObservableCollection<SetTagDTO>   _currentTags;
+        readonly List<AnswersType>                 _answersType;
+        int                                        CountOfQuestions = 0;
+        int                                        _quizTime        = 0;
         public QuizCreationWindow()
         {
             InitializeComponent();

@@ -11,10 +11,10 @@ namespace Visual.View.Admin.Forms
 {
     class AdminView
     {
-        IGroup group = Logic.Configuration.IocKernel.Get<IGroup>();
-        private ObservableCollection<UserDTO> studentsList;
-        private ObservableCollection<UserDTO> usersList;
-        private ObservableCollection<UserDTO> teachersList;
+        readonly         IGroup                        group = Logic.Configuration.IocKernel.Get<IGroup>();
+        private readonly ObservableCollection<UserDTO> studentsList;
+        private readonly ObservableCollection<UserDTO> usersList;
+        private readonly ObservableCollection<UserDTO> teachersList;
 
         public IUser user = Logic.Configuration.IocKernel.Get<IUser>();
         public ObservableCollection<GroupDTO> GroupsList;

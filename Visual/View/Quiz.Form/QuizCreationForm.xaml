@@ -36,7 +36,7 @@
         <!--кнопки добавить/удалить из списка-->
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Button Width="50" Click="Button_Click_1" Margin="25 5" Content="+"/>
-            <Button Width="50" Click="Button_Click_2" Margin="0 5" Content="-"//>
+            <Button Width="50" Click="Button_Click_2" Margin="0 5" Content="-"/>
         </StackPanel>
         
         <!--редактирование и назначение параметров теста-->

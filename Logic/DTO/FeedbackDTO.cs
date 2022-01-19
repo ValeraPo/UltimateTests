@@ -24,8 +24,8 @@ namespace Logic.DTO
             DateTime = feedback.DateTime;
             UserName = feedback.User.FullName;
         }
-        
-        
+
+
         public long     Id       {get; set;}
         public string   Text     {get; set;}
         public DateTime DateTime {get; set;}

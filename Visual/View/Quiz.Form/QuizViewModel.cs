@@ -12,9 +12,9 @@ namespace Visual.View.Quiz.Form
 {
     public class QuizViewModel
     {
-        IQuizze quiz = Logic.Configuration.IocKernel.Get<IQuizze>();
-        public QuizzeDTO CurrentQuiz;
-        public QuestionDTO CurrentQuestion;
+        readonly IQuizze     quiz = Logic.Configuration.IocKernel.Get<IQuizze>();
+        public   QuizzeDTO   CurrentQuiz;
+        public   QuestionDTO CurrentQuestion;
         
         public QuizViewModel(long QuizID)
         {

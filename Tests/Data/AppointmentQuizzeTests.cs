@@ -11,7 +11,7 @@ namespace Tests.Data
     [TestFixture]
     public class AppointmentQuizzeTests
     {
-        private IRepository<AppointmentQuizze> _appointment = IocKernel.Get<IRepository<AppointmentQuizze>>();
+        private readonly IRepository<AppointmentQuizze> _appointment = IocKernel.Get<IRepository<AppointmentQuizze>>();
         //
         //  
         [Test]

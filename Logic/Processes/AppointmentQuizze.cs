@@ -8,7 +8,7 @@ namespace Logic.Processes
 {
     public class AppointmentQuizze : IAppointmentQuizze
     {
-        private IRepository<Data.Maps.AppointmentQuizze> _appointments;
+        private readonly IRepository<Data.Maps.AppointmentQuizze> _appointments;
 
         public AppointmentQuizze()
         {

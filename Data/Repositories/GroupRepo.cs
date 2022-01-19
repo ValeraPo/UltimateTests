@@ -12,22 +12,22 @@ namespace Data.Repositories
             if (!UpdateLintEntity) 
                 return LintEntity;
 
-            LintEntity       = db.Groups.Where(t => !t.IsDel);
+            LintEntity       = Db.Groups.Where(t => !t.IsDel);
             UpdateLintEntity = false;
             return LintEntity;
         }
 
-        public Group GetEntity(long id) => db.Groups.Single(t => !t.IsDel && t.ID_Group == id);
+        public Group GetEntity(long id) => Db.Groups.Single(t => !t.IsDel && t.ID_Group == id);
 
         public void Create(Group item)
         {
-            db.Groups.Add(item);
+            Db.Groups.Add(item);
             UpdateLintEntity = true;
         }
 
         public void Delete(long id)
         {
-            var group = db.Groups.Find(id);
+            var group = Db.Groups.Find(id);
             if (group == null)
                 return;
             group.IsDel = true;

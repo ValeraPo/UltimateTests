@@ -12,14 +12,14 @@ namespace Visual.View.Admin.Forms
 {
     internal class AdminViewModel
     {
-        IGroup group = Logic.Configuration.IocKernel.Get<IGroup>();
-        IUser user = Logic.Configuration.IocKernel.Get<IUser>();
-        public ObservableCollection<UserDTO> StudentsList { get; set; }         //список всех студентов
-        public ObservableCollection<UserDTO> CurrentStudentsList { get; set; }  //список текущих студентов
-        public ObservableCollection<UserDTO> TeachersList { get; set; }         //список всех преподов
-        public ObservableCollection<UserDTO> CurrentTeachersList { get; set; }  //текущие преподы
-        public ObservableCollection<UserDTO> CurrentUsersList { get; set; }     //список текущих пользователей
-        public ObservableCollection<GroupDTO> GroupsList { get; set; }          //список всех групп
+        readonly IGroup                         group = Logic.Configuration.IocKernel.Get<IGroup>();
+        readonly IUser                          user  = Logic.Configuration.IocKernel.Get<IUser>();
+        public   ObservableCollection<UserDTO>  StudentsList        { get; set; } //список всех студентов
+        public   ObservableCollection<UserDTO>  CurrentStudentsList { get; set; } //список текущих студентов
+        public   ObservableCollection<UserDTO>  TeachersList        { get; set; } //список всех преподов
+        public   ObservableCollection<UserDTO>  CurrentTeachersList { get; set; } //текущие преподы
+        public   ObservableCollection<UserDTO>  CurrentUsersList    { get; set; } //список текущих пользователей
+        public   ObservableCollection<GroupDTO> GroupsList          { get; set; } //список всех групп
         
 
         public AdminViewModel()

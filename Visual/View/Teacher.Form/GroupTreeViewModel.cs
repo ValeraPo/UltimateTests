@@ -27,8 +27,8 @@ namespace Visual.View.Teacher.Form
             }
                 return students;
         }
-        public string GroupsName { get; set; }
-        public ObservableCollection<UserDTO> Students { get; set; }
-        IUser iUser = Logic.Configuration.IocKernel.Get<IUser>();
+        public   string                        GroupsName { get; set; }
+        public   ObservableCollection<UserDTO> Students   { get; set; }
+        readonly IUser                         iUser = Logic.Configuration.IocKernel.Get<IUser>();
     }
 }

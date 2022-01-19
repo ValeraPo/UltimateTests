@@ -11,7 +11,7 @@ namespace Tests.Logic
     [TestFixture]
     public class QuizzeTests
     {
-        private IQuizze _quiz = IocKernel.Get<IQuizze>();
+        private readonly IQuizze _quiz = IocKernel.Get<IQuizze>();
         //
         // Добавить тест
         [TestCase("test1", 6, 1, 0, 0)]

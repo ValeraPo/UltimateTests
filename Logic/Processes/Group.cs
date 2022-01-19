@@ -12,7 +12,7 @@ namespace Logic.Processes
 {
     public class Group : IGroup
     {
-        private IRepository<Data.Maps.Group> _groups;
+        private readonly IRepository<Data.Maps.Group> _groups;
 
         public Group()
         {
@@ -26,12 +26,12 @@ namespace Logic.Processes
         }
         public GroupDTO GetEntity(string name)
         {
-            return new GroupDTO(_groups.GetListEntity().Single(t=>t.NameOfGroup == name));
+            return new GroupDTO(_groups.GetListEntity().Single(t => t.NameOfGroup == name));
         }
         public ObservableCollection<GroupDTO> GetListEntity()
         {
             var groups = new ObservableCollection<GroupDTO>();
-            foreach (var group in _groups.GetListEntity()) 
+            foreach (var group in _groups.GetListEntity())
                 groups.Add(new GroupDTO(group));
 
             return groups;
@@ -42,11 +42,11 @@ namespace Logic.Processes
             var myGroup = _groups.GetEntity(group.Id);
             if (myGroup.GroupsCategories.All(t => t.ID_TagSet != teg.Id))
             {
-                 myGroup.GroupsCategories.Add(new GroupsCategory
-                 {
-                                                             ID_Group  = group.Id,
-                                                             ID_TagSet = teg.Id
-                                                         });
+                myGroup.GroupsCategories.Add(new GroupsCategory
+                                             {
+                                                 ID_Group  = group.Id,
+                                                 ID_TagSet = teg.Id
+                                             });
             }
             else
                 myGroup.GroupsCategories.Single(t => t.ID_TagSet == teg.Id).IsDel = false;
@@ -82,11 +82,11 @@ namespace Logic.Processes
         //Выборка студентов по группе
         public ObservableCollection<UserDTO> GetListUser(GroupDTO group)
         {
-            return GetListPeople(_groups.GetEntity(group.Id).Users); 
+            return GetListPeople(_groups.GetEntity(group.Id).Users);
         }
 
         #endregion
-        
+
         // Создание(добавление) группы
         public void AddGroup(string text)
         {
@@ -95,7 +95,7 @@ namespace Logic.Processes
                        .Contains(text))
                 throw new ArgumentException("Группа с таким названием уже существует");
             _groups.Create(new Data.Maps.Group
-            {
+                           {
                                NameOfGroup = text
                            });
             SaveChange();
@@ -107,7 +107,7 @@ namespace Logic.Processes
         }
         public void RemoveGroup(string name)
         {
-            _groups.Delete(_groups.GetListEntity().Single(t=> t.NameOfGroup == name).ID_Group);
+            _groups.Delete(_groups.GetListEntity().Single(t => t.NameOfGroup == name).ID_Group);
         }
         // Сохранить изменения
         public void SaveChange() => _groups.Save();

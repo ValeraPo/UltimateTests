@@ -8,7 +8,7 @@ namespace Logic.Processes
 {
     public class Attempt : IAttempt
     {
-        private IRepository<Data.Maps.Attempt> _attempts;
+        private readonly IRepository<Data.Maps.Attempt> _attempts;
 
         public Attempt()
         {

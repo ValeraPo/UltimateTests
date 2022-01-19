@@ -6,8 +6,8 @@ namespace Logic.DTO
         private string _fullName;
         private string _email;
         private string _group;
-        
-        
+
+
         public UserDTO(long id, int type, string fullName, string email, string group)
         {
             Id       = id;

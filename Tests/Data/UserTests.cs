@@ -11,7 +11,7 @@ namespace Tests.Data
     [TestFixture]
     public class UserTests
     {
-        private IRepository<User> _user = IocKernel.Get<IRepository<User>>();
+        private readonly IRepository<User> _user = IocKernel.Get<IRepository<User>>();
         //
         //  
         [Test]

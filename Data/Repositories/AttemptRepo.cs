@@ -12,16 +12,16 @@ namespace Data.Repositories
             if (!UpdateLintEntity) 
                 return LintEntity;
 
-            LintEntity       = db.Attempts;
+            LintEntity       = Db.Attempts;
             UpdateLintEntity = false;
             return LintEntity;
         }
 
-        public Attempt GetEntity(long id) => db.Attempts.Find(id);
+        public Attempt GetEntity(long id) => Db.Attempts.Find(id);
 
         public void Create(Attempt item)
         {
-            db.Attempts.Add(item);
+            Db.Attempts.Add(item);
             UpdateLintEntity = true;
         }
 

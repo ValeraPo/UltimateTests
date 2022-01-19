@@ -14,7 +14,7 @@ namespace Logic.Configuration
 
         public static void Initialize(params INinjectModule[] modules)
         {
-             _kernel = new StandardKernel(modules);
+            _kernel = new StandardKernel(modules);
         }
     }
 }

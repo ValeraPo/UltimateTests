@@ -8,7 +8,7 @@ namespace Tests.Logic
     [TestFixture]
     public class ZFeedbackTests
     {
-        private IFeedback _feedback = IocKernel.Get<IFeedback>();
+        private readonly IFeedback _feedback = IocKernel.Get<IFeedback>();
         //
         // Удаление фидбэка
         [TestCase("test1")]

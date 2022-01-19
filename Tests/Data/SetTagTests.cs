@@ -11,7 +11,7 @@ namespace Tests.Data
     [TestFixture]
     public class SetTagTests
     {
-        private IRepository<SetTag> _tag = IocKernel.Get<IRepository<SetTag>>();
+        private readonly IRepository<SetTag> _tag = IocKernel.Get<IRepository<SetTag>>();
         //
         //  
         [Test]
