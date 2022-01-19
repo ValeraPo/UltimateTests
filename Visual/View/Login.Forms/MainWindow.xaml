@@ -6,14 +6,6 @@
         xmlns:local="clr-namespace:Visual"
         mc:Ignorable="d"
         Title="Ultimate Tests" Height="280" Width="380" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
-    <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FFD573"/>
-            <GradientStop Color="#FFBA73" Offset="1"/>
-            <GradientStop Color="#FFFFC773" Offset="0.5"/>
-        </LinearGradientBrush>
-    </Window.Background>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -22,10 +14,10 @@
         
         <StackPanel Grid.Row="1">
             <TextBox x:Name="TextBoxLogin" Margin="60 10 60 0" FontSize="16" Padding="10,0,0,0" 
-                     Background="#FFFFE3C0" Foreground="#FF926600"/>
+                    />
             <!--исчезающий текст для Login-->
             <TextBlock IsHitTestVisible="false" FontSize="16" Text="Login/e-mail"
-                       Grid.Row="1" Margin="72 -23 72 0" VerticalAlignment="Top" Foreground="#FF926600">
+                       Grid.Row="1" Margin="72 -23 72 0" VerticalAlignment="Top"  >
                 <TextBlock.Style>
                     <Style TargetType="{x:Type TextBlock}">
                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -39,14 +31,14 @@
             </TextBlock>
             
             <PasswordBox x:Name="passwordBox" Margin="60 10 60 0" FontSize="16" Padding="10,0,0,0" 
-                     Background="#FFFFE3C0" Foreground="#FF926600" PasswordChanged="PasswordBox_PasswordChanged"/>
+                      PasswordChanged="PasswordBox_PasswordChanged"/>
             <!--исчезающий текст для Password-->
             <TextBlock x:Name="RemovableText" IsHitTestVisible="false" FontSize="16" Text="Password"
-                       Grid.Row="1" Margin="72 -23 72 0" VerticalAlignment="Top" Foreground="#FF926600">
+                       Grid.Row="1" Margin="72 -23 72 0" VerticalAlignment="Top" >
             </TextBlock>
                         
             <Grid Margin="0 10 0 0">
-                <Button Content="Войти" Margin="100,0,100,0" Foreground="#FF926600" Background="#FFFFE440" Click="Button_Click"/>
+                <Button Content="Войти" Margin="100,0,100,0" Click="Button_Click"/>
             </Grid>
         </StackPanel>
         <Grid Name="LogoContainer" Grid.Row="0" Background="Transparent" MouseDown="LogoContainer_MouseDown">

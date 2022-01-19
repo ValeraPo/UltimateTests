@@ -44,7 +44,7 @@ namespace Visual.View.Teacher.Form
             if (_currentUser.Type == 4)
             {
                 #region Methodist
-
+                
                 appButt.Visibility = Visibility.Collapsed;
                 addButt.Visibility = Visibility.Visible;
                 delButt.Visibility = Visibility.Visible;
@@ -123,7 +123,7 @@ namespace Visual.View.Teacher.Form
 
         private void appButt_Click(object sender, RoutedEventArgs e) //назначить
         {
-            // создать окно для назначения
+            QuizCreationForm qcf = new QuizCreationForm(_currentUser, ((QuizzeDTO)QuizeListBox.SelectedItem));
         }
 
         private void delButt_Click(object sender, RoutedEventArgs e)

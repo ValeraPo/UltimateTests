@@ -7,13 +7,7 @@
         mc:Ignorable="d"
         Title="Admin" Height="700" Width="1000" FontFamily="Poppins"
         WindowStartupLocation="CenterScreen">
-    <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FFD573"/>
-            <GradientStop Color="#FFBA73" Offset="1"/>
-            <GradientStop Color="#FFFFC773" Offset="0.5"/>
-        </LinearGradientBrush>
-    </Window.Background>
+    
     <Window.Resources>
         
         <Style x:Key="DefBtn" TargetType="{x:Type Button}">
@@ -216,9 +210,9 @@
         </TabControl>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Name="AddBut" Content="add"/>
-            <Button Name="ChangeBut" Content="change"/>
-            <Button Name="DelBut" Content="delete"/>
+            <Button Name="AddBut" Content="add" Margin="5"/>
+            <Button Name="ChangeBut" Content="change" Margin="5"/>
+            <Button Name="DelBut" Content="delete" Margin="5"/>
         </StackPanel>
     </Grid>
 </Window>
