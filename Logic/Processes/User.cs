@@ -258,7 +258,7 @@ namespace Logic.Processes
         {
             MD5 md5 = new MD5CryptoServiceProvider();
 
-            md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(text));
+            md5.ComputeHash(Encoding.ASCII.GetBytes(text));
 
             byte[] result = md5.Hash;
 

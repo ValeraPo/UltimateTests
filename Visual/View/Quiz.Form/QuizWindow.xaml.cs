@@ -3,41 +3,34 @@ using Logic.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace Visual.View.Quiz.Form
 {
     public partial class QuizWindow : Window
     {
-        readonly QuizzeDTO  currentQuiz;
-        readonly Window     _window;
-        readonly IQuizze    quiz = Logic.Configuration.IocKernel.Get<IQuizze>();
-        int                 CounterQuestion;
-        string              _currentQuestinsInfo;
-        int                 CounterCorrectAnswers = 0;
-        readonly List<bool> isAnswered;
-        bool                flagAll = false;
-        readonly bool       testTry;
-
+        readonly QuizzeDTO       currentQuiz;
+        readonly Window          _window;
+        readonly IQuizze         quiz = Logic.Configuration.IocKernel.Get<IQuizze>();
+        int                      CounterQuestion;
+        string                   _currentQuestinsInfo;
+        int                      CounterCorrectAnswers = 0;
+        readonly List<bool>      isAnswered;
+        bool                     flagAll = false;
+        readonly bool            testTry;
         readonly DispatcherTimer _timer;
         TimeSpan                 _time;
         //ctor
+        
+        
         public QuizWindow(Window window, long QuizID, bool TestTry = false)
         {
             InitializeComponent();
-            testTry = TestTry;
-            _window = window;
-            currentQuiz = quiz.GetEntity(QuizID);
+            testTry         = TestTry;
+            _window         = window;
+            currentQuiz     = quiz.GetEntity(QuizID);
             CounterQuestion = 0;
             RefreshAnswerField();
             isAnswered = new List<bool>();
@@ -46,23 +39,25 @@ namespace Visual.View.Quiz.Form
 
             _time = currentQuiz.TimeToComplete;
 
-            _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
-            {
-                tbTime.Text = _time.ToString("c");
-                if (_time == TimeSpan.Zero)
-                    ResultOutOFTime();
-                _time = _time.Add(TimeSpan.FromSeconds(-1));
-            }, 
-            Application.Current.Dispatcher);
+            _timer = new DispatcherTimer(new TimeSpan(0, 0, 1),
+                                         DispatcherPriority.Normal,
+                                         delegate
+                                         {
+                                             tbTime.Text = _time.ToString("c");
+                                             if (_time == TimeSpan.Zero)
+                                                 ResultOutOFTime();
+                                             _time = _time.Add(TimeSpan.FromSeconds(-1));
+                                         },
+                                         Application.Current.Dispatcher);
 
             _timer.Start();
         }
         public void RefreshAnswerField()
         {
             stackPanel.Children.Clear();
-            _currentQuestinsInfo = $"Вопрос №{CounterQuestion + 1} из {currentQuiz.Questions.Count}"; // вытащить в отдельный метод
-            QuestionInfoTextBlock.Text = _currentQuestinsInfo;                                    // вытащить в отдельный метод
-            QuestionTextBlock.Text = currentQuiz.Questions[CounterQuestion].Text;
+            _currentQuestinsInfo       = $"Вопрос №{CounterQuestion + 1} из {currentQuiz.Questions.Count}"; // вытащить в отдельный метод
+            QuestionInfoTextBlock.Text = _currentQuestinsInfo;                                              // вытащить в отдельный метод
+            QuestionTextBlock.Text     = currentQuiz.Questions[CounterQuestion].Text;
             SetAnswers();
         }
         private void SetAnswers()
@@ -72,16 +67,16 @@ namespace Visual.View.Quiz.Form
                 case 1:
                     foreach (var answ in currentQuiz.Questions[CounterQuestion].Answers)
                         stackPanel.Children.Add(new RadioButton()
-                        {
-                            Content = answ.Text,
-                        });
+                                                {
+                                                    Content = answ.Text,
+                                                });
                     break;
                 case 2:
                     foreach (var answ in currentQuiz.Questions[CounterQuestion].Answers)
                         stackPanel.Children.Add(new CheckBox()
-                        {
-                            Content = answ.Text,
-                        });
+                                                {
+                                                    Content = answ.Text,
+                                                });
                     break;
                 default:
                     stackPanel.Children.Add(new TextBox());
@@ -95,7 +90,7 @@ namespace Visual.View.Quiz.Form
                 CounterQuestion++;
                 if (CounterQuestion == currentQuiz.Questions.Count)
                     CounterQuestion = 0;
-            } while (isAnswered[CounterQuestion] && !flagAll);            
+            } while (isAnswered[CounterQuestion] && !flagAll);
             RefreshAnswerField();
         }
 
@@ -123,7 +118,7 @@ namespace Visual.View.Quiz.Form
 
                     break;
                 case 2:
-                    temp = 0;
+                    temp         = 0;
                     tempCurrents = 0;
                     bool flag = false;
                     for (var i = 0; i < stackPanel.Children.Count; i++)
@@ -136,9 +131,9 @@ namespace Visual.View.Quiz.Form
                                 flag = true;
                                 break;
                             }
-                        }                           
+                        }
 
-                    
+
                     //foreach (CheckBox selvar in stackPanel.Children)
                     //{
                     //    if (!selvar.IsChecked.Value)
@@ -165,21 +160,21 @@ namespace Visual.View.Quiz.Form
             }
 
             isAnswered[CounterQuestion] = true;
-            flagAll = isAnswered.All(t => t);
+            flagAll                     = isAnswered.All(t => t);
             do
             {
                 CounterQuestion++;
                 if (CounterQuestion == currentQuiz.Questions.Count)
                     CounterQuestion = 0;
             } while (isAnswered[CounterQuestion] && !flagAll);
-            if (CounterQuestion == 0)           
-                Result();           
+            if (CounterQuestion == 0)
+                Result();
             else
                 RefreshAnswerField();
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
-        {            
+        {
             do
             {
                 CounterQuestion--;
@@ -189,7 +184,7 @@ namespace Visual.View.Quiz.Form
             RefreshAnswerField();
         }
         private void Result()
-        {            
+        {
             _timer.Stop();
             new ResultWindow(_window, currentQuiz, currentQuiz.TimeToComplete - _time, CounterCorrectAnswers, testTry).Show();
             Close();

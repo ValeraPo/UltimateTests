@@ -1,11 +1,6 @@
 ﻿using Logic.DTO;
 using Logic.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Visual.View.Teacher.Form
 {
@@ -13,7 +8,7 @@ namespace Visual.View.Teacher.Form
     {
         public GroupTreeViewModel(GroupDTO group)
         {
-            Students = GetStudentsByGroup(group);
+            Students   = GetStudentsByGroup(group);
             GroupsName = group.NameOfGroup;
         }
 
@@ -25,10 +20,10 @@ namespace Visual.View.Teacher.Form
                 if (el.Group == group.NameOfGroup)
                     students.Add(el);
             }
-                return students;
+            return students;
         }
-        public   string                        GroupsName { get; set; }
-        public   ObservableCollection<UserDTO> Students   { get; set; }
+        public   string                        GroupsName {get; set;}
+        public   ObservableCollection<UserDTO> Students   {get; set;}
         readonly IUser                         iUser = Logic.Configuration.IocKernel.Get<IUser>();
     }
 }

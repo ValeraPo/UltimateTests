@@ -1,12 +1,5 @@
 ﻿using Logic.DTO;
 using Logic.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 
 namespace Visual.View.Quiz.Form
 {
@@ -15,10 +8,10 @@ namespace Visual.View.Quiz.Form
         readonly IQuizze     quiz = Logic.Configuration.IocKernel.Get<IQuizze>();
         public   QuizzeDTO   CurrentQuiz;
         public   QuestionDTO CurrentQuestion;
-        
+
         public QuizViewModel(long QuizID)
         {
-            
+
             CurrentQuiz = quiz.GetEntity(QuizID);
             //CurrentQuestion = CurrentQuiz.Questions[CurIndex];
 

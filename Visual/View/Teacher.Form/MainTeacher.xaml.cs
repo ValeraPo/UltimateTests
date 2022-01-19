@@ -1,19 +1,9 @@
 ﻿using Logic.DTO;
 using Logic.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Visual.View.Quiz.Form;
 
 namespace Visual.View.Teacher.Form
@@ -43,8 +33,9 @@ namespace Visual.View.Teacher.Form
             _currentUser = currentUser;
             if (_currentUser.Type == 4)
             {
+
                 #region Methodist
-                
+
                 appButt.Visibility = Visibility.Collapsed;
                 addButt.Visibility = Visibility.Visible;
                 delButt.Visibility = Visibility.Visible;
@@ -52,9 +43,9 @@ namespace Visual.View.Teacher.Form
                 _quizzes = qui.GetListEntity();
                 _setTags = st.GetListEntity();
 
-                QuizeListBox.ItemsSource = _quizzes;
-                tagsComboBox.ItemsSource = _setTags;
-                _currentTagList = new ObservableCollection<SetTagDTO>();
+                QuizeListBox.ItemsSource    = _quizzes;
+                tagsComboBox.ItemsSource    = _setTags;
+                _currentTagList             = new ObservableCollection<SetTagDTO>();
                 CurrentTagsList.ItemsSource = _currentTagList;
 
                 _users = new ObservableCollection<GroupTreeViewModel>();
@@ -64,25 +55,29 @@ namespace Visual.View.Teacher.Form
                 }
                 treeView1.ItemsSource = _users;
 
-                _attemptDTO = Logic.Configuration.IocKernel.Get<IAttempt>().GetListEntity();
+                _attemptDTO                = Logic.Configuration.IocKernel.Get<IAttempt>().GetListEntity();
                 QuizesListView.ItemsSource = _attemptDTO;
+
                 #endregion
+
             }
             else
             {
+
                 #region Teacher
+
                 appButt.Visibility = Visibility.Visible;
 
                 _quizzes = qui.GetListEntity();
                 _setTags = st.GetListEntity();
 
-                QuizeListBox.ItemsSource = _quizzes;
-                tagsComboBox.ItemsSource = _setTags;
-                _currentTagList = new ObservableCollection<SetTagDTO>();
+                QuizeListBox.ItemsSource    = _quizzes;
+                tagsComboBox.ItemsSource    = _setTags;
+                _currentTagList             = new ObservableCollection<SetTagDTO>();
                 CurrentTagsList.ItemsSource = _currentTagList;
 
                 _groupsTeachers = user.GetListGroupTeacher();
-                _users = new ObservableCollection<GroupTreeViewModel>();
+                _users          = new ObservableCollection<GroupTreeViewModel>();
                 foreach (var el in user.GetListGroupTeacher())
                 {
                     //if ()
@@ -90,9 +85,11 @@ namespace Visual.View.Teacher.Form
                 }
                 treeView1.ItemsSource = _users;
 
-                _attemptDTO = Logic.Configuration.IocKernel.Get<IAttempt>().GetListEntity();
+                _attemptDTO                = Logic.Configuration.IocKernel.Get<IAttempt>().GetListEntity();
                 QuizesListView.ItemsSource = _attemptDTO;
+
                 #endregion
+
             }
         }
 

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Visual.Model
 {
     internal class QuestionModel : INotifyPropertyChanged
     {
+
         #region Implement INotyfyPropertyChanged members
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -25,23 +21,22 @@ namespace Visual.Model
         #endregion
 
         #region Ctor
+
         public QuestionModel() { }
-        public QuestionModel(int questType, string text, ObservableCollection<AnswerModel> answers) 
+        public QuestionModel(int questType, string text, ObservableCollection<AnswerModel> answers)
         {
             _questType = questType;
-            _text = text;
-            _answers = answers;
+            _text      = text;
+            _answers   = answers;
         }
 
         #endregion
 
         #region Fields
 
-
-        private int _questType;
-        private string _text;
+        private int                               _questType;
+        private string                            _text;
         private ObservableCollection<AnswerModel> _answers;
-
 
         #endregion
 
@@ -51,37 +46,31 @@ namespace Visual.Model
         {
             get { return _questType; }
             set
+            { if (_questType != value)
             {
-                if (_questType != value)
-                {
-                    _questType = value;
-                    OnPropertyChanged("QuestType");
-                }
-            }
+                _questType = value;
+                OnPropertyChanged("QuestType");
+            } }
         }
         public string Text
         {
             get { return _text; }
             set
+            { if (_text != value)
             {
-                if (_text != value)
-                {
-                    _text = value;
-                    OnPropertyChanged("Text");
-                }
-            }
+                _text = value;
+                OnPropertyChanged("Text");
+            } }
         }
         public ObservableCollection<AnswerModel> Answers
         {
             get { return _answers; }
             set
-            {
-                _answers = value;
-                OnPropertyChanged("Answers");
-            }
+            { _answers = value;
+              OnPropertyChanged("Answers"); }
         }
-        
 
         #endregion
+
     }
 }

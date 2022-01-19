@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Visual.View.Quiz.Form
+﻿namespace Visual.View.Quiz.Form
 {
     internal class ClassForTitle
     {
@@ -27,5 +21,5 @@ namespace Visual.View.Quiz.Form
             //CurrentIndex = CurrentQuizze.Questions.IndexOf(CurrentQuestion);
         }
     }
-    
+
 }

@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WpfAppTrying.View.Student.Model
 {
     internal class HistoryList
     {
-        private string _quiz;
-        private string _teacher;
-        private string _score;
-        public DateTime CreationDate { get; set; } = DateTime.Now;
+        private string   _quiz;
+        private string   _teacher;
+        private string   _score;
+        public  DateTime CreationDate {get; set;} = DateTime.Now;
         public string Quiz
         {
             get { return _quiz; }

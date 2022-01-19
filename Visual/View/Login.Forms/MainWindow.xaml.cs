@@ -1,11 +1,8 @@
 ﻿using Logic.DTO;
 using System.Windows;
 using System.Windows.Input;
-using Logic.Processes;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Logic.Interfaces;
-using System.Linq;
 
 namespace Visual
 {
@@ -27,7 +24,7 @@ namespace Visual
         private void LogoContainer_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
-                this.DragMove();
+                DragMove();
         }
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
@@ -70,7 +67,7 @@ namespace Visual
                 case 2:
                     View.Student.Forms.StudentsStartWindow stW = new View.Student.Forms.StudentsStartWindow(_currentUser);
                     //View.Student.Forms.StudentsStartWindow stW = new();
-                    this.Close();
+                    Close();
                     stW.Show();
                     break;
                 //case 3:
@@ -86,7 +83,7 @@ namespace Visual
                 //    break;
                 default:
                     View.Teacher.Form.MainTeacher teacherOrMethW = new View.Teacher.Form.MainTeacher(_currentUser);
-                    this.Close();
+                    Close();
                     teacherOrMethW.Show();
                     break;
             }

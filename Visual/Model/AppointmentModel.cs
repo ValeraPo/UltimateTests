@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Visual.Model
 {
     internal class AppointmentModel : INotifyPropertyChanged
     {
+
         #region Implement INotyfyPropertyChanged members
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -25,19 +21,22 @@ namespace Visual.Model
         #endregion
 
         #region Ctor
+
         public AppointmentModel() { }
-        public AppointmentModel(DateTime date, QuizModel quiz) 
+        public AppointmentModel(DateTime date, QuizModel quiz)
         {
             _date = date;
             _quiz = quiz;
         }
 
         #endregion
+
         #region Fields
 
         private DateTime _date;
 
         private QuizModel _quiz;
+
         #endregion
 
         #region Properties
@@ -46,24 +45,22 @@ namespace Visual.Model
         {
             get { return _date; }
             set
+            { if (_date != value)
             {
-                if (_date != value)
-                {
-                    _date = value;
-                    OnPropertyChanged("Text");
-                }
-            }
+                _date = value;
+                OnPropertyChanged("Text");
+            } }
         }
 
         public QuizModel Quizzes
         {
             get { return _quiz; }
             set
-            {
-                _quiz = value;
-                OnPropertyChanged("Quizzes");
-            }
+            { _quiz = value;
+              OnPropertyChanged("Quizzes"); }
         }
+
         #endregion
+
     }
 }
