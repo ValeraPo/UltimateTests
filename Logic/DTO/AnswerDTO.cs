@@ -5,7 +5,7 @@ namespace Logic.DTO
         private string _text;
         private bool   _isCorrect;
         
-        
+
         public AnswerDTO(long id, string text, bool isCorrect)
         {
             Id        = id;

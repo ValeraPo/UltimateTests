@@ -8,8 +8,8 @@ namespace Logic.DTO
         private int                             _idQuestType;
         private string                          _text;
         private ObservableCollection<AnswerDTO> _answers;
-        
-        
+
+
         public QuestionDTO(long id, int idQuestType, string text, ObservableCollection<AnswerDTO> answers)
         {
             Id           = id;

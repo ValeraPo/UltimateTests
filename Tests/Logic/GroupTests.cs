@@ -12,7 +12,7 @@ namespace Tests.Logic
     [TestFixture]
     public class GroupTests
     {
-        private IGroup _group = IocKernel.Get<IGroup>();
+        private readonly IGroup _group = IocKernel.Get<IGroup>();
 
         //
         // Добавление группы 

@@ -23,12 +23,12 @@ namespace Visual.View.Admin.Forms
     /// </summary>
     public partial class AddOrChange : Window
     {
-        IGroup group = Logic.Configuration.IocKernel.Get<IGroup>();
-        IUser user = Logic.Configuration.IocKernel.Get<IUser>();
-        int _typeOfUser;
-        ObservableCollection<GroupDTO> _groupsList;
-        ObservableCollection<UserDTO> usersList;
-        UserDTO changingUser;
+        readonly IGroup                         group = Logic.Configuration.IocKernel.Get<IGroup>();
+        readonly IUser                          user  = Logic.Configuration.IocKernel.Get<IUser>();
+        int                                     _typeOfUser;
+        readonly ObservableCollection<GroupDTO> _groupsList;
+        ObservableCollection<UserDTO>           usersList;
+        readonly UserDTO                        changingUser;
         public AddOrChange()
         {
             InitializeComponent();

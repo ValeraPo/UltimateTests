@@ -12,22 +12,22 @@ namespace Data.Repositories
             if (!UpdateLintEntity) 
                 return LintEntity;
 
-            LintEntity       = db.SetTags.Where(t => !t.IsDel);
+            LintEntity       = Db.SetTags.Where(t => !t.IsDel);
             UpdateLintEntity = false;
             return LintEntity;
         }
 
-        public SetTag GetEntity(long id) => db.SetTags.Single(t => !t.IsDel && t.ID_TagSet == id);
+        public SetTag GetEntity(long id) => Db.SetTags.Single(t => !t.IsDel && t.ID_TagSet == id);
 
         public void Create(SetTag item)
         {
-            db.SetTags.Add(item);
+            Db.SetTags.Add(item);
             UpdateLintEntity = true;
         }
 
         public void Delete(long id)
         {
-            var teg = db.SetTags.Find(id);
+            var teg = Db.SetTags.Find(id);
             if (teg == null)
                 return;
             teg.IsDel = true;

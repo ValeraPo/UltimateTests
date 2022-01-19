@@ -14,10 +14,10 @@ namespace Visual.ViewModel
 {
     internal class StudentsViewModel
     {
-        IUser userI = Logic.Configuration.IocKernel.Get<IUser>();
-        IAppointmentQuizze apqI = Logic.Configuration.IocKernel.Get<IAppointmentQuizze>();
-        IQuizze quiI = Logic.Configuration.IocKernel.Get<IQuizze>();
-        IAttempt attI = Logic.Configuration.IocKernel.Get<IAttempt>();
+        readonly IUser              userI = Logic.Configuration.IocKernel.Get<IUser>();
+        readonly IAppointmentQuizze apqI  = Logic.Configuration.IocKernel.Get<IAppointmentQuizze>();
+        readonly IQuizze            quiI  = Logic.Configuration.IocKernel.Get<IQuizze>();
+        IAttempt                    attI  = Logic.Configuration.IocKernel.Get<IAttempt>();
 
         public UserDTO _userDTO;
         ObservableCollection<AppointmentQuizzeDTO> _apDTO;

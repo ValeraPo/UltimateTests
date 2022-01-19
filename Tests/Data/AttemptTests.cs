@@ -11,7 +11,7 @@ namespace Tests.Data
     [TestFixture]
     public class AttemptTests
     {
-        private IRepository<Attempt> _attempt = IocKernel.Get<IRepository<Attempt>>();
+        private readonly IRepository<Attempt> _attempt = IocKernel.Get<IRepository<Attempt>>();
         //
         //  
         [Test]

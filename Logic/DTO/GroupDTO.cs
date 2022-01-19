@@ -3,8 +3,8 @@ namespace Logic.DTO
     public class GroupDTO : AbstractOnPropertyChanged
     {
         private string _nameOfGroup;
-        
-        
+
+
         public GroupDTO(long idGroup, string nameOfGroup)
         {
             Id          = idGroup;

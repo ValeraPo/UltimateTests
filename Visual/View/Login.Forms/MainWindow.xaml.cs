@@ -14,8 +14,8 @@ namespace Visual
     /// </summary>
     public partial class MainWindow : Window
     {
-        UserDTO _currentUser;
-        IUser user = Logic.Configuration.IocKernel.Get<IUser>();
+        UserDTO                       _currentUser;
+        readonly IUser                user = Logic.Configuration.IocKernel.Get<IUser>();
         ObservableCollection<UserDTO> _usersCollection;
         public MainWindow()
         {

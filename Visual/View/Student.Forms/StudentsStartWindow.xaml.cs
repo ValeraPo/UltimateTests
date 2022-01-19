@@ -21,7 +21,7 @@ namespace Visual.View.Student.Forms
     /// </summary>
     public partial class StudentsStartWindow : Window
     {
-        StudentUserView suv;
+        readonly StudentUserView suv;
         public StudentsStartWindow(UserDTO currentUser)
         {
             InitializeComponent();

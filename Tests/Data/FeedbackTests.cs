@@ -11,7 +11,7 @@ namespace Tests.Data
     [TestFixture]
     public class FeedbackTests
     {
-        private IRepository<Feedback> _feedback = IocKernel.Get<IRepository<Feedback>>();
+        private readonly IRepository<Feedback> _feedback = IocKernel.Get<IRepository<Feedback>>();
         //
         //  
         [Test]

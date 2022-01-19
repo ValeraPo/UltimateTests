@@ -19,18 +19,18 @@ namespace Visual.View.Quiz.Form
 {
     public partial class QuizWindow : Window
     {
-        QuizzeDTO currentQuiz;
-        Window _window;
-        IQuizze quiz = Logic.Configuration.IocKernel.Get<IQuizze>();
-        int CounterQuestion;
-        string _currentQuestinsInfo;
-        int CounterCorrectAnswers = 0;
-        List<bool> isAnswered;
-        bool flagAll = false;
-        bool testTry;
+        readonly QuizzeDTO  currentQuiz;
+        readonly Window     _window;
+        readonly IQuizze    quiz = Logic.Configuration.IocKernel.Get<IQuizze>();
+        int                 CounterQuestion;
+        string              _currentQuestinsInfo;
+        int                 CounterCorrectAnswers = 0;
+        readonly List<bool> isAnswered;
+        bool                flagAll = false;
+        readonly bool       testTry;
 
-        DispatcherTimer _timer;
-        TimeSpan _time;
+        readonly DispatcherTimer _timer;
+        TimeSpan                 _time;
         //ctor
         public QuizWindow(Window window, long QuizID, bool TestTry = false)
         {

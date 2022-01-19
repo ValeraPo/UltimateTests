@@ -11,7 +11,7 @@ namespace Tests.Logic
     [TestFixture]
     public class UserTests
     {
-        private IUser _user = IocKernel.Get<IUser>();
+        private readonly IUser _user = IocKernel.Get<IUser>();
 
         //
         //Авторизация

@@ -74,15 +74,15 @@ namespace Visual.View.Quiz.Form
         }
         #endregion
 
-        UserDTO _currentUser;
-        ISetTag st = Logic.Configuration.IocKernel.Get<ISetTag>();
-        IQuizze qui = Logic.Configuration.IocKernel.Get<IQuizze>();
-        IUser userI = Logic.Configuration.IocKernel.Get<IUser>();
-        QuizzeDTO _currentQuiz;
-        ObservableCollection<SetTagDTO> _tagsList;
-        public ObservableCollection<string> _quizeListBox { get; set; }
-        int _numOfQuestions;
-        ObservableCollection<SetTagDTO> _currentTags;
+        readonly UserDTO                         _currentUser;
+        readonly ISetTag                         st    = Logic.Configuration.IocKernel.Get<ISetTag>();
+        IQuizze                                  qui   = Logic.Configuration.IocKernel.Get<IQuizze>();
+        readonly IUser                           userI = Logic.Configuration.IocKernel.Get<IUser>();
+        readonly QuizzeDTO                       _currentQuiz;
+        ObservableCollection<SetTagDTO>          _tagsList;
+        public   ObservableCollection<string>    _quizeListBox { get; set; }
+        readonly int                             _numOfQuestions;
+        readonly ObservableCollection<SetTagDTO> _currentTags;
         private void SetDictionary(List<AnswersType> at)
         {
             at.Add(new AnswersType(1, "Один вариант ответа"));

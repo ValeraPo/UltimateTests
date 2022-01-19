@@ -10,8 +10,8 @@ namespace Logic.DTO
         private TimeSpan                          _timeToComplete;
         private int                               _maxPoints;
         private ObservableCollection<QuestionDTO> _questions;
-        
-        
+
+
         public QuizzeDTO(long id, string nameQuiz, TimeSpan timeToComplete, int maxPoints, ObservableCollection<QuestionDTO> questions)
         {
             Id             = id;

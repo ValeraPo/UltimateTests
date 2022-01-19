@@ -17,7 +17,7 @@ namespace Logic.Configuration
             Bind<IRepository<Quizze>>().To<Data.Repositories.QuizzeRepo>().InSingletonScope();
             Bind<IRepository<SetTag>>().To<Data.Repositories.SetTagRepo>().InSingletonScope();
             Bind<IRepository<User>>().To<Data.Repositories.UserRepo>().InSingletonScope();
-            
+
             //Процессоры
             Bind<IUser>().To<Processes.User>().InSingletonScope();
             Bind<IAttempt>().To<Processes.Attempt>().InSingletonScope();

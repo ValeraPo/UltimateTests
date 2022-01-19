@@ -22,12 +22,12 @@ namespace Visual.View.Quiz.Form
     /// </summary>
     public partial class ResultWindow : Window
     {
-        Window _window;
-        bool _testTry;
-        QuizzeDTO _quizRes;
-        TimeSpan _ts;
-        int _score;
-        IUser Ius = IocKernel.Get<IUser>();
+        readonly Window    _window;
+        readonly bool      _testTry;
+        readonly QuizzeDTO _quizRes;
+        readonly TimeSpan  _ts;
+        readonly int       _score;
+        readonly IUser     Ius = IocKernel.Get<IUser>();
         public ResultWindow(Window window, QuizzeDTO quizRes, TimeSpan ts, int score, bool testTry)
         {
             InitializeComponent();

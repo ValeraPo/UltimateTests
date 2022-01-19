@@ -15,14 +15,14 @@ namespace Logic.Processes
 {
     public class User : IUser
     {
-        private IRepository<Data.Maps.User>  _users;
-        private IRepository<Data.Maps.Quizze> _quizzes;
-        private IRepository<Data.Maps.Group> _groups;
-        private Data.Maps.User               _user;
+        private readonly IRepository<Data.Maps.User>   _users;
+        private readonly IRepository<Data.Maps.Quizze> _quizzes;
+        private readonly IRepository<Data.Maps.Group>  _groups;
+        private          Data.Maps.User                _user;
         public User()
         {
-            _users  = IocKernel.Get<IRepository<Data.Maps.User>>();
-            _groups = IocKernel.Get<IRepository<Data.Maps.Group>>();
+            _users   = IocKernel.Get<IRepository<Data.Maps.User>>();
+            _groups  = IocKernel.Get<IRepository<Data.Maps.Group>>();
             _quizzes = IocKernel.Get<IRepository<Data.Maps.Quizze>>();
         }
 
@@ -41,30 +41,31 @@ namespace Logic.Processes
         }
 
         #region Peoples
-                //Выборка людей по типам учётных записей
-                private ObservableCollection<UserDTO> GetListInteriorEmployers(IEnumerable<Data.Maps.User> collections)
-                {
-                    var res = new ObservableCollection<UserDTO>();
-                    foreach (var user in collections)
-                        res.Add(new UserDTO(user));
-        
-                    return res;
-                }
-                public ObservableCollection<UserDTO> GetListStud()
-                {
-                    return GetListInteriorEmployers(_users.GetListEntity().Where(t => t.ID_Role == 2));
-                }
-                public ObservableCollection<UserDTO> GetListTeacher()
-                {
-                    return GetListInteriorEmployers(_users.GetListEntity().Where(t => t.ID_Role == 3));
-                }
-                public ObservableCollection<UserDTO> GetListEmployers()
-                {
-                    return GetListInteriorEmployers(_users.GetListEntity().Where(t => t.ID_Role != 2));
-                }
+
+        //Выборка людей по типам учётных записей
+        private ObservableCollection<UserDTO> GetListInteriorEmployers(IEnumerable<Data.Maps.User> collections)
+        {
+            var res = new ObservableCollection<UserDTO>();
+            foreach (var user in collections)
+                res.Add(new UserDTO(user));
+
+            return res;
+        }
+        public ObservableCollection<UserDTO> GetListStud()
+        {
+            return GetListInteriorEmployers(_users.GetListEntity().Where(t => t.ID_Role == 2));
+        }
+        public ObservableCollection<UserDTO> GetListTeacher()
+        {
+            return GetListInteriorEmployers(_users.GetListEntity().Where(t => t.ID_Role == 3));
+        }
+        public ObservableCollection<UserDTO> GetListEmployers()
+        {
+            return GetListInteriorEmployers(_users.GetListEntity().Where(t => t.ID_Role != 2));
+        }
 
         #endregion
-        
+
 
         // Проверка пароля при авторизации
         public UserDTO Authorization(string login, string password)
@@ -90,7 +91,7 @@ namespace Logic.Processes
             if (emails.Contains(email.ToLower()))
                 throw new ArgumentException("E-mail уже существует");
             _users.Create(new Data.Maps.User
-            {
+                          {
                               FullName = fullName,
                               Email    = email,
                               Login    = login,
@@ -106,7 +107,7 @@ namespace Logic.Processes
         {
             var userEntity = _users.GetEntity(teacher.Id);
             userEntity.TeachingGroups.Add(new TeachingGroup
-            {
+                                          {
                                               ID_Group = group.Id,
                                               ID_User  = teacher.Id
                                           });
@@ -123,7 +124,7 @@ namespace Logic.Processes
         public void AddAttempt(QuizzeDTO quiz, int score, TimeSpan transitTime)
         {
             _user.Attempts.Add(new Data.Maps.Attempt
-            {
+                               {
                                    DateTime    = DateTime.Now,
                                    ID_Quiz     = quiz.Id,
                                    User        = _user,
@@ -137,19 +138,19 @@ namespace Logic.Processes
         {
             var myQuiz = _quizzes.GetEntity(quiz.Id);
             myQuiz.Feedbacks.Add(new Data.Maps.Feedback
-            {
-                DateTime = DateTime.Now,
-                ID_Quiz = quiz.Id,
-                User = _user,
-                Text = text
-            });
+                                 {
+                                     DateTime = DateTime.Now,
+                                     ID_Quiz  = quiz.Id,
+                                     User     = _user,
+                                     Text     = text
+                                 });
             SaveChange();
         }
         //Выборка групп которые курирует преподаватель
         public ObservableCollection<GroupDTO> GetListGroupTeacher()
         {
             var res = new ObservableCollection<GroupDTO>();
-            foreach (var group in _user.TeachingGroups.Select(t=>t.Group))
+            foreach (var group in _user.TeachingGroups.Select(t => t.Group))
                 res.Add(new GroupDTO(group));
 
             return res;
@@ -157,48 +158,48 @@ namespace Logic.Processes
 
         #region Attempt
 
-                //Для выборок
-                private ObservableCollection<AttemptDTO> GetAttemptCollection(IEnumerable<Data.Maps.Attempt> collection)
-                {
-                    var res = new ObservableCollection<AttemptDTO>();
-                    foreach (var attempt in collection)
-                        res.Add(new AttemptDTO(attempt));
-        
-                    return res;
-                }
-                //Выборка попыток по пользователю
-                public ObservableCollection<AttemptDTO> GetListUserAttempt(UserDTO user)
-                {
-                    return GetAttemptCollection(_users.GetEntity(user.Id).Attempts);
-                }
-        
-                //Выборка попыток по текущему пользователю
-                public ObservableCollection<AttemptDTO> GetListCurrentUserAttempt()
-                {
-                    return GetAttemptCollection(_user.Attempts);
-                }
-                //Выборка попыток по текущему пользователю с датой
-                public ObservableCollection<AttemptDTO> GetListCurrentUserAttempt(DateTime dateTime)
-                {
-                    return GetAttemptCollection(_user.Attempts.Where(t => t.DateTime >= dateTime));
-                }
-                //Выборка попыток по учителю
-                public ObservableCollection<AttemptDTO> GetListTeacherAttempt()
-                {
-                    return GetAttemptCollection(_user.TeachingGroups
-                                                     .Select(t => t.Group)
-                                                     .SelectMany(t => t.Users)
-                                                     .SelectMany(t => t.Attempts));
-                }
-                //Выборка попыток по учителю с датой
-                public ObservableCollection<AttemptDTO> GetListTeacherAttempt(DateTime dateTime)
-                {
-                    return GetAttemptCollection(_user.TeachingGroups
-                                                     .Select(t => t.Group)
-                                                     .SelectMany(t => t.Users)
-                                                     .SelectMany(t => t.Attempts)
-                                                     .Where(t => t.DateTime >= dateTime));
-                }
+        //Для выборок
+        private ObservableCollection<AttemptDTO> GetAttemptCollection(IEnumerable<Data.Maps.Attempt> collection)
+        {
+            var res = new ObservableCollection<AttemptDTO>();
+            foreach (var attempt in collection)
+                res.Add(new AttemptDTO(attempt));
+
+            return res;
+        }
+        //Выборка попыток по пользователю
+        public ObservableCollection<AttemptDTO> GetListUserAttempt(UserDTO user)
+        {
+            return GetAttemptCollection(_users.GetEntity(user.Id).Attempts);
+        }
+
+        //Выборка попыток по текущему пользователю
+        public ObservableCollection<AttemptDTO> GetListCurrentUserAttempt()
+        {
+            return GetAttemptCollection(_user.Attempts);
+        }
+        //Выборка попыток по текущему пользователю с датой
+        public ObservableCollection<AttemptDTO> GetListCurrentUserAttempt(DateTime dateTime)
+        {
+            return GetAttemptCollection(_user.Attempts.Where(t => t.DateTime >= dateTime));
+        }
+        //Выборка попыток по учителю
+        public ObservableCollection<AttemptDTO> GetListTeacherAttempt()
+        {
+            return GetAttemptCollection(_user.TeachingGroups
+                                             .Select(t => t.Group)
+                                             .SelectMany(t => t.Users)
+                                             .SelectMany(t => t.Attempts));
+        }
+        //Выборка попыток по учителю с датой
+        public ObservableCollection<AttemptDTO> GetListTeacherAttempt(DateTime dateTime)
+        {
+            return GetAttemptCollection(_user.TeachingGroups
+                                             .Select(t => t.Group)
+                                             .SelectMany(t => t.Users)
+                                             .SelectMany(t => t.Attempts)
+                                             .Where(t => t.DateTime >= dateTime));
+        }
 
         #endregion
 
@@ -219,7 +220,7 @@ namespace Logic.Processes
         }
         public void RemoveUser(string email)
         {
-            _users.Delete(_users.GetListEntity().Single(t=> t.Email == email).ID_User);
+            _users.Delete(_users.GetListEntity().Single(t => t.Email == email).ID_User);
         }
         // Сохранить изменения
         public void SaveChange() => _users.Save();

@@ -12,22 +12,22 @@ namespace Data.Repositories
             if (!UpdateLintEntity) 
                 return LintEntity;
 
-            LintEntity       = db.Feedbacks.Where(t => !t.IsDel);
+            LintEntity       = Db.Feedbacks.Where(t => !t.IsDel);
             UpdateLintEntity = false;
             return LintEntity;
         }
 
-        public Feedback GetEntity(long id) => db.Feedbacks.Single(t => !t.IsDel && t.ID_Feedback == id);
+        public Feedback GetEntity(long id) => Db.Feedbacks.Single(t => !t.IsDel && t.ID_Feedback == id);
 
         public void Create(Feedback item)
         {
-            db.Feedbacks.Add(item);
+            Db.Feedbacks.Add(item);
             UpdateLintEntity = true;
         }
 
         public void Delete(long id)
         {
-            var tmp = db.Feedbacks.Find(id);
+            var tmp = Db.Feedbacks.Find(id);
             if (tmp == null)
                 return;
             tmp.IsDel = true;

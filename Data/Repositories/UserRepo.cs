@@ -12,22 +12,22 @@ namespace Data.Repositories
             if (!UpdateLintEntity)
                 return LintEntity;
 
-            LintEntity       = db.Users.Where(t => !t.IsDel);
+            LintEntity       = Db.Users.Where(t => !t.IsDel);
             UpdateLintEntity = false;
             return LintEntity;
         }
 
-        public User GetEntity(long id) => db.Users.Single(t => !t.IsDel && t.ID_User == id);
+        public User GetEntity(long id) => Db.Users.Single(t => !t.IsDel && t.ID_User == id);
 
         public void Create(User item)
         {
-            db.Users.Add(item);
+            Db.Users.Add(item);
             UpdateLintEntity = true;
         }
 
         public void Delete(long id)
         {
-            var user = db.Users.Find(id);
+            var user = Db.Users.Find(id);
             if (user == null)
                 return;
             user.IsDel = true;

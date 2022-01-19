@@ -11,7 +11,7 @@ namespace Tests.Data
     [TestFixture]
     public class GroupTests
     {
-        private IRepository<Group> _group = IocKernel.Get<IRepository<Group>>();
+        private readonly IRepository<Group> _group = IocKernel.Get<IRepository<Group>>();
         //
         //  
         [Test]

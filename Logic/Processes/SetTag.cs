@@ -11,9 +11,9 @@ namespace Logic.Processes
 {
     public class SetTag : ISetTag
     {
-        private IRepository<Data.Maps.SetTag> _tags;
-        private IRepository<Data.Maps.Quizze> _quizzes;
-        private IRepository<Data.Maps.Group>  _grops;
+        private readonly IRepository<Data.Maps.SetTag> _tags;
+        private readonly IRepository<Data.Maps.Quizze> _quizzes;
+        private readonly IRepository<Data.Maps.Group>  _grops;
         public SetTag()
         {
             _tags    = IocKernel.Get<IRepository<Data.Maps.SetTag>>();
@@ -33,7 +33,7 @@ namespace Logic.Processes
         public ObservableCollection<SetTagDTO> GetListEntity()
         {
             var tags = new ObservableCollection<SetTagDTO>();
-            foreach (var teg in _tags.GetListEntity()) 
+            foreach (var teg in _tags.GetListEntity())
                 tags.Add(new SetTagDTO(teg));
 
             return tags;
@@ -52,7 +52,7 @@ namespace Logic.Processes
                     groupByTeg.Add(new GroupDTO(group));
                 return groupByTeg;
             }
-            var mapsTags   = tags.Select(g => _tags.GetEntity(g.Id)).ToList();
+            var mapsTags = tags.Select(g => _tags.GetEntity(g.Id)).ToList();
             foreach (var g in mapsTags.SelectMany(t => t.GroupsCategories.Select(s => s.Group)))
             {
                 var tmp = new GroupDTO(g);
@@ -74,7 +74,7 @@ namespace Logic.Processes
                     quizzesByTeg.Add(new QuizzeDTO(quiz));
                 return quizzesByTeg;
             }
-            var mapsTags     = tags.Select(g => _tags.GetEntity(g.Id)).ToList();
+            var mapsTags = tags.Select(g => _tags.GetEntity(g.Id)).ToList();
             foreach (var g in mapsTags.SelectMany(t => t.QuizzesCategories.Select(s => s.Quizze)))
             {
                 var tmp = new QuizzeDTO(g);
@@ -88,11 +88,11 @@ namespace Logic.Processes
         public void AddTeg(string text)
         {
             if (_tags.GetListEntity()
-                       .Select(t => t.Text)
-                       .Contains(text))
+                     .Select(t => t.Text)
+                     .Contains(text))
                 throw new ArgumentException("Такой тег уже существует");
             _tags.Create(new Data.Maps.SetTag
-            {
+                         {
                              Text = text
                          });
             SaveChange();
@@ -104,7 +104,7 @@ namespace Logic.Processes
         }
         public void RemoveTeg(string text)
         {
-            _tags.Delete(_tags.GetListEntity().Single(t=> t.Text == text).ID_TagSet);
+            _tags.Delete(_tags.GetListEntity().Single(t => t.Text == text).ID_TagSet);
         }
         // Сохранить изменения
         public void SaveChange() => _tags.Save();
@@ -118,7 +118,7 @@ namespace Logic.Processes
                      .Select(t => t.Text)
                      .Contains(teg.Text))
                 throw new ArgumentException("Такой тег уже существует");
-            tmp.Text  = teg.Text;
+            tmp.Text = teg.Text;
             _tags.Update(tmp);
 
             SaveChange();

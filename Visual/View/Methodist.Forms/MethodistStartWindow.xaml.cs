@@ -22,10 +22,10 @@ namespace Visual.View.Methodist.Forms
     /// </summary>
     public partial class MethodistStartWindow : Window
     {
-        ISetTag st = Logic.Configuration.IocKernel.Get<ISetTag>();
-        IQuizze qui = Logic.Configuration.IocKernel.Get<IQuizze>();
-        ObservableCollection<SetTagDTO> _currentTagList;
-        ObservableCollection<SetTagDTO> setTags;
+        readonly ISetTag                         st  = Logic.Configuration.IocKernel.Get<ISetTag>();
+        readonly IQuizze                         qui = Logic.Configuration.IocKernel.Get<IQuizze>();
+        readonly ObservableCollection<SetTagDTO> _currentTagList;
+        readonly ObservableCollection<SetTagDTO> setTags;
 
         IUser user = Logic.Configuration.IocKernel.Get<IUser>();
         IGroup group = Logic.Configuration.IocKernel.Get<IGroup>();

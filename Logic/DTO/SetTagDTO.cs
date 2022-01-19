@@ -3,8 +3,8 @@ namespace Logic.DTO
     public class SetTagDTO : AbstractOnPropertyChanged
     {
         private string _text;
-        
-        
+
+
         public SetTagDTO(long id, string text)
         {
             Id   = id;

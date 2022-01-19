@@ -23,20 +23,20 @@ namespace Visual.View.Teacher.Form
     /// </summary>
     public partial class MainTeacher : Window
     {
-        ISetTag st = Logic.Configuration.IocKernel.Get<ISetTag>();
-        IQuizze qui = Logic.Configuration.IocKernel.Get<IQuizze>();
-        IGroup gri = Logic.Configuration.IocKernel.Get<IGroup>();
-        ObservableCollection<SetTagDTO> _currentTagList;
-        ObservableCollection<SetTagDTO> _setTags;
-        ObservableCollection<QuizzeDTO> _quizzes;
-        ObservableCollection<GroupDTO> _groupsTeachers;
+        readonly ISetTag                         st  = Logic.Configuration.IocKernel.Get<ISetTag>();
+        readonly IQuizze                         qui = Logic.Configuration.IocKernel.Get<IQuizze>();
+        readonly IGroup                          gri = Logic.Configuration.IocKernel.Get<IGroup>();
+        readonly ObservableCollection<SetTagDTO> _currentTagList;
+        readonly ObservableCollection<SetTagDTO> _setTags;
+        readonly ObservableCollection<QuizzeDTO> _quizzes;
+        ObservableCollection<GroupDTO>           _groupsTeachers;
 
-        ObservableCollection<GroupTreeViewModel> _users;
+        readonly ObservableCollection<GroupTreeViewModel> _users;
 
-        ObservableCollection<AttemptDTO> _attemptDTO;
-        IUser user = Logic.Configuration.IocKernel.Get<IUser>();
-        
-        UserDTO _currentUser;
+        readonly ObservableCollection<AttemptDTO> _attemptDTO;
+        readonly IUser                            user = Logic.Configuration.IocKernel.Get<IUser>();
+
+        readonly UserDTO _currentUser;
         public MainTeacher(UserDTO currentUser)
         {
             InitializeComponent();

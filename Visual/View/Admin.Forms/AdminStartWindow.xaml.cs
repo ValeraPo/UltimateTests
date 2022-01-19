@@ -23,7 +23,7 @@ namespace Visual.AdminsWindows
     /// </summary>
     public partial class AdminsStartWindow : Window
     {
-        AdminViewModel av;
+        readonly AdminViewModel av;
         public AdminsStartWindow(UserDTO currentAdmin)
         {
             InitializeComponent();
